@@ -3,7 +3,7 @@ figure(19), clf, hold on
 if exist('dive','var') == 1
     for i = 1:size(T,1)
         c = get(gca,'colororder'); % get color order
-        c = repmat(c,round(size(T,1)/size(c,1)),1);    % repeat color order for number of dives
+        c = repmat(c,ceil(size(T,1)/size(c,1)),1);    % repeat color order for number of dives
         dcue = T(i,1):T(i,2); % seconds in dive
         subplot('position',[0.07 0.1 0.55 0.8]), hold on
         plot(t*3600,-p,'color',[0.7 0.7 0.7])
