@@ -40,8 +40,7 @@ for i = 1:length(tags)
     NARW_plotalldens
     NARW_divepauseplot
     
-    
-    
+    keep tags i % to remove carry-over of variables
 end
 figure(100), xlabel('Local Time'), adjustfigurefont
 set(gcf,'position',[323 61 512 612],'paperpositionmode','auto')

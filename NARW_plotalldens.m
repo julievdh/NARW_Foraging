@@ -39,7 +39,7 @@ for i = 1:length(dive)
         
         % plot pitch track
          
-        pause
+        % pause
     end
 end
 end 
