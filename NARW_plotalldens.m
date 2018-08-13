@@ -11,7 +11,7 @@ for i = 1:length(dive)
     
     if isempty(dive(i).stops) == 0
         
-        figure(19),
+        figure(18),
         subplot(2,2,1), hold on
         dive(i).clearingtime = [dive(i).stops(:,2)-dive(i).stops(:,1)]';
         plot(ddur(i),mean(dive(i).clearingtime),'o')

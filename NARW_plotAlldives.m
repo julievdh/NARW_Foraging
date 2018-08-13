@@ -11,7 +11,7 @@ for i = 1:length(tags)
     loadprh(tag);
     
     % cut depth to time of tag off
-    p = p(1:tags{i,3});
+    %p = p(1:tags{i,3});
     t = (1:length(p))/fs/3600; % compute time vector
     
     % compute amount of time within 10m of surface
@@ -38,6 +38,9 @@ for i = 1:length(tags)
     plot(t,-p,'k'), ylim([-200 10]), xlim([0 11.7]) % xmax of tags
     
     NARW_plotalldens
+    NARW_divepauseplot
+    
+    
     
 end
 figure(100), xlabel('Local Time'), adjustfigurefont

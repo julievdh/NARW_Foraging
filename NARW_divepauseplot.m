@@ -1,7 +1,7 @@
 figure(19), clf, hold on
 plot(t*3600,-p)
 
-
+if exist('dive','var') == 1
 for i = 1:size(T,1)
     if isempty(dive(i).stops) ~= 1
         h = errorbar(T(i,1),mean(dive(i).stops(:,2)-dive(i).stops(:,1)),std(dive(i).stops(:,2)-dive(i).stops(:,1)),'ko','markerfacecolor','k');
@@ -14,8 +14,12 @@ for i = 1:size(T,1)
         %plot([T(i,1) T(i,2)],[mean(stops(:,2)-stops(:,1)) mean(stops(:,2)-stops(:,1))])
     end
 end
+end
 title(regexprep(tag,'_',' '))
 xlabel('Time (seconds)')
 ylabel('Depth (m)') 
 adjustfigurefont
 
+set(gcf,'position',[1513 -14 1309 560],'paperpositionmode','auto')
+
+print([tag 'dive_vol_pause.png'],'-dpng','-r300')
