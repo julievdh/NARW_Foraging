@@ -37,8 +37,8 @@ for i = 1:length(tags)
     figure(101), subplot(length(tags),1,i), hold on, box on
     plot(t,-p,'k'), ylim([-200 10]), xlim([0 11.7]) % xmax of tags
     
-    NARW_plotalldens
-    NARW_divepauseplot
+    %NARW_plotalldens
+    %NARW_divepauseplot
     
     keep tags i % to remove carry-over of variables
 end

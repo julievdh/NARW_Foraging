@@ -15,7 +15,8 @@ if exist('dive','var') == 1
             % plot volume
             h = errorbar(T(i,1),mean(dive(i).vperblock),std(dive(i).vperblock),'ro','markerfacecolor','r');
             plot(dive(i).stops(:,1),dive(i).vperblock,'.-','color',[1 0.7 0.7])
-            
+            h = errorbar(T(i,1),mean(dive(i).dens)*1000000,std(dive(i).dens*1000000),'go','markerfacecolor','g'); % in g/m^3
+            plot(dive(i).stops(:,1),dive(i).dens*1000000,'.-','color',[0.7 1 0.7]) % in g/m^3
             %plot([T(i,1) T(i,2)],[mean(stops(:,2)-stops(:,1)) mean(stops(:,2)-stops(:,1))])
         end
         if exist('ptrack','var')
