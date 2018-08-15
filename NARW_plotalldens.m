@@ -41,7 +41,7 @@ for i = 1:length(dive)
         
         
         % estimate density 
-        for k = 1:length(dive(i).stops)
+        for k = 1:size(dive(i).stops,1)
         dive(i).dens(k) = 0.5/(dive(i).clearingtime(k)*dive(i).vperblock(k));
         end
         subplot(2,2,3), hold on 
