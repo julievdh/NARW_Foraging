@@ -40,21 +40,51 @@ for i = 1:length(tags)
     NARW_plotalldens
     NARW_divepauseplot
     
-   figure(121),
-
-   for i = 1:length(T)
-          subplot(121), hold on
-plot(ddur(i)/60,size(dive(i).stops,1),'o')
-xlabel('Dive Duration (min)'), ylabel('Number of flu
-subplot(122), hold on
-errorbar(ddur(i)/60,mean([dive(i).clearingtime]),std([dive(i).clearingtime]),'o')
-   end
-
-   if i < 9 
-    keep tags i % to remove carry-over of variables
-   end
-   
+    for k = 1:size(T,1) % all dives on a tag
+        if isempty(dive(k).stops) == 0
+            figure(11), subplot(2,2,1), hold on
+            plot(ddur(k)/60,size(dive(k).stops,1),'o')
+            xlabel('Dive Duration (min)'), ylabel('Number of fluking bouts')
+            subplot(2,2,2), hold on
+            errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o')
+            xlabel('Dive Duration (min)'), ylabel('Duration of fluking bouts (sec)')
+            subplot(2,2,3), hold on
+            plot(ddur(k)/60,tags{i,6},'o')
+            xlabel('Dive Duration (min)'), ylabel('Age (years)')
+            subplot(2,2,4), hold on
+            errorbar(tags{i,6},mean([dive(k).vperblock]),std([dive(k).vperblock]),'o')
+            xlabel('Age (years)'), ylabel('Volume filtered per fluking interval (m^3)')
+        end
+        
+        
+        if isempty(dive(k).btm) == 1 & tag ~= 'eg05_210b' 
+            % descent speed
+            phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
+            % ascent speed
+            phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
+        end
+        
+        
+        if dive(k).btm > 1
+            % descent speed
+            phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
+            % ascent speed
+            if find(isinf(dive(k).flowEst),1,'last') < 10
+                phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
+            else
+                phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
+            end
+            % bottom speed
+            phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
+        end
+    end
 end
+
+if i < 10
+    keep tags i % to remove carry-over of variables
+end
+
+
 figure(100), xlabel('Local Time'), adjustfigurefont
 set(gcf,'position',[323 61 512 612],'paperpositionmode','auto')
 print('NARW_alldives_TOD.png','-dpng','-r300')
