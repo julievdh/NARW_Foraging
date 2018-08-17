@@ -69,4 +69,55 @@ adjustfigurefont
 allBlength = vertcat(bodylength',NPRW(:,1),Antarctic(:,1));
 allPlength = vertcat(platelength',NPRW(:,2),Antarctic(:,2));
 
-ft = fitlm(allBlength,allPlength); 
+ft = fitlm(allBlength,allPlength); % fit the model 
+
+adjustfigurefont
+print('NPRW_SRW_baleenlength','-dpng','-r300')
+
+%% apply the model for body lengths 
+
+for whaleAge = 1:20; 
+
+lnth(whaleAge) = 1011.033+320.501*log10(whaleAge); % MOORE ET AL 2004
+lnth(whaleAge) = lnth(whaleAge)/100;
+
+end
+% estimate baleen length
+Blength = feval(ft,lnth);
+
+% estimate gape with length and width 
+A2 = (snt.*Blength)./2;
+
+%% for plotting multiple axes 
+figure(22), clf
+test = 1011.033+320.501*log10(0.1:2:20); % vector of estimated lengths 
+axesPosition = [110 40 200 200];  %# Axes position, in pixels
+yWidth = 30;                      %# y axes spacing, in pixels
+
+h1 = axes('Color','w','XColor','k','YColor',[123/255 50/255 148/255],...
+          'YLim',[0 2.2],'Xlim',[0 20],'NextPlot','add');
+h2 = axes('Color','none','XColor','k','YColor','k',...
+          'YLim',[0 2.2],'Xlim',[0 20],...
+          'Xtick',0.1:2:20,'xticklabels',round(test/100,1),...
+          'Yaxislocation','right',...
+          'Xaxislocation','top','NextPlot','add');
+
+xlabel(h1,'Age (years)');
+ylabel(h2,'Head Width (m), Baleen Length (m)');
+ylabel(h1,'Gape Area (m^2)');
+xlabel(h2,'Body Length (m)');
+
+plot(h1,A2,'color',[123/255 50/255 148/255])
+plot(h1,A,'--','color',[123/255 50/255 148/255])
+plot(h1,snt,'color',[0    0.4470    0.7410])
+plot(h1,Blength,'color',[ 0.9290    0.6940    0.1250])
+
+plot(h1,1/12,0.68,'o','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
+plot(h1,3.5/12,1.01,'o','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller 
+
+plot(h1,1/12,(0.68.^2)./2,'o','color',[123/255 50/255 148/255]) % area for calves 
+plot(h1,3.5/12,(1.01.^2)./2,'o','color',[123/255 50/255 148/255]) % are for calves 
+
+adjustfigurefont
+print('NARW_gape_length2','-dpng','-r300')
+
