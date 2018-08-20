@@ -39,12 +39,15 @@ for j = 1:length(dive)
         
         % estimate density 
         for k = 1:size(dive(j).stops,1)
-        dive(j).dens(k) = 0.5/(dive(j).clearingtime(k)*dive(j).vperblock(k));
+        dive(j).dens(k) = 0.5./dive(j).vperblock(k); % vperblock is volume in m^3 
+        subplot(2,2,4), hold on 
+        plot(ddur(j),dive(j).dens(k),'o')
+        xlabel('Dive Duration (sec)'), ylabel('Estimated Prey Density')
         end
         subplot(2,2,3), hold on 
         plot(dive(j).stops(:,1),dive(j).dens,'color',c(j,:))
-        % plot pitch track
-         
+        xlabel('Time (sec)'), ylabel('Density (kg/m^3)')
+        
         % pause
     end
 end
