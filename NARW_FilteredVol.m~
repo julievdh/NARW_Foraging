@@ -26,7 +26,7 @@ for k = 1:size(T,1);
     % plot total volume filtered and dive duration
     subplot('position',[0.65 0.1 0.3 0.8]), hold on
     xlabel('Dive Duration (seconds)'), ylabel('Volume Filtered (m^3)')
-    
+
     if isempty(dive(k).btm) == 0
         plot(T(k,2)-T(k,1),sum(dive(k).vperblock(1:j)),'o')
     else if isempty(dive(k).btm) == 1
@@ -67,26 +67,23 @@ end
 xlabel('Time (seconds)'), ylabel('Depth (m)        Volume Filtered (m^3)')
 
 % travel time versus foraging time
-figure(3), hold on
-for k = 1:length(dive)
-    travel(k,1:2) = dive(k).travel;
-    forage(k) = dive(k).forage;
-end
-plot(travel(:,1),forage,'color',[0.7 0.7 1])
-plot(travel(:,2),forage,'color',[0.7 0.7 0.7])
+figure(3), hold on 
 for k = 1:size(T,1),
     if isempty(dive(k).travel) == 0
-        plot(dive(k).travel(1),dive(k).forage,'bv')
-        plot(dive(k).travel(2),dive(k).forage,'k^')
+    plot(dive(k).travel(1),dive(k).forage,'bv')
+    plot(dive(k).travel(2),dive(k).forage,'k^')
     end
 end
 xlabel('Travel time'), ylabel('Foraging time')
-figure(4), hold on
-plot(sum(travel'),forage,'color',[0.7 0.7 0.7])
-for k = 1:size(T,1),
-    if isempty(dive(k).travel) == 0
-        plot(dive(k).travel(1)+dive(k).travel(2),dive(k).forage,'k^-')
-    end
+figure(4), hold on 
+for k = 1:length(dive)
+travel(k,1:2) = dive(k).travel; 
+forage(k) = dive(k).forage;
+end
+for k = 1:size(T,1), 
+        if isempty(dive(k).travel) == 0
+    plot(dive(k).travel(1)+dive(k).travel(2),dive(k).forage,'k^-')
+        end
 end
 xlabel('RT Travel time'), ylabel('Foraging time')
 

@@ -6,7 +6,7 @@ close all
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
 
-for i = 1:length(tags)
+for i = 3; % 1:length(tags)
     tag = tags{i};
     loadprh(tag);
     
@@ -26,8 +26,13 @@ for i = 1:length(tags)
     % how many dives > 50 m
     T = finddives(p,fs,50,1);
     % mean(T(:,2)-T(:,1))/60
-    % pause
     
+    % import flow speed for the tag
+    load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
+
+    NARW_FilteredVol
+end
+retur
     % plot by time of day
     figure(100), subplot(length(tags),1,i), hold on, box on
     UTC = tags{i,2}(4:end);
@@ -57,32 +62,41 @@ for i = 1:length(tags)
         end
         
         
-        if isempty(dive(k).btm) == 1 & tag ~= 'eg05_210b' 
+        if isempty(dive(k).btm) == 1 && sum(tag ~= 'eg05_210b') ~= 0 % if there's no bottom and if it's not dives 1-11 in this tag
             % descent speed
             phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
+            phase_pitch(k,1) = nanmean(rad2deg(pitch((T(k,1):T(k,4))*fs)));
             % ascent speed
             phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
+            phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
         end
-        
         
         if dive(k).btm > 1
             % descent speed
             phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
+            phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
             % ascent speed
             if find(isinf(dive(k).flowEst),1,'last') < 10
                 phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
             else
                 phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
             end
+            phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
             % bottom speed
             phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
         end
+        F(k) = isempty(dive(k).btm); % store that 
+    end
+    tags{i,7} = phase_speed;
+    tags{i,8} = phase_pitch; 
+    tags{i,9} = F; 
+    
+    if i < 10
+        keep tags i % to remove carry-over of variables
     end
 end
 
-if i < 10
-    keep tags i % to remove carry-over of variables
-end
+
 
 
 figure(100), xlabel('Local Time'), adjustfigurefont

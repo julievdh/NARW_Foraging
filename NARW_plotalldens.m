@@ -1,7 +1,4 @@
 % NARW_plotalldens
-clear dive 
-% import flow speed for the tag
-load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
 
 % calculate dive duration
 ddur = T(:,2)-T(:,1);
