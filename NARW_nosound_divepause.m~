@@ -1,17 +1,14 @@
 % for tags where we don't have audio
-tag = 'eg01_207a'; 
+tag = eg01_207a'
 loadprh(tag)
-T = finddives(p,fs,50,1);
-[v,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
-pdeg = rad2deg(pitch); 
 
-for i = 1:size(T,1); % have to make some rule on dive shape
+for i = 5 % size(T,1); % have to make some rule on dive shape
     %%
     figure(9), clf, hold on % for this example
     dcue = T(i,1):T(i,2); % time in seconds
     
     plot(dcue/60, -p(round(dcue*fs)),'color',[0.7 0.7 0.7])
-    % plot(dcue/60, j(round(dcue*fs))*50-p(round(dcue*fs)),'k') % plot jerk along depth profile
+    plot(dcue/60, j(round(dcue*fs))*50-p(round(dcue*fs)),'k') % plot jerk along depth profile
     
     title(['Dive ' num2str(i)])
     xlabel('Time (min)')

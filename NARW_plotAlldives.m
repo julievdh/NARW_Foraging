@@ -6,7 +6,7 @@ close all
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
 
-for i = 10; % 1:length(tags)
+for i = 1:10; % 1:length(tags)
     tag = tags{i};
     loadprh(tag);
     
@@ -34,12 +34,13 @@ for i = 10; % 1:length(tags)
     
     figure(24), hold on
     for k = 1:length(dive)
+        if isempty(dive(k).stops) == 0
         plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
+        end
     end
     xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
     
-end
-return
+
 
 % plot by time of day
 figure(100), subplot(length(tags),1,i), hold on, box on
@@ -102,7 +103,7 @@ tags{i,9} = F;
 if i < 10
     keep tags i % to remove carry-over of variables
 end
-% end
+end
 
 
 

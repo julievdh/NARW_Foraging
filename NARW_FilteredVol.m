@@ -65,9 +65,11 @@ for k = 1:size(T,1);
 end
 
 xlabel('Time (seconds)'), ylabel('Depth (m)        Volume Filtered (m^3)')
+return 
 
 % travel time versus foraging time
 figure(3), hold on
+clear travel forage
 for k = 1:length(dive)
     travel(k,1:2) = dive(k).travel;
     forage(k) = dive(k).forage;
