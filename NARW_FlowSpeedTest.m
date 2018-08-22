@@ -1,8 +1,12 @@
-% first look NARW data with Peter
+% NARW Flow Speed and Filtered Volume Estimates
+% Julie van der Hoop 2018
+
 clear
-tag = 'eg05_210b'; % 'eg05_235a'; %; %'eg05_232a';% 'eg05_230a'; % 'eg05_224a', % 'eg05_231b'; %'eg01_241a'; %'eg01_214a'; % ; % 'eg05_231b';
+
+load('NARW_foraging_tags') % let's make this more straightforward
+ID = 10; 
+tag = tags{ID}; 
 loadprh(tag,'p','fs','Aw','Mw','pitch');
-% 'eg01_207a' has sound for beginning, but really bad flow-sound correlation
 
 t = (1:length(p))/fs;
 pdeg = rad2deg(pitch);
@@ -99,7 +103,7 @@ end
 %%
 figure(10), clf
 figure(299), clf
-for i = 11:size(T,1); % have to make some rule on dive shape
+for i = 1:size(T,1); % have to make some rule on dive shape
     %%
     flowEst = feval(c,log10(medFN(i,:))); % 1 Hz speed estimate from flow sound
     %figure(8)
@@ -121,15 +125,13 @@ for i = 11:size(T,1); % have to make some rule on dive shape
     xlabel('Time (min)')
     
     % calculate filtered volume
-    gape = 1.2; % right whale estimate from Kenney et al. 1986 and Mayo et al. 2001
-    %%%%%%%% look at how this changes with morphology and how gape changes with body
-    %%%%%% size/age (Moore et al 2005)
-    % Potvin and Werth 2017 have estimates for 8m, 10m, 15m balaenids
+    gape = getgape(tags{ID,6}); 
     
     % find bottom time based on pitch angle < 20
     [frst,lst] = findbottomtime(pdeg(round(dcue*fs)),fs,1);
     %%
     if isnan(frst) ~= 1 
+        %% 
         btm = frst:lst; % bottom time in seconds
         plot(dcue/60,pdeg(round(dcue*fs))) % plot pitch through time
         %plot(dcue(btm)/60,pdeg(dcue(btm)*fs),'.') % plot pitch on bottom
@@ -141,10 +143,8 @@ for i = 11:size(T,1); % have to make some rule on dive shape
             gl = gl(:,1)+ dcue(btm(1)); % for consistency with other method
         end
         
-        %if tag == 'eg05_219a'
         gl = findglides([dcue(btm(1)) dcue(btm(end))],fs,ph);
         hold on, plot(gl(:,1)/60,zeros(length(gl(:,1)),1),'k*') % plot detected glides
-        %end
         
         % pick out starts/stops from detected glides and save them
         stops = [];

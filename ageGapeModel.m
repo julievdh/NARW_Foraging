@@ -1,10 +1,10 @@
 % NARW mouth gape model test
 for whaleAge = 1:20; 
 
-lnth = 1011.033+320.501*log10(whaleAge); % MOORE ET AL 2004
-lnth = lnth/100;
+lnth(whaleAge) = 1011.033+320.501*log10(whaleAge); % MOORE ET AL 2004
+lnth(whaleAge) = lnth(whaleAge)./100;
 
-[width,stations] = bodywidth(lnth); % this is mesomorphic but I don't really like it for going across age stages. 
+[width,stations] = bodywidth(lnth(whaleAge)); % this is mesomorphic but I don't really like it for going across age stages. 
 figure(19), hold on 
 plot(stations, width)
 
