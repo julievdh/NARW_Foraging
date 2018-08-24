@@ -61,9 +61,9 @@ if exist('dive','var')
                 %                 end
                 subplot(2,2,3), hold on
                 %plot(dive(j).stops(:,1),dive(j).dens,'color',c(j,:))
-                plot(dive(j).mnspeedperblock,dive(j).rms,'o-')
+                plot(dive(j).mnspeedperblock,dive(j).rms,'o-','color',c(j,:))
                 subplot(2,2,4), hold on
-                errorbar(mean(dive(j).mnspeedperblock),mean(dive(j).rms),std(dive(j).rms),'o')
+                errorbar(mean(dive(j).mnspeedperblock),mean(dive(j).rms),std(dive(j).rms),'o','color',c(j,:))
             end
             xlabel('Swimming speed (m/s)'), ylabel('Fluke stroke RMS (radians)')
             

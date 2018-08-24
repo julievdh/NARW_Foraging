@@ -5,8 +5,8 @@
 close all
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
-
-for i = 1:10; % 1:length(tags)
+%%
+for i = 9:10; % 1:length(tags)
     tag = tags{i};
     loadprh(tag);
     
@@ -15,9 +15,9 @@ for i = 1:10; % 1:length(tags)
     t = (1:length(p))/fs/3600; % compute time vector
     
     % compute amount of time within 10m of surface
-    [tags{i,4},tags{i,5}] = findsurftime(p,fs,10);
-    figure(5), subplot(length(tags),1,i), hold on
-    histogram(tags{i,5}/60,0:1:80), xlabel('Continuous Surface Time (min)')
+    %[tags{i,4},tags{i,5}] = findsurftime(p,fs,10);
+    %figure(5), subplot(length(tags),1,i), hold on
+    %histogram(tags{i,5}/60,0:1:80), xlabel('Continuous Surface Time (min)')
     
     %figure(6), hold on
     %cdfplot(tags{i,5}/60)
@@ -31,10 +31,11 @@ for i = 1:10; % 1:length(tags)
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
     
     NARW_FilteredVol
+    NARW_plotalldens 
     
     figure(24), hold on
     for k = 1:length(dive)
-        if isempty(dive(k).stops) == 0
+        if isempty(dive(k).vperblock) == 0
         plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
         end
     end
@@ -100,12 +101,24 @@ tags{i,7} = phase_speed;
 tags{i,8} = phase_pitch;
 tags{i,9} = F;
 
+figure(90), hold on 
+plot(T(:,3),1./(ddur/3600),'o')
+xlabel('Depth (m)'), ylabel('Dives per hour') 
+
+
+[v,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
+figure(3), clf, hold on 
+plot(t,ph,'r')
+plot(t,-p/100,'k')
+
+pause 
+
 if i < 10
-    keep tags i % to remove carry-over of variables
+    clear p ptrack pitch ph Aw Mw fs % to remove carry-over of variables
 end
 end
 
-
+return 
 
 
 figure(100), xlabel('Local Time'), adjustfigurefont
