@@ -1,12 +1,14 @@
 % gape effect
-
+load('NARW_foraging_tags')
 ID = 7;
 tag = tags{ID};
 
 % import flow speed for the tag
 load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
 
-for i = 5 %:length(dive) % because first 4 dives are not foraging dives
+for i = 5:length(dive) % because first 4 dives are not foraging dives
+    
+    dcue = T(i,1):T(i,2); % cues for that dive
     
     % set up variables from stored
     stops = dive(i).stops;
@@ -21,8 +23,14 @@ for i = 5 %:length(dive) % because first 4 dives are not foraging dives
     
     vperblock_12 = [];
     for k = 1:size(stops,1)
-        vperblock_12(:,k) = sum(frate2(round(stops(k,1)-dcue(btm(1)):round(stops(k,2)-dcue(btm(1))))));
+        vperblock_12(:,k) = sum(frate_12(round(stops(k,1)-dcue(btm(1)):round(stops(k,2)-dcue(btm(1))))));
     end
-    vtot_var = sum(vperblock); 
-    vtot_12 = sum(vperblock_12); 
+    vtot_var(:,i) = sum(vperblock); 
+    vtot_12(:,i) = sum(vperblock_12); 
 end
+
+figure(1), hold on 
+plot(vtot_var), plot(vtot_12)
+xlabel('Dive Number'), ylabel('Total Volume Filtered (m^3)')
+adjustfigurefont
+
