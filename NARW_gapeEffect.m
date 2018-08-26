@@ -34,3 +34,12 @@ plot(vtot_var), plot(vtot_12)
 xlabel('Dive Number'), ylabel('Total Volume Filtered (m^3)')
 adjustfigurefont
 
+% values for paper
+% actual filtered volume with 1.6 m^2 gape
+[mean(vtot_var(5:end)) std(vtot_var(5:end))]
+% if assume 1.2 m^2 
+[mean(vtot_12(5:end)) std(vtot_12(5:end))]
+% difference in filtered volume assuming 1.2 m^3 
+[mean(vtot_var(5:end)-vtot_12(5:end)) std(vtot_var(5:end)-vtot_12(5:end))]
+% percent difference 
+(mean(vtot_12(5:end))-mean(vtot_var(5:end)))/mean(vtot_var(5:end))
