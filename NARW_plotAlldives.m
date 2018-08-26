@@ -6,7 +6,7 @@ close all
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
 %%
-for i = 9:10; % 1:length(tags)
+for i = 4%:10; % 1:length(tags)
     tag = tags{i};
     loadprh(tag);
     
@@ -21,8 +21,7 @@ for i = 9:10; % 1:length(tags)
     
     %figure(6), hold on
     %cdfplot(tags{i,5}/60)
-    
-    
+       
     % how many dives > 50 m
     T = finddives(p,fs,50,1);
     % mean(T(:,2)-T(:,1))/60
@@ -40,8 +39,6 @@ for i = 9:10; % 1:length(tags)
         end
     end
     xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
-    
-
 
 % plot by time of day
 figure(100), subplot(length(tags),1,i), hold on, box on
@@ -52,7 +49,6 @@ ylim([-200 10]), xlim([9 24])
 figure(101), subplot(length(tags),1,i), hold on, box on
 plot(t,-p,'k'), ylim([-200 10]), xlim([0 11.7]) % xmax of tags
 
-NARW_plotalldens
 NARW_divepauseplot
 
 for k = 1:size(T,1) % all dives on a tag

@@ -8,8 +8,7 @@ ddur = T(:,2)-T(:,1);
 if exist('dive','var')
     for j = 1:length(dive)
         dcue = T(j,1):T(j,2); % cues for that dive
-        c = get(gca,'colororder'); % get color order
-        c = repmat(c,ceil(size(T,1)/size(c,1)),1);    % repeat color order for number of dives
+        c = viridis(size(T,1)); % color dive number
         
         if isempty(dive(j).stops) == 0
             

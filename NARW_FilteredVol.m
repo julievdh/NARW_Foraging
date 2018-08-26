@@ -6,6 +6,7 @@ figure(6), clf
 for k = 1:size(T,1);
     dcue = T(k,1):T(k,2); % cues for that dive
     
+    c = viridis(size(T,1)); % color dive number
     % dive(k).btm(1) is the first at depth, so descent is until then
     subplot('position',[0.07 0.1 0.55 0.8]), hold on
     xlabel('Time (seconds)'), ylabel('Depth (m)        Volume Filtered (m^3)')
@@ -16,21 +17,21 @@ for k = 1:size(T,1);
         for j = 2:size(dive(k).stops,1)
             plot([dive(k).stops(j,1)-dcue(1) dive(k).stops(j,2)-dcue(1)],[sum(dive(k).vperblock(1:j-1)) sum(dive(k).vperblock(1:j))])
         end
-        plot([dive(k).stops(j,2)-dcue(1) dcue(end)-dcue(1)],[sum(dive(k).vperblock(1:j)) sum(dive(k).vperblock(1:j))]) % first starts at zero
+        plot([dive(k).stops(j,2)-dcue(1) dcue(end)-dcue(1)],[sum(dive(k).vperblock(1:j)) sum(dive(k).vperblock(1:j))],'color',c(k,:)) % last ends at zero
     end
     if isempty(dive(k).btm) == 1
         plot([0 T(k,2)-T(k,1)],[0 0])
     end
-    plot(-p(round(dcue*fs)))
+    plot(-p(round(dcue*fs)),'color',c(k,:))
     
     % plot total volume filtered and dive duration
     subplot('position',[0.65 0.1 0.3 0.8]), hold on
     xlabel('Dive Duration     (seconds)'), ylabel('Volume Filtered (m^3)')
     
     if isempty(dive(k).vperblock) == 0
-        plot(T(k,2)-T(k,1),sum(dive(k).vperblock(1:j)),'o')
+        plot(T(k,2)-T(k,1),sum(dive(k).vperblock(1:j)),'o','color',c(k,:))
     else if isempty(dive(k).btm) == 1
-            plot(T(k,2)-T(k,1),0,'o')
+            plot(T(k,2)-T(k,1),0,'o','color',c(k,:))
         end
     end
     
@@ -61,7 +62,7 @@ for k = 1:size(T,1);
     if isempty(dive(k).btm) == 1
         plot([dcue(1) dcue(end)],[0 0])
     end
-    plot(dcue,-p(round(dcue*fs)))
+    plot(dcue,-p(round(dcue*fs)),'color',c(k,:))
 end
 
 xlabel('Time (seconds)'), ylabel('Depth (m)        Volume Filtered (m^3)')
