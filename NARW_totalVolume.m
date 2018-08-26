@@ -5,6 +5,7 @@ figure(10), clf
 allvols = [];
 allbouts = [];
 allvperdive = [];
+allspeeds = []; 
 for i = 1:length(tags)
     tag = tags{i};
     c = get(gca,'colororder'); % get color order
@@ -22,6 +23,7 @@ for i = 1:length(tags)
             if isempty(dive(j).vperblock) ~= 1
                 allvols(end+1) = dive(j).vperblock(k); % make massive vector of all volumes
                 allbouts(end+1) = dive(j).stops(k,2)-dive(j).stops(k,1); % make massive vector of all durations
+                allspeeds(end+1) = dive(j).mnspeedperblock(k); % make massive vector of all speeds
             end
         end
     end
@@ -36,3 +38,4 @@ xlabel('Total Volume Filtered Per Dive (m^3)')
 [mean(allvperdive) std(allvperdive)]
 [mean(allvols) std(allvols)]
 [mean(allbouts) std(allbouts)]
+[mean(allspeeds) std(allspeeds)]
