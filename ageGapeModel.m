@@ -108,7 +108,7 @@ ylabel(h1,'Gape Area (m^2)');
 xlabel(h2,'Body Length (m)');
 
 plot(h1,A2,'color',[123/255 50/255 148/255])
-plot(h1,A,'--','color',[123/255 50/255 148/255])
+% plot(h1,A,'--','color',[123/255 50/255 148/255])
 plot(h1,snt,'color',[0    0.4470    0.7410])
 plot(h1,Blength,'color',[ 0.9290    0.6940    0.1250])
 
