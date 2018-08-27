@@ -4,7 +4,7 @@
 clear
 
 load('NARW_foraging_tags') % let's make this more straightforward
-ID = 10; 
+ID = 7; 
 tag = tags{ID}; 
 loadprh(tag,'p','fs','Aw','Mw','pitch');
 
@@ -87,7 +87,7 @@ plot(logselFN,selspeed,'o')
 
 % myfit = fittype('a+b*20*log10(x)','dependent',{'y'},'independent',{'x'},'coefficients',{'a','b'});
 %[c,g] = fit(logselFN,selspeed,'poly1','robust','LAR')
-[c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.2 Inf Inf],'robust','bisquare')
+[c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.1 Inf Inf],'robust','LAR')
 figure(4),
 plot(c)
 

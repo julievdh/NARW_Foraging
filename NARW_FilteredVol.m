@@ -2,12 +2,13 @@
 
 % plot time versus volume
 figure(6), clf
-% for a dive     
+% for a dive
 for k = 1:size(T,1);
     dcue = T(k,1):T(k,2); % cues for that dive
     
     c = viridis(size(T,1)); % color dive number
     % dive(k).btm(1) is the first at depth, so descent is until then
+    figure(6),
     subplot('position',[0.07 0.1 0.55 0.8]), hold on
     xlabel('Time (seconds)'), ylabel('Depth (m)        Volume Filtered (m^3)')
     if isempty(dive(k).vperblock) == 0
@@ -35,7 +36,13 @@ for k = 1:size(T,1);
         end
     end
     
-    pause
+    if isempty(dive(k).stops) ~= 1
+        figure(16), hold on
+        line([dive(k).stops(1,1)-dcue(1) dive(k).stops(end,2)-dcue(1)]/length(dcue),[i+0.02*k i+0.02*k],'color',c(k,:))
+    end
+    
+    
+    % pause
 end
 
 
@@ -66,9 +73,10 @@ for k = 1:size(T,1);
 end
 
 xlabel('Time (seconds)'), ylabel('Depth (m)        Volume Filtered (m^3)')
-return 
 
-% travel time versus foraging time
+return
+
+%% travel time versus foraging time
 figure(3), hold on
 clear travel forage
 for k = 1:length(dive)
