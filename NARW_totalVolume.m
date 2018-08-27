@@ -29,11 +29,18 @@ for i = 1:length(tags)
     end
     
     figure(10), subplot(length(tags),1,i), hold on
+    if i == 8
+        histogram(vperdive(11:end),'binwidth',25,'facecolor',c(tags{i,6},:)) % because missing first 10 dives
+    else 
     histogram(vperdive,'binwidth',25,'facecolor',c(tags{i,6},:))
+    end
+    yl = get(gca,'ylim'); text(50,yl(2)*0.75,strcat('Age   ',num2str(tags{i,6}))) 
     xlim([0 1050])
 end
 xlabel('Total Volume Filtered Per Dive (m^3)')
-
+adjustfigurefont
+set(gcf,'position',[13     5   512   668],'paperpositionmode','auto')
+print('volfiltered_each.png','-dpng','-r300')
 
 [mean(allvperdive) std(allvperdive)]
 [mean(allvols) std(allvols)]
