@@ -26,6 +26,7 @@ if exist('dive','var') == 1
             subplot('position',[0.65 0.1 0.3 0.8]), hold on
             plot3(ptrack(:,1),ptrack(:,2),-p,'color',[0.5 0.5 0.5])
             plot3(ptrack(round(dcue*fs),1),ptrack(round(dcue*fs),2),-p(round(dcue*fs)),'color',c(j,:),'linewidth',2)
+            
         end
         
     end

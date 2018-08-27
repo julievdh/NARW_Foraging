@@ -6,7 +6,7 @@ close all
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
 %%
-for i = 1:10; % 1:length(tags)
+for i = 1:length(tags)
     tag = tags{i};
     loadprh(tag);
     
