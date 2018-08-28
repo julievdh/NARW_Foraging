@@ -69,6 +69,7 @@ for i = [1:4 6:length(tags)]
             end
         end
         xlabel('Fluke RMS amplitude (rad)'), ylabel('Bout duration (sec)')
+    save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
     end
 end
 figure(18), adjustfigurefont 
@@ -78,4 +79,7 @@ figure(30), adjustfigurefont
 set(gcf,'position',[ 524    45   880   628],'paperpositionmode','auto')
 print('RMSduration_all','-dsvg','-r300')
 
+
+% ideally we want to do a linear model here 
+% 
 
