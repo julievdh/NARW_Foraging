@@ -6,7 +6,7 @@ close all
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
 %%
-for i = 1:length(tags)
+for i = 10 %:length(tags)
     tag = tags{i};
     loadprh(tag);
     
@@ -59,12 +59,12 @@ for i = 1:length(tags)
             subplot(2,2,2), hold on
             errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o')
             xlabel('Dive Duration (min)'), ylabel('Duration of fluking bouts (sec)')
-            subplot(2,2,3), hold on
-            plot(ddur(k)/60,tags{i,6},'o')
-            xlabel('Dive Duration (min)'), ylabel('Age (years)')
-            subplot(2,2,4), hold on
-            errorbar(tags{i,6},mean([dive(k).vperblock]),std([dive(k).vperblock]),'o')
-            xlabel('Age (years)'), ylabel('Volume filtered per fluking interval (m^3)')
+            %subplot(2,2,3), hold on
+            %plot(ddur(k)/60,tags{i,6},'o')
+            %xlabel('Dive Duration (min)'), ylabel('Age (years)')
+            %subplot(2,2,4), hold on
+            %errorbar(tags{i,6},mean([dive(k).vperblock]),std([dive(k).vperblock]),'o')
+            %xlabel('Age (years)'), ylabel('Volume filtered per fluking interval (m^3)')
         end
         
         

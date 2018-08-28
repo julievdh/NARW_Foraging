@@ -46,34 +46,6 @@ for k = 1:size(T,1);
 end
 
 
-
-%% also plot all through time
-figure(7), clf, hold on
-for k = 1:size(T,1);
-    dcue = T(k,1):T(k,2); % cues for that dive
-    
-    if isempty(dive(k).vperblock) == 0
-        plot([dcue(1) dive(k).btm(1)+dcue(1)],[0 0])
-        % from the surface until first stop = travel time
-        dive(k).travel(1) = dive(k).stops(1,1)-dcue(1); % seconds
-        dive(k).forage = sum(dive(k).stops(:,2)-dive(k).stops(:,1)); % seconds
-        dive(k).travel(2) = dcue(end)-dive(k).stops(end,2);
-        % add stops
-        plot([dive(k).stops(1,1) dive(k).stops(1,2)],[0 dive(k).vperblock(1)],'.-') % first starts at zero
-        for j = 2:size(dive(k).stops,1)
-            plot([dive(k).stops(j,1) dive(k).stops(j,2)],[sum(dive(k).vperblock(1:j-1)) sum(dive(k).vperblock(1:j))],'.-')
-        end
-        plot(dive(k).stops(:,2),dive(k).stops(:,2)-dive(k).stops(:,1),'.-','color',[0.7 0.7 1]) % add stop duration
-        plot([dive(k).stops(j,2) dcue(end)],[sum(dive(k).vperblock(1:j)) sum(dive(k).vperblock(1:j))]) % ends at end of last pause, goes to surface
-    end
-    if isempty(dive(k).btm) == 1
-        plot([dcue(1) dcue(end)],[0 0])
-    end
-    plot(dcue,-p(round(dcue*fs)),'color',c(k,:))
-end
-
-xlabel('Time (seconds)'), ylabel('Depth (m)        Volume Filtered (m^3)')
-
 return
 
 %% travel time versus foraging time

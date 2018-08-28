@@ -7,9 +7,6 @@ allbouts = [];
 allvperdive = [];
 allspeeds = []; 
 allrms = []; 
-d = []; % dive counter 
-alldur = []; 
-tagid = []; % tag ID counter 
 for i = 1:length(tags)
     tag = tags{i};
     c = get(gca,'colororder'); % get color order
@@ -17,7 +14,7 @@ for i = 1:length(tags)
     
     % import flow speed for the tag
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
-    ddur = T(:,2)-T(:,1); % calculate dive duration 
+    
     % calculate total volume
     vperdive = []; % clear it 
     for j = 1:length(dive)
@@ -25,13 +22,10 @@ for i = 1:length(tags)
         allvperdive(end+1) = vperdive(j); 
         for k = 1:length(dive(j).vperblock)
             if isempty(dive(j).vperblock) ~= 1
-                allvols(end+1,1) = dive(j).vperblock(k); % make massive vector of all volumes
-                allbouts(end+1,1) = dive(j).stops(k,2)-dive(j).stops(k,1); % make massive vector of all durations
-                allspeeds(end+1,1) = dive(j).mnspeedperblock(k); % make massive vector of all speeds
-                allrms(end+1,1) = dive(j).rms(k); % make massive vector of RMS 
-            d(end+1,1) = j; 
-            tagid(end+1,1) = i; 
-            alldur(end+1,1) = ddur(j); 
+                allvols(end+1) = dive(j).vperblock(k); % make massive vector of all volumes
+                allbouts(end+1) = dive(j).stops(k,2)-dive(j).stops(k,1); % make massive vector of all durations
+                allspeeds(end+1) = dive(j).mnspeedperblock(k); % make massive vector of all speeds
+            allrms(end+1) =
             end
         end
     end
@@ -56,7 +50,3 @@ print('volfiltered_each.png','-dpng','-r300')
 [mean(allvols) std(allvols)]
 [mean(allbouts) std(allbouts)]
 [mean(allspeeds) std(allspeeds)]
-
-%% 
-tbl = table(allvols, allbouts, allrms, allspeeds, d, tagid);
-fitlme(tbl,'allrms ~ allbouts + (1|tagid)')

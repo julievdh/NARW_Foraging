@@ -15,4 +15,4 @@ plott(head,fs)
 plott(head_rs,0.1,'.-')
 
 % 2. calculate difference between heading at those intervals
-myDiff=diff(head_rs);
+myDiff=diff(head_rs); 
