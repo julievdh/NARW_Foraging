@@ -6,6 +6,9 @@ allvols = [];
 allbouts = [];
 allvperdive = [];
 allspeeds = []; 
+allrms = []; 
+d = []; % dive counter 
+tagid = []; % tag ID counter 
 for i = 1:length(tags)
     tag = tags{i};
     c = get(gca,'colororder'); % get color order
@@ -24,6 +27,9 @@ for i = 1:length(tags)
                 allvols(end+1) = dive(j).vperblock(k); % make massive vector of all volumes
                 allbouts(end+1) = dive(j).stops(k,2)-dive(j).stops(k,1); % make massive vector of all durations
                 allspeeds(end+1) = dive(j).mnspeedperblock(k); % make massive vector of all speeds
+                allrms(end+1) = dive(j).rms(k); % make massive vector of RMS 
+            d(end+1) = j; 
+            tagid(end+1) = i; 
             end
         end
     end
@@ -34,10 +40,12 @@ for i = 1:length(tags)
     else 
     histogram(vperdive,'binwidth',25,'facecolor',c(tags{i,6},:))
     end
+    ylim([0 10])
     yl = get(gca,'ylim'); text(50,yl(2)*0.75,strcat('Age   ',num2str(tags{i,6}))) 
-    xlim([0 1050])
+    xlim([0 1050]), 
+    
 end
-xlabel('Total Volume Filtered Per Dive (m^3)')
+xlabel('Total Volume Filtered (m^3) Per Dive ')
 adjustfigurefont
 set(gcf,'position',[13     5   512   668],'paperpositionmode','auto')
 print('volfiltered_each.png','-dpng','-r300')
