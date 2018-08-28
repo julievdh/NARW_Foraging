@@ -37,7 +37,7 @@ for i = [1:4 6:length(tags)]
                     errorbar(mean(dive(j).mnspeedperblock),mean(dive(j).rms),std(dive(j).rms),'o','color',c(j,:))
                 end
                 xlabel('Swimming speed (m/s)'), ylabel('Fluke RMS amplitude (rad)')
-                
+                title(regexprep(tag,'_',' '))
             end
             % calculate time to next foraging dive
             F(j) = ~isempty(dive(j).btm); % 1 = next is foraging dive, 0 = next is not foraging dive
@@ -62,6 +62,7 @@ for i = [1:4 6:length(tags)]
         
         figure(30),
         subplot(3,4,i), hold on
+        title(regexprep(tag,'_',' '))
         for j = 1:length(dive)
             errorbar(mean(dive(j).rms),mean(dive(j).clearingtime),std(dive(j).clearingtime),'o','color',c(j,:))
             for k = 1:size(dive(j).stops,1)
@@ -74,10 +75,10 @@ for i = [1:4 6:length(tags)]
 end
 figure(18), adjustfigurefont 
 set(gcf,'position',[ 514    45   880   628],'paperpositionmode','auto')
-print('RMSspeed_all','-dsvg','-r300')
+print('RMSspeed_all','-dpng','-r300')
 figure(30), adjustfigurefont
 set(gcf,'position',[ 524    45   880   628],'paperpositionmode','auto')
-print('RMSduration_all','-dsvg','-r300')
+print('RMSduration_all','-dpng','-r300')
 
 
 % ideally we want to do a linear model here 
