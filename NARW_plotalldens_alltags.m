@@ -21,7 +21,7 @@ for i = [1:4 6:length(tags)]
             if isempty(dive(j).stops) == 0
                 
                 figure(18), subplot(3,4,i), hold on
-                
+                dive(j).clearingtime = dive(j).stops(:,2)-dive(j).stops(:,1); 
                 % calculate RMS amplitude of pitch deviation per block
                 % subplot(2,2,2), hold on
                 for k = 1:size(dive(j).stops,1)
@@ -36,7 +36,7 @@ for i = [1:4 6:length(tags)]
                     %plot(dive(j).mnspeedperblock,dive(j).rms,'o-','color',c(j,:))
                     errorbar(mean(dive(j).mnspeedperblock),mean(dive(j).rms),std(dive(j).rms),'o','color',c(j,:))
                 end
-                xlabel('Swimming speed (m/s)'), ylabel('Fluke stroke RMS (radians)')
+                xlabel('Swimming speed (m/s)'), ylabel('Fluke RMS amplitude (rad)')
                 
             end
             % calculate time to next foraging dive
@@ -55,11 +55,27 @@ for i = [1:4 6:length(tags)]
             figure(29), hold on
             plot(TTNFD(j),mean(dive(j).rms)/mean(dive(j).mnspeedperblock),'o','color',c(j,:))
             
-            % figure(30), subplot(3,4,i), hold on 
+            % figure(30), subplot(3,4,i), hold on
             % scatter(mean(dive(j).mnspeedperblock),mean(dive(j).rms),[],TTNFD(j),'filled')
             % caxis([100 2000]);
         end
+        
+        figure(30),
+        subplot(3,4,i), hold on
+        for j = 1:length(dive)
+            errorbar(mean(dive(j).rms),mean(dive(j).clearingtime),std(dive(j).clearingtime),'o','color',c(j,:))
+            for k = 1:size(dive(j).stops,1)
+                plot(dive(j).rms(k),dive(j).clearingtime(k),'o','color',c(j,:))
+            end
+        end
+        xlabel('Fluke RMS amplitude (rad)'), ylabel('Bout duration (sec)')
     end
 end
+figure(18), adjustfigurefont 
+set(gcf,'position',[ 514    45   880   628],'paperpositionmode','auto')
+print('RMSspeed_all','-dsvg','-r300')
+figure(30), adjustfigurefont
+set(gcf,'position',[ 524    45   880   628],'paperpositionmode','auto')
+print('RMSduration_all','-dsvg','-r300')
 
 
