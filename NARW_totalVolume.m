@@ -5,11 +5,13 @@ figure(10), clf
 allvols = [];
 allbouts = [];
 allvperdive = [];
-allspeeds = []; 
-allrms = []; 
-d = []; % dive counter 
-alldur = []; 
-tagid = []; % tag ID counter 
+allspeeds = [];
+allrms = [];
+d = []; % dive counter
+alldur = [];
+alldepth = [];
+tagid = []; % tag ID counter
+NF = [];
 for i = 1:length(tags)
     tag = tags{i};
     c = get(gca,'colororder'); % get color order
@@ -17,34 +19,39 @@ for i = 1:length(tags)
     
     % import flow speed for the tag
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
-    ddur = T(:,2)-T(:,1); % calculate dive duration 
+    ddur = T(:,2)-T(:,1); % calculate dive duration
     % calculate total volume
-    vperdive = []; % clear it 
+    vperdive = []; % clear it
     for j = 1:length(dive)
         vperdive(j) = sum(dive(j).vperblock);
-        allvperdive(end+1) = vperdive(j); 
+        allvperdive(end+1) = vperdive(j);
         for k = 1:length(dive(j).vperblock)
             if isempty(dive(j).vperblock) ~= 1
                 allvols(end+1,1) = dive(j).vperblock(k); % make massive vector of all volumes
                 allbouts(end+1,1) = dive(j).stops(k,2)-dive(j).stops(k,1); % make massive vector of all durations
                 allspeeds(end+1,1) = dive(j).mnspeedperblock(k); % make massive vector of all speeds
-                allrms(end+1,1) = dive(j).rms(k); % make massive vector of RMS 
-            d(end+1,1) = j; 
-            tagid(end+1,1) = i; 
-            alldur(end+1,1) = ddur(j); 
+                allrms(end+1,1) = dive(j).rms(k); % make massive vector of RMS
+                d(end+1,1) = j;
+                tagid(end+1,1) = i;
             end
         end
+        if isempty(dive(j).vperblock) == 1
+            NF(end+1,1:2) = [j i];
+            
+        end
+        alldur(end+1,1) = ddur(j);
+        alldepth(end+1,1) = T(j,3);
     end
     
     figure(10), subplot(length(tags),1,i), hold on
     if i == 8
         histogram(vperdive(11:end),'binwidth',25,'facecolor',c(tags{i,6},:)) % because missing first 10 dives
-    else 
-    histogram(vperdive,'binwidth',25,'facecolor',c(tags{i,6},:))
+    else
+        histogram(vperdive,'binwidth',25,'facecolor',c(tags{i,6},:))
     end
     ylim([0 10])
-    yl = get(gca,'ylim'); text(50,yl(2)*0.75,strcat('Age   ',num2str(tags{i,6}))) 
-    xlim([0 1050]), 
+    yl = get(gca,'ylim'); text(50,yl(2)*0.75,strcat('Age   ',num2str(tags{i,6})))
+    xlim([0 1050]),
     
 end
 xlabel('Total Volume Filtered (m^3) Per Dive ')
@@ -57,6 +64,8 @@ print('volfiltered_each.png','-dpng','-r300')
 [mean(allbouts) std(allbouts)]
 [mean(allspeeds) std(allspeeds)]
 
-%% 
-tbl = table(allvols, allbouts, allrms, allspeeds, d, tagid);
-fitlme(tbl,'allrms ~ allbouts + (1|tagid)')
+[mean(alldepth) std(alldepth)]
+
+%%
+% tbl = table(allvols, allbouts, allrms, allspeeds, alldur, d, tagid);
+% fitlme(tbl,'allrms ~ allbouts + (1|tagid)')
