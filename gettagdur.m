@@ -3,6 +3,6 @@ function dur = gettagdur(tag)
 % input is tag id 
 % output is duration of sensor data from deployment, in seconds 
 % julie van der Hoop August 2018 
-loadprh(tag,'p','fs)
+loadprh(tag,'p','fs')
 
 dur = length(p)/fs; 
