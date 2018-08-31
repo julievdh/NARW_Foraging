@@ -4,12 +4,13 @@ while reenter == 1
     disp('select start')
     figure(9), temp1 = ginput(1); % click on screen
     % find nearest glide selected by algorithm
-    glind1 = nearest(gl(:,1)/60,temp1(1));
+    glall = vertcat(gl(:,1),gl(:,2)); % all glide indices
+    glind1 = nearest(glall/60,temp1(1));
     plot(gl(glind1,1)/60,0,'go')
     % input end of range
     disp('select end')
     temp2 = ginput(1);
-    glind2 = nearest(gl(:,1)/60,temp2(1));
+    glind2 = nearest(glall/60,temp2(1));
     plot(gl(glind2,1)/60,0,'ro')
     % store
     ct = ct+1;
