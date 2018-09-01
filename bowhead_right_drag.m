@@ -37,14 +37,14 @@ legend('Bowhead, 4.2 m^2 gape', 'Right, 1m^2 gape', 'Right, 2m^2 gape','location
 
 figure(3), clf
 h1 = axes('Color','w','XColor','k','YColor','k',...
-          'YLim',[0 400],'Xlim',[0.5 max(U)],'NextPlot','add');
+          'YLim',[0 450],'Xlim',[0.5 max(U)],'NextPlot','add');
 h2 = axes('Color','none','XColor','k','YColor','k',...
           'YLim',[0 14],'Xlim',[0.5 max(U)],...
-          'Yaxislocation','right',...
+          'Yaxislocation','right','ytick',[0 3 6 9 12],...
           'Xaxislocation','top','xtick',[],'NextPlot','add');
 
 xlabel(h1,'Swimming Speed (m/s)');
-ylabel(h1,'Drag (N)');
+ylabel(h1,'Drag (N); Frontal Area Reference');
 ylabel(h2,'Filtation Rate (m^3/s)');
 
 plot(h1,U,bowhead_drag,'Linewidth',2)
