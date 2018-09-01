@@ -3,7 +3,7 @@
 % calculate dive duration
 figure(18), clf
 ddur = T(:,2)-T(:,1);
-[v,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
+[v,ph] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
 
 if exist('dive','var')
     for j = 1:length(dive)
@@ -23,6 +23,10 @@ if exist('dive','var')
             for k = 1:size(dive(j).stops,1)
                 plot(ph(dive(j).stops(k,1)*fs:dive(j).stops(k,2)*fs))
                 dive(j).rms(k) = rms(ph(dive(j).stops(k,1)*fs:dive(j).stops(k,2)*fs));
+                % find peaks in that section of signal
+                [pks,locs] = findpeaks(ph(dive(j).stops(k,1)*fs:dive(j).stops(k,2)*fs),fs,'minpeakdistance',4);
+                % compute instantaneous fluking rate 
+                dive(j).fsr(k) = 1./mean(diff(locs)); 
                 xlabel('Time (samples)'), ylabel('Pitch Deviation (radians)')
             end
             
