@@ -5,7 +5,7 @@
 Cd = 0.01; 
 % seawater density
 rho = 1025;
-U = 0.5:0.1:2.5; % speeds
+U = 0.5:0.1:3; % speeds
 % drag augmentation factor for oscillation, = 3 as per Frank Fish, pers comm
 k = 1.5;
 % appendages
@@ -15,6 +15,7 @@ g = 1.3;
 bowhead_drag = 0.5*rho*4.23*Cd*U.^2*g*k; 
 right_drag1 = 0.5*rho*1*Cd*U.^2*g*k; 
 right_drag2 = 0.5*rho*2*Cd*U.^2*g*k; 
+data_drag = 0.5*rho.*gapes*Cd.*allspeeds'*g*k; 
 
 figure(1), clf
 hold on 
@@ -36,23 +37,32 @@ legend('Bowhead, 4.2 m^2 gape', 'Right, 1m^2 gape', 'Right, 2m^2 gape','location
 
 figure(3), clf
 h1 = axes('Color','w','XColor','k','YColor','k',...
-          'YLim',[0 300],'Xlim',[0.5 2.5],'NextPlot','add');
+          'YLim',[0 400],'Xlim',[0.5 max(U)],'NextPlot','add');
 h2 = axes('Color','none','XColor','k','YColor','k',...
-          'YLim',[0 12],'Xlim',[0.5 2.5],...
+          'YLim',[0 14],'Xlim',[0.5 max(U)],...
           'Yaxislocation','right',...
-          'Xaxislocation','bottom','NextPlot','add');
+          'Xaxislocation','top','xtick',[],'NextPlot','add');
 
 xlabel(h1,'Swimming Speed (m/s)');
 ylabel(h1,'Drag (N)');
-ylabel(h2,'Filtered Volume (m^3)');
+ylabel(h2,'Filtation Rate (m^3/s)');
 
 plot(h1,U,bowhead_drag,'Linewidth',2)
 plot(h1,U,right_drag1,'Linewidth',2)
 plot(h1,U,right_drag2,'Linewidth',2)
 
-plot(h2,U,4.2*U,'--','LineWidth',2)
-plot(h2,U,1*U,'--','LineWidth',2)
-plot(h2,U,2*U,'--','LineWidth',2)
+bowhead_frate = 4.2*U; % filtration rates of bowhead and rights based on area and swimming speed
+right_frate1 = 1*U; 
+right_frate2 = 2*U; 
+
+plot(h2,U,bowhead_frate,'--','LineWidth',2)
+plot(h2,U,right_frate1,'--','LineWidth',2)
+plot(h2,U,right_frate2,'--','LineWidth',2)
 legend('Bowhead, 4.2 m^2 gape', 'Right, 1m^2 gape', 'Right, 2m^2 gape','location','NW')
 
 adjustfigurefont('Helvetica',14), print('bowhead_right_drag','-dpng')
+
+% values for paper
+
+% plot(h1,allspeeds,data_drag,'o')
+% plot(h2,allspeeds,all_hr_rate/3600,'^')
