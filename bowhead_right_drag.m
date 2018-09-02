@@ -64,5 +64,12 @@ adjustfigurefont('Helvetica',14), print('bowhead_right_drag','-dpng')
 
 % values for paper
 
+% right whale with 1m2 gape filters 3 m^3/s at 3 m/s, drag is X amount more
+% than bowhead filtering that speed 
+right_drag1(end)/bowhead_drag(3);
+right_drag2(find(U==1.5))/bowhead_drag(3);
+
+
 % plot(h1,allspeeds,data_drag,'o')
 % plot(h2,allspeeds,all_hr_rate/3600,'^')
+

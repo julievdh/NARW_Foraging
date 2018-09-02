@@ -107,17 +107,23 @@ ylabel(h2,'Head Width (m), Baleen Length (m)');
 ylabel(h1,'Gape Area (m^2)');
 xlabel(h2,'Body Length (m)');
 
-plot(h1,A2,'color',[123/255 50/255 148/255])
+plot(h1,1:20,A2,'color',[123/255 50/255 148/255])
 % plot(h1,A,'--','color',[123/255 50/255 148/255])
-plot(h1,snt,'color',[0    0.4470    0.7410])
-plot(h1,Blength,'color',[ 0.9290    0.6940    0.1250])
+plot(h1,1:20,snt,'color',[0    0.4470    0.7410])
+plot(h1,1:20,Blength,'color',[ 0.9290    0.6940    0.1250])
 
-plot(h1,1/12,0.68,'o','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
-plot(h1,3.5/12,1.01,'o','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller 
+plot(h1,[1/12 3.5/12 1],[0.68 1.01 snt(1)],'-','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
 
-plot(h1,1/12,(0.68.^2)./2,'o','color',[123/255 50/255 148/255]) % area for calves 
-plot(h1,3.5/12,(1.01.^2)./2,'o','color',[123/255 50/255 148/255]) % are for calves 
+plot(h1,[1/12 3/12 1],[(0.68.^2)./2 (1.01.^2)./2 A2(1)],'-','color',[123/255 50/255 148/255]) % area for calves 
+
+% add size of whales in our study 
+age = [2     3     4     8    19]; % unique([tags{:,6}])
+for n = 1:length(age)
+gapes(n) = getgape(age(n));     
+end
+plot(h1,age,gapes,'o','color',[123/255 50/255 148/255])
+
 
 adjustfigurefont
-print('NARW_gape_length2','-dpng','-r300')
+print('NARW_gape_length2','-dsvg','-r300')
 
