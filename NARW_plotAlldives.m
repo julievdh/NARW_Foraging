@@ -5,6 +5,7 @@ load('NARW_foraging_tags')
 %%
 allddur = nan(10,40); allnstops = nan(10,40);
 mnboutdur = nan(10,40); 
+tagc = viridis(10); % color for tags
 for i = 1:length(tags)
     tag = tags{i};
     loadprh(tag);
@@ -23,23 +24,24 @@ for i = 1:length(tags)
     NARW_FilteredVol
     NARW_plotalldens
     
-    figure(24), hold on
-    for k = 1:length(dive)
-        if isempty(dive(k).vperblock) == 0
-            plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
-        end
-    end
-    xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
+%    figure(24), hold on
+%    for k = 1:length(dive)
+%        if isempty(dive(k).vperblock) == 0
+%            plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
+%        end
+%    end
+%   xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
    
     % plot by time of day
     figure(100), subplot('position',[0.13 1.01-(i*0.095) 0.8 0.08]), hold on, box on
     UTC = tags{i,2}(4:end);
     hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
-    ylim([-200 10]), xlim([9 24])
-    set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0]), plot([0 24],[-50 -50],':','color',[0.5 0.5 0.5])
-    text(9.5,-150,regexprep(tag(3:end),'_','-'))
+    ylim([-200 10]), xlim([9 25.5])
+    set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0]), plot([0 26],[-50 -50],':','color',[0.5 0.5 0.5])
+    set(gca,'xtick',10:2:24)
+    text(9.5,-160,regexprep(tag(3:end),'_','-'))
     if i <= 9, set(gca,'xtick',[]), end
-   
+    
    % figure(101), subplot(length(tags),1,i), hold on, box on
    % plot(t,-p,'k'), ylim([-200 10]), xlim([0 11.7]) % xmax of tags
     
@@ -48,13 +50,13 @@ for i = 1:length(tags)
     for k = 1:size(T,1) % all dives on a tag
         if isempty(dive(k).stops) == 0
             figure(11), subplot(2,2,1), hold on
-            plot(ddur(k)/60,size(dive(k).stops,1),'o')
+            plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:)) % color by tag
             allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
-            xlabel('Dive Duration (min)'), ylabel('Number of fluking bouts')
+            xlabel('Dive Duration (min)'), ylabel('Number of Fluking Bouts')
             subplot(2,2,2), hold on
-            errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o')
+            errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:)) % color by tag
             mnboutdur(i,k) = mean([dive(k).clearingtime]); 
-            xlabel('Dive Duration (min)'), ylabel('Duration of fluking bouts (sec)')
+            xlabel('Dive Duration (min)'), ylabel('Duration of Fluking Bouts (sec)')
         end
         
         
@@ -98,20 +100,25 @@ for i = 1:length(tags)
     plot(t,-p/100,'k')
     
     % pause
-    % save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
+    save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
     if i < 10
         clear p ptrack pitch ph Aw Mw fs % to remove carry-over of variables
     end
 end
 
-figure(11), 
+figure(11), set(gcf,'paperpositionmode','auto')
 subplot(2,2,3), hold on 
 plot(alldepth,allvperdive,'o')
+plot(alldepth(allvperdive<1),allvperdive(allvperdive<1),'o')
 xlabel('Maximum Dive Depth (m)'), ylabel('Total Volume Filtered (m^3)')
 subplot(2,2,4), hold on 
-plot(alldur,allvperdive,'o')
+plot(alldur/60,allvperdive,'o')
+plot(alldur(allvperdive<1)/60,allvperdive(allvperdive<1),'o')
+xlim([5 20]), box off
 xlabel('Dive Duration (sec)'), ylabel('Total Volume Filtered (m^3)')
 
+adjustfigurefont('helvetica',14)
+print('NARW_boutregress.png','-dpng','-r300')
 
 return
 
