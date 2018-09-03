@@ -5,8 +5,15 @@ loadprh(tag)
 pdeg = rad2deg(pitch);
 T = finddives(p,fs,50,1);
 [v,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
+% filter pitch signal to remove fluking 
+f_high = 0.11; 
+[b,a] = butter(4,f_high/fs,'low') ;	% make a 4 'pole' Butterworth bandpass filter
+xf = filter(b,a,pdeg) ;		% apply the filter [b,a] to signal x
+
 hil = abs(hilbert(ph)); % compute hibert transform
 j = njerk(Aw,fs); % compute jerk
+
+
 load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
 %% 
 figure(19), clf, hold on
@@ -34,7 +41,7 @@ for i = [3 5]; % have to make some rule on dive shape
     % plot pitch and pitch deviation in bottom
     [frst,lst] = findbottomtime(pdeg(round(dcue*fs)),fs,1);
     btm = frst:lst; % bottom time in seconds
-    plot(xcue,pdeg(round(dcue*fs)),'color',[ 0    0.4470    0.7410]) % plot pitch through time
+    plot(xcue,pdeg(round(dcue*fs)),'color',[ 0    0.4470    0.7410],'k') % plot pitch through time
     plot(xcue,100+ph(round(dcue*fs))*100,'color',[0.8500    0.3250    0.0980]) % plot pitch deviation through time
     % plot(dcue/60, j(round(dcue*fs))*50-p(round(dcue*fs)),'k') % plot jerk along depth profile
     
@@ -51,4 +58,23 @@ xlim([0 25])
 print([cd '\' tag '_DiveSpeedPitch'],'-dpng')
 % end
 
+
+
+%% figure of glide, hilbert, etc 
+keep tags
+
+ID = 7; tag = tags{ID}; 
+loadprh(tag)
+pdeg = rad2deg(pitch);
+T = finddives(p,fs,50,1);
+[v,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
+hil = abs(hilbert(ph)); % compute hibert transform
+j = njerk(Aw,fs); % compute jerk
+load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
+
+t = (1:length(p))/fs/3600; % compute time vector
+figure(1), clf, hold on 
+plot(hil(4736:8743),'b')
+plot(ph(4736:8743),'r')
+plot(-p(4736:8743)/100,'k')
 
