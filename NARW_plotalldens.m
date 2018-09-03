@@ -12,7 +12,6 @@ if exist('dive','var')
         
         if isempty(dive(j).stops) == 0
             
-            
             subplot(2,2,1), hold on
             dive(j).clearingtime = [dive(j).stops(:,2)-dive(j).stops(:,1)]';
             plot(ddur(j),mean(dive(j).clearingtime),'o','color',c(j,:))

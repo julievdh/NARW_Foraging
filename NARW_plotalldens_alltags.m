@@ -1,8 +1,10 @@
 % NARW_plotalldens
 load('NARW_foraging_tags')
+ct = 0; 
 
 figure(18), clf
-for i = [1:4 6:length(tags)]
+for i = [1 4 7 10]
+    ct = ct+1; % add a counter for subplots 
     tag = tags{i};
     loadprh(tag)
     T = finddives(p,fs,50,1);
@@ -20,7 +22,7 @@ for i = [1:4 6:length(tags)]
             
             if isempty(dive(j).stops) == 0
                 
-                figure(18), subplot(3,4,i), hold on
+                figure(18), subplot(2,2,ct), hold on
                 dive(j).clearingtime = dive(j).stops(:,2)-dive(j).stops(:,1); 
                 % calculate RMS amplitude of pitch deviation per block
                 % subplot(2,2,2), hold on
@@ -29,7 +31,7 @@ for i = [1:4 6:length(tags)]
                     dive(j).rms(k) = rms(ph(dive(j).stops(k,1)*fs:dive(j).stops(k,2)*fs));
                     %   xlabel('Time (samples)'), ylabel('Pitch Deviation (radians)')
                 end
-                
+                xlim([0.9 1.5])
                 % plot mean speed versus RMS
                 if isempty(dive(j).vperblock) ~= 1
                     
@@ -75,10 +77,10 @@ for i = [1:4 6:length(tags)]
 end
 figure(18), adjustfigurefont 
 set(gcf,'position',[ 514    45   880   628],'paperpositionmode','auto')
-print('RMSspeed_all','-dpng','-r300')
+print('RMSspeed_sub','-dpng','-r300')
 figure(30), adjustfigurefont
 set(gcf,'position',[ 524    45   880   628],'paperpositionmode','auto')
-print('RMSduration_all','-dpng','-r300')
+print('RMSduration_sub','-dpng','-r300')
 
 
 % ideally we want to do a linear model here 
