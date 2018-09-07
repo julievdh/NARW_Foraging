@@ -6,7 +6,8 @@ load('NARW_foraging_tags')
 allddur = nan(10,40); allnstops = nan(10,40);
 mnboutdur = nan(10,40); 
 tagc = viridis(10); % color for tags
-for i = 1:length(tags)
+%%
+for i = 1% :length(tags)
     tag = tags{i};
     loadprh(tag);
     
@@ -36,6 +37,13 @@ for i = 1:length(tags)
     figure(100), subplot('position',[0.13 1.01-(i*0.095) 0.8 0.08]), hold on, box on
     UTC = tags{i,2}(4:end);
     hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
+    for j = 1:length(dive)
+        if ~isempty(dive(j).vperblock)
+            plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[T(j,1) T(j,2)]/3600,[-50 -50])
+        end
+    end
+    
+    
     ylim([-200 10]), xlim([9 25.5])
     set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0]), plot([0 26],[-50 -50],':','color',[0.5 0.5 0.5])
     set(gca,'xtick',10:2:24)
@@ -47,47 +55,47 @@ for i = 1:length(tags)
     
     NARW_divepauseplot
     
-    for k = 1:size(T,1) % all dives on a tag
-        if isempty(dive(k).stops) == 0
-            figure(11), subplot(2,2,1), hold on
-            plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:)) % color by tag
-            allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
-            xlabel('Dive Duration (min)'), ylabel('Number of Fluking Bouts')
-            subplot(2,2,2), hold on
-            errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:)) % color by tag
-            mnboutdur(i,k) = mean([dive(k).clearingtime]); 
-            xlabel('Dive Duration (min)'), ylabel('Duration of Fluking Bouts (sec)')
-        end
-        
-        
-        if isempty(dive(k).btm) == 1 && sum(tag ~= 'eg05_210b') ~= 0 % if there's no bottom and if it's not dives 1-11 in this tag
-            % descent speed
-            phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
-            phase_pitch(k,1) = nanmean(rad2deg(pitch((T(k,1):T(k,4))*fs)));
-            % ascent speed
-            phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
-            phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
-        end
-        
-        %   if dive(k).btm > 1
-        %       % descent speed
-        %       phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
-        %       phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
-        %       % ascent speed
-        %       if find(isinf(dive(k).flowEst),1,'last') < 10
-        %           phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
-        %       else
-        %           phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
-        %       end
-        %       phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
-        %       % bottom speed
-        %       phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
-        %   end
-        %   F(k) = isempty(dive(k).btm); % store that
-    end
-    %tags{i,7} = phase_speed;
-    %tags{i,8} = phase_pitch;
-    %tags{i,9} = F;
+%     for k = 1:size(T,1) % all dives on a tag
+%         if isempty(dive(k).stops) == 0
+%             figure(11), subplot(2,2,1), hold on
+%             plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:)) % color by tag
+%             allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
+%             xlabel('Dive Duration (min)'), ylabel('Number of Fluking Bouts')
+%             subplot(2,2,2), hold on
+%             errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:)) % color by tag
+%             mnboutdur(i,k) = mean([dive(k).clearingtime]); 
+%             xlabel('Dive Duration (min)'), ylabel('Duration of Fluking Bouts (sec)')
+%         end
+%         
+%         
+%         if isempty(dive(k).btm) == 1 && sum(tag ~= 'eg05_210b') ~= 0 % if there's no bottom and if it's not dives 1-11 in this tag
+%             % descent speed
+%             phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
+%             phase_pitch(k,1) = nanmean(rad2deg(pitch((T(k,1):T(k,4))*fs)));
+%             % ascent speed
+%             phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
+%             phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
+%         end
+%         
+%           if dive(k).btm > 1
+%               % descent speed
+%               phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
+%               phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
+%               % ascent speed
+%               if find(isinf(dive(k).flowEst),1,'last') < 10
+%                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
+%               else
+%                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
+%               end
+%               phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
+%               % bottom speed
+%               phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
+%           end
+%            F(k) = isempty(dive(k).btm); % store that
+%     end
+%     tags{i,7} = phase_speed;
+%     tags{i,8} = phase_pitch;
+%     tags{i,9} = F;
     
     figure(90), hold on
     plot(T(:,3),1./(ddur/3600),'o')
@@ -102,7 +110,7 @@ for i = 1:length(tags)
     % pause
     save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
     if i < 10
-        clear p ptrack pitch ph Aw Mw fs % to remove carry-over of variables
+        clear p ptrack pitch ph Aw Mw fs phase_speed phase_pitch F % to remove carry-over of variables
     end
 end
 
@@ -115,12 +123,28 @@ subplot(2,2,4), hold on
 plot(alldur/60,allvperdive,'o')
 plot(alldur(allvperdive<1)/60,allvperdive(allvperdive<1),'o')
 xlim([5 20]), box off
-xlabel('Dive Duration (sec)'), ylabel('Total Volume Filtered (m^3)')
+xlabel('Dive Duration (min)'), ylabel('Total Volume Filtered (m^3)')
 
 adjustfigurefont('helvetica',14)
+subplot(2,2,1), text(5.5,18,'A','FontWeight','Bold','FontSize',18)
+subplot(2,2,2), text(5.5,180,'B','FontWeight','Bold','FontSize',18)
+subplot(2,2,3), text(55,1100,'C','FontWeight','Bold','FontSize',18)
+subplot(2,2,4), text(5.5,1100,'D','FontWeight','Bold','FontSize',18)
+
 print('NARW_boutregress.png','-dpng','-r300')
 
 return
+
+% get phase info from structure 
+allphases = []; 
+for i = 1:length(tags)
+    for j = 1:size(tags{i,7},1)
+    allphases(end+1,:) = tags{i,7}(j,:); 
+    end
+end
+% replace anything
+allphases(isinf(allphases)) = NaN;
+std(allphases(allphases(:,3) > 0,3))
 
 %% stats
 lm1 = fitlm(allddur(~isnan(allddur)),allnstops(~isnan(allnstops)))
@@ -139,4 +163,6 @@ print('NARW_alldives_TOD.png','-dpng','-r300')
 % print('NARW_alldives_TSTO.png','-dpng','-r300')
 
 % max(vertcat(tags{:,5}))/60 = longest surface time above 10 m
+
+
 
