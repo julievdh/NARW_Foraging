@@ -7,7 +7,7 @@ allddur = nan(10,40); allnstops = nan(10,40);
 mnboutdur = nan(10,40); 
 tagc = viridis(10); % color for tags
 %%
-for i = 1% :length(tags)
+for i = 1:length(tags)
     tag = tags{i};
     loadprh(tag);
     
@@ -36,17 +36,19 @@ for i = 1% :length(tags)
     % plot by time of day
     figure(100), subplot('position',[0.13 1.01-(i*0.095) 0.8 0.08]), hold on, box on
     UTC = tags{i,2}(4:end);
-    hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
-    for j = 1:length(dive)
+        for j = 1:length(dive)
         if ~isempty(dive(j).vperblock)
-            plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[T(j,1) T(j,2)]/3600,[-50 -50])
+            h1 = patch((UTC(1)+UTC(2)/60+UTC(3)/3600)+[T(j,1) T(j,2) T(j,2) T(j,1) T(j,1)]/3600,[0 0 -198 -198 0],[0.9 0.9 0.9]);
+        h1.EdgeColor = [0.9 0.9 0.9]; 
         end
-    end
+        end
+ 
+        plot([0 26],[-50 -50],':','color',[0.5 0.5 0.5])
     
+    hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
     
     ylim([-200 10]), xlim([9 25.5])
-    set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0]), plot([0 26],[-50 -50],':','color',[0.5 0.5 0.5])
-    set(gca,'xtick',10:2:24)
+    set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0],'xtick',10:2:24)
     text(9.5,-160,regexprep(tag(3:end),'_','-'))
     if i <= 9, set(gca,'xtick',[]), end
     
