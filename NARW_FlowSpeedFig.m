@@ -41,13 +41,13 @@ for i = [3 5]; % have to make some rule on dive shape
     % plot pitch and pitch deviation in bottom
     [frst,lst] = findbottomtime(pdeg(round(dcue*fs)),fs,1);
     btm = frst:lst; % bottom time in seconds
-    plot(xcue,pdeg(round(dcue*fs)),'color',[ 0    0.4470    0.7410],'k') % plot pitch through time
+    plot(xcue',xf(round(dcue*fs)),'color','k','linewidth',2) % plot pitch through time
     plot(xcue,100+ph(round(dcue*fs))*100,'color',[0.8500    0.3250    0.0980]) % plot pitch deviation through time
     % plot(dcue/60, j(round(dcue*fs))*50-p(round(dcue*fs)),'k') % plot jerk along depth profile
     
     % plot detected and selected stops
     if isempty(dive(i).stops) == 0
-        plot((dive(i).stops(:,1)-dcue(1)+60*10)/60,82+zeros(length(dive(i).stops),1),'k^','markersize',10,'markerfacecolor','k') % plot beginning
+        plot((5+dive(i).stops(:,1)-dcue(1)+60*10)/60,82+zeros(length(dive(i).stops),1),'k^','markersize',10,'markerfacecolor','k') % plot beginning
         plot((dive(i).stops(:,2)-dcue(1)+60*10)/60,118+zeros(length(dive(i).stops),1),'kv','markersize',10) % plot ends
     end
 end
@@ -55,7 +55,7 @@ end
 xlabel('Time (min)'), ylabel('        Depth (m)         Pitch (deg)'), ylabel(h, 'Estimated Speed (m/s)')
 adjustfigurefont
 xlim([0 25])
-print([cd '\' tag '_DiveSpeedPitch'],'-dpng')
+print([cd '\' tag '_DiveSpeedPitch'],'-dsvg')
 % end
 
 
