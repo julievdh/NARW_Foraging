@@ -36,9 +36,9 @@ for i = [1 4 7 10]
                 if isempty(dive(j).vperblock) ~= 1
                     
                     %plot(dive(j).mnspeedperblock,dive(j).rms,'o-','color',c(j,:))
-                    errorbar(mean(dive(j).mnspeedperblock),mean(dive(j).rms),std(dive(j).rms),'o','color',c(j,:))
+                    errorbar(mean(dive(j).mnspeedperblock),rad2deg(mean(dive(j).rms)),rad2deg(std(dive(j).rms)),'o','color',c(j,:),'linewidth',1.1)
                 end
-                xlabel('Swimming speed (m/s)'), ylabel('Fluke RMS amplitude (rad)')
+                xlabel('Swimming speed (m/s)'), ylabel('Fluke RMS amplitude (deg)')
                 title(regexprep(tag,'_',' '))
             end
             % calculate time to next foraging dive
@@ -77,12 +77,17 @@ for i = [1 4 7 10]
 end
 figure(18), adjustfigurefont 
 set(gcf,'position',[ 514    45   880   628],'paperpositionmode','auto')
+subplot(2,2,1), yl = get(gca,'ylim'); text(0.93,yl(1)+diff(yl)*0.9,'A','FontWeight','Bold','FontSize',18)
+subplot(2,2,2), yl = get(gca,'ylim'); text(0.93,yl(1)+diff(yl)*0.9,'B','FontWeight','Bold','FontSize',18)
+subplot(2,2,3), yl = get(gca,'ylim'); text(0.93,yl(1)+diff(yl)*0.9,'C','FontWeight','Bold','FontSize',18)
+subplot(2,2,4), yl = get(gca,'ylim'); text(0.93,yl(1)+diff(yl)*0.9,'D','FontWeight','Bold','FontSize',18)
 print('RMSspeed_sub','-dpng','-r300')
-figure(30), adjustfigurefont
-set(gcf,'position',[ 524    45   880   628],'paperpositionmode','auto')
-print('RMSduration_sub','-dpng','-r300')
+
+%figure(30), adjustfigurefont
+%set(gcf,'position',[ 524    45   880   628],'paperpositionmode','auto')
+%print('RMSduration_sub','-dpng','-r300')
 
 
 % ideally we want to do a linear model here 
-% 
+% fitlm(allspeeds,allrms)
 
