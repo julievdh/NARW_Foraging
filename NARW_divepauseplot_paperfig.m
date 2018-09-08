@@ -1,19 +1,21 @@
+% Figure 6 in MS 
+
 figure(19), clf, hold on
-h3 = axes('position',[0.06 0.1 0.5 0.65],'Color','w','XColor','k','YColor','k',...
-    'YLim',[-150 100],'Xlim',[0 9200],'NextPlot','add','xtick',[]);
-h4 = axes('position',[0.06 0.1 0.5 0.65],'Color','none','XColor','k','YColor','k',...
-    'YLim',[-1.5*2 1*2],'Xlim',[0 9200],'NextPlot','add',...
-    'xtick',[],'ytick',[-1:0.5:1],...
+h4 = axes('position',[0.06 0.1 0.5 0.65],'Color','w','XColor','k','YColor','k',...
+    'YLim',[-140 90],'Xlim',[0 9200],'NextPlot','add',...
+    'xtick',[],'ytick',[-20:20:20],...
     'Yaxislocation','right');
-plot(h4, t*3600,ph,'color',[0.8500    0.3250    0.0980],'Linewidth',1.5)
-ylabel(h4,'                    Pitch (rad)')
+h3 = axes('position',[0.06 0.1 0.5 0.65],'Color','none','XColor','k','YColor','k',...
+    'YLim',[-150 100],'Xlim',[0 9200],'NextPlot','add');
+plot(h4, t*3600,rad2deg(ph),'color','k','Linewidth',1.5)
+ylabel(h4,'                    Pitch (deg)')
 plot(h3, t*3600,-p,'color',[0.7 0.7 0.7],'linewidth',2)
 subplot('position',[0.68 0.1 0.3 0.8]), hold on
 plot3(ptrack(:,1),ptrack(:,2),-p,'color',[0.5 0.5 0.5],'linewidth',2)
 h1 = axes('position',[0.06 0.75 0.5 0.2],'Color','w','XColor','k','YColor','k',...
     'YLim',[0 120],'Xlim',[0 9200],'NextPlot','add','xtick',[]);
 h2 = axes('position',[0.06 0.75 0.5 0.2],'color','none','XColor','k','YColor','k',...
-                'YLim',[0 0.2],'Xlim',[0 9200],...
+                'YLim',[0 10],'Xlim',[0 9200],...
                 'Yaxislocation','right',...
                 'Xaxislocation','top','NextPlot','add');
 
@@ -39,7 +41,7 @@ if exist('dive','var') == 1
         if isempty(dive(j).stops) ~= 1
             errorbar(h1,T(j,1),mean(dive(j).stops(:,2)-dive(j).stops(:,1)),std(dive(j).stops(:,2)-dive(j).stops(:,1)),'bo','markerfacecolor','b');
             plot(h1, dive(j).stops(:,2),dive(j).stops(:,2)-dive(j).stops(:,1),'.-','color',[0.7 0.7 1],'linewidth',2) % add stop duration
-            plot(h2, dive(j).stops(:,1),dive(j).rms(:),'.-','color','k','linewidth',2)
+            plot(h2, dive(j).stops(:,1),rad2deg(dive(j).rms(:)),'.-','color','k','linewidth',2)
         end
         if exist('ptrack','var')
             subplot('position',[0.68 0.1 0.3 0.8]), hold on
@@ -56,12 +58,12 @@ title(regexprep(tag,'_',' '))
 set(gcf,'position',[70 83 1309 560],'paperpositionmode','auto')
 
 set(h3, 'ytick',[-150:50:50 80],'yticklabels',{'150','100','50','0','50','80'})
-xlabel(h3, 'Time (seconds)'), ylabel(h3, '                        Depth (m)        Volume Filtered (m^3)     ')
+xlabel(h3, 'Time (seconds)'), ylabel(h3, '                        Depth (m)        Volume filtered (m^3)     ')
 subplot('position',[0.68 0.1 0.3 0.8]), hold on
 xlabel('Easting (m)'), ylabel('Northing (m)')
 axis square 
 
-ylabel(h1,'Bout Duration (sec)'), ylabel(h2,'RMS (rad)')
+ylabel(h1,'Bout duration (sec)'), ylabel(h2,'RMS (deg)')
 
 adjustfigurefont('Helvetica',14)
 
