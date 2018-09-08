@@ -58,12 +58,12 @@ NPRW = [10.777474	0.39463958
 18.331057	1.9995272]; 
 
 figure(21), clf, hold on 
-plot(bodylength,platelength,'v')
-plot(NPRW(:,1),NPRW(:,2),'^')
-plot(Antarctic(:,1),Antarctic(:,2),'o')
+plot(bodylength,platelength,'v','linewidth',1)
+plot(NPRW(:,1),NPRW(:,2),'^','linewidth',1)
+plot(Antarctic(:,1),Antarctic(:,2),'o','linewidth',1)
 
-xlabel('Body Length (m)')
-ylabel('Longest Baleen Plate Length (m)')
+xlabel('Body length (m)')
+ylabel('Length of longest baleen plate (m)')
 adjustfigurefont 
 
 allBlength = vertcat(bodylength',NPRW(:,1),Antarctic(:,1));
@@ -71,7 +71,6 @@ allPlength = vertcat(platelength',NPRW(:,2),Antarctic(:,2));
 
 ft = fitlm(allBlength,allPlength); % fit the model 
 
-adjustfigurefont
 print('NPRW_SRW_baleenlength','-dpng','-r300')
 
 %% apply the model for body lengths 
