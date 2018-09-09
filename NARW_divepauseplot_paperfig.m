@@ -1,7 +1,7 @@
 % Figure 6 in MS 
 
 figure(19), clf, hold on
-h4 = axes('position',[0.06 0.1 0.5 0.65],'Color','w','XColor','k','YColor','k',...
+h4 = axes('position',[0.06 0.1 0.5 0.65],'Color','none','XColor','k','YColor','k',...
     'YLim',[-140 90],'Xlim',[0 9200],'NextPlot','add',...
     'xtick',[],'ytick',[-20:20:20],...
     'Yaxislocation','right');
@@ -12,7 +12,7 @@ ylabel(h4,'                    Pitch (deg)')
 plot(h3, t*3600,-p,'color',[0.7 0.7 0.7],'linewidth',2)
 subplot('position',[0.68 0.1 0.3 0.8]), hold on
 plot3(ptrack(:,1),ptrack(:,2),-p,'color',[0.5 0.5 0.5],'linewidth',2)
-h1 = axes('position',[0.06 0.75 0.5 0.2],'Color','w','XColor','k','YColor','k',...
+h1 = axes('position',[0.06 0.75 0.5 0.2],'Color','none','XColor','k','YColor','k',...
     'YLim',[0 120],'Xlim',[0 9200],'NextPlot','add','xtick',[]);
 h2 = axes('position',[0.06 0.75 0.5 0.2],'color','none','XColor','k','YColor','k',...
                 'YLim',[0 10],'Xlim',[0 9200],...
@@ -50,7 +50,7 @@ if exist('dive','var') == 1
         
     end
 end
-title(regexprep(tag,'_',' '))
+title(regexprep(tag(3:end),'_','-'))
 %xlabel('Time (seconds)')
 %ylabel('Depth (m)')
 
@@ -67,6 +67,9 @@ ylabel(h1,'Bout duration (sec)'), ylabel(h2,'RMS (deg)')
 
 adjustfigurefont('Helvetica',14)
 
+text(-350,-90,'C','FontSize',18,'FontWeight','Bold')
+text(-3650,-280,'B','FontSize',18,'FontWeight','Bold')
+text(-3650,170,'A','FontSize',18,'FontWeight','Bold')
 
 print([tag 'dive_vol_pause.png'],'-dpng','-r300')
 
