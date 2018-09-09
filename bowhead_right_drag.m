@@ -15,7 +15,7 @@ g = 1.3;
 bowhead_drag = 0.5*rho*4.23*Cd*U.^2*g*k; 
 right_drag1 = 0.5*rho*1*Cd*U.^2*g*k; 
 right_drag2 = 0.5*rho*2*Cd*U.^2*g*k; 
-data_drag = 0.5*rho.*gapes*Cd.*allspeeds'*g*k; 
+% data_drag = 0.5*rho.*gapes*Cd.*allspeeds'*g*k; 
 
 figure(1), clf
 hold on 
