@@ -1,10 +1,11 @@
 % list of deployments
-close all
+close all, warning off
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
+% 7 is playback start/end time; 000000 = no playbacks
 %%
 allddur = nan(10,40); allnstops = nan(10,40);
-mnboutdur = nan(10,40); 
+mnboutdur = nan(10,40);
 tagc = viridis(10); % color for tags
 %%
 for i = 1:length(tags)
@@ -14,7 +15,7 @@ for i = 1:length(tags)
     % cut depth to time of tag off
     %p = p(1:tags{i,3});
     t = (1:length(p))/fs/3600; % compute time vector
-       
+    
     % how many dives > 50 m
     T = finddives(p,fs,50,1);
     ddur = T(:,2)-T(:,1); % calculate duration of all dives
@@ -25,79 +26,88 @@ for i = 1:length(tags)
     NARW_FilteredVol
     NARW_plotalldens
     
-%    figure(24), hold on
-%    for k = 1:length(dive)
-%        if isempty(dive(k).vperblock) == 0
-%            plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
-%        end
-%    end
-%   xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
-   
+    %    figure(24), hold on
+    %    for k = 1:length(dive)
+    %        if isempty(dive(k).vperblock) == 0
+    %            plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
+    %        end
+    %    end
+    %   xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
+    
     % plot by time of day
     figure(100), subplot('position',[0.13 1.01-(i*0.095) 0.8 0.08]), hold on, box on
     UTC = tags{i,2}(4:end);
-        for j = 1:length(dive)
+    % add sunrise and sunset
+    [sun_rise,sun_set] = sunRiseSet(44.55,-66.4,-4,datestr(datenum(tags{i,2}(1:3))));
+    sr = str2num(sun_rise(1:2))+str2num(sun_rise(4:5))/60+str2num(sun_rise(7:8))/3600;
+    ss = str2num(sun_set(1:2))+str2num(sun_set(4:5))/60+str2num(sun_set(7:8))/3600;
+    h1 = patch([ss 25.5 25.5 ss ss],[8 8 -198 -198 0],[0.7 0.7 0.7]);
+    h1.EdgeColor = [0.7 0.7 0.7]; h1.FaceAlpha = 0.7; h1.EdgeAlpha = 0.5;
+    for j = 1:length(dive)
         if ~isempty(dive(j).vperblock)
-            h1 = patch((UTC(1)+UTC(2)/60+UTC(3)/3600)+[T(j,1) T(j,2) T(j,2) T(j,1) T(j,1)]/3600,[0 0 -198 -198 0],[0.9 0.9 0.9]);
-        h1.EdgeColor = [0.9 0.9 0.9]; 
+            dcue = T(j,1):T(j,2); % time in seconds
+            plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+(T(j,1):T(j,2))/3600,-p(round(dcue*fs)),'r','linewidth',3)
         end
-        end
- 
-        plot([0 26],[-50 -50],':','color',[0.5 0.5 0.5])
+    end
+    
+    plot([0 26],[-50 -50],':','color',[0.5 0.5 0.5])
     
     hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
+    
+    % add playback info
+    for pb = 1:size(tags{i,7},1)
+    plot([tags{i,7}(pb,1)+tags{i,7}(pb,2)/60+tags{i,7}(pb,3)/3600 tags{i,7}(pb,4)+tags{i,7}(pb,5)/60+tags{i,7}(pb,6)/3600],[-50 -50],'b','Linewidth',4)
+    end
+    
     
     ylim([-200 10]), xlim([9 25.5])
     set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0],'xtick',10:2:24)
     text(9.5,-160,regexprep(tag(3:end),'_','-'))
     if i <= 9, set(gca,'xtick',[]), end
+     
+    % NARW_divepauseplot
     
-   % figure(101), subplot(length(tags),1,i), hold on, box on
-   % plot(t,-p,'k'), ylim([-200 10]), xlim([0 11.7]) % xmax of tags
-    
-    NARW_divepauseplot
-    
-%     for k = 1:size(T,1) % all dives on a tag
-%         if isempty(dive(k).stops) == 0
-%             figure(11), subplot(2,2,1), hold on
-%             plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:)) % color by tag
-%             allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
-%             xlabel('Dive Duration (min)'), ylabel('Number of Fluking Bouts')
-%             subplot(2,2,2), hold on
-%             errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:)) % color by tag
-%             mnboutdur(i,k) = mean([dive(k).clearingtime]); 
-%             xlabel('Dive Duration (min)'), ylabel('Duration of Fluking Bouts (sec)')
-%         end
-%         
-%         
-%         if isempty(dive(k).btm) == 1 && sum(tag ~= 'eg05_210b') ~= 0 % if there's no bottom and if it's not dives 1-11 in this tag
-%             % descent speed
-%             phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
-%             phase_pitch(k,1) = nanmean(rad2deg(pitch((T(k,1):T(k,4))*fs)));
-%             % ascent speed
-%             phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
-%             phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
-%         end
-%         
-%           if dive(k).btm > 1
-%               % descent speed
-%               phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
-%               phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
-%               % ascent speed
-%               if find(isinf(dive(k).flowEst),1,'last') < 10
-%                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
-%               else
-%                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
-%               end
-%               phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
-%               % bottom speed
-%               phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
-%           end
-%            F(k) = isempty(dive(k).btm); % store that
-%     end
-%     tags{i,7} = phase_speed;
-%     tags{i,8} = phase_pitch;
-%     tags{i,9} = F;
+    for k = 1:size(T,1) % all dives on a tag
+        if isempty(dive(k).stops) == 0
+            figure(11), subplot(2,2,1), hold on
+            plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:)) % color by tag
+            allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
+            xlabel('Dive duration (min)'), ylabel('Number of fluking bouts')
+            subplot(2,2,2), hold on
+            errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:)) % color by tag
+            mnboutdur(i,k) = mean([dive(k).clearingtime]);
+            xlabel('Dive duration (min)'), ylabel('Duration of fluking bouts (sec)')
+        end
+    end
+    %
+    %         if isempty(dive(k).btm) == 1 && sum(tag ~= 'eg05_210b') ~= 0 % if there's no bottom and if it's not dives 1-11 in this tag
+    %             % descent speed
+    %             phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
+    %             phase_pitch(k,1) = nanmean(rad2deg(pitch((T(k,1):T(k,4))*fs)));
+    %             % ascent speed
+    %             phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
+    %             phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
+    %         end
+    %
+    %           if dive(k).btm > 1
+    %               % descent speed
+    %               phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
+    %               phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
+    %               % ascent speed
+    %               if find(isinf(dive(k).flowEst),1,'last') < 10
+    %                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
+    %               else
+    %                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
+    %               end
+    %               phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
+    %               % bottom speed
+    %               phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
+    %           end
+    %            F(k) = isempty(dive(k).btm); % store that
+    %     end
+    %     tags{i,7} = phase_speed;
+    %     tags{i,8} = phase_pitch;
+    %     tags{i,9} = F;
     
     figure(90), hold on
     plot(T(:,3),1./(ddur/3600),'o')
@@ -116,32 +126,37 @@ for i = 1:length(tags)
     end
 end
 
+figure(100), xlabel('Local Time'), adjustfigurefont
+set(gcf,'position',[323 61 512 612],'paperpositionmode','auto')
+print('NARW_alldives_TOD_PB.png','-dpng','-r300')
+
 figure(11), set(gcf,'paperpositionmode','auto')
-subplot(2,2,3), hold on 
-plot(alldepth,allvperdive,'o')
-plot(alldepth(allvperdive<1),allvperdive(allvperdive<1),'o')
-xlabel('Maximum Dive Depth (m)'), ylabel('Total Volume Filtered (m^3)')
-subplot(2,2,4), hold on 
-plot(alldur/60,allvperdive,'o')
-plot(alldur(allvperdive<1)/60,allvperdive(allvperdive<1),'o')
-xlim([5 20]), box off
-xlabel('Dive Duration (min)'), ylabel('Total Volume Filtered (m^3)')
+subplot(2,2,3), hold on
+plot(alldepth,allvperdive,'ro')
+plot(alldepth(allvperdive<1),allvperdive(allvperdive<1),'ko')
+ylim([0 1200]), xlim([0 200])
+xlabel('Maximum dive depth (m)'), ylabel('Total volume filtered (m^3)')
+subplot(2,2,4), hold on
+plot(alldur/60,allvperdive,'ro')
+plot(alldur(allvperdive<1)/60,allvperdive(allvperdive<1),'ko')
+xlim([5 20]), ylim([0 1200]), box off
+xlabel('Dive duration (min)'), ylabel('Total volume filtered (m^3)')
 
 adjustfigurefont('helvetica',14)
 subplot(2,2,1), text(5.5,18,'A','FontWeight','Bold','FontSize',18)
 subplot(2,2,2), text(5.5,180,'B','FontWeight','Bold','FontSize',18)
-subplot(2,2,3), text(55,1100,'C','FontWeight','Bold','FontSize',18)
+subplot(2,2,3), text(8,1100,'C','FontWeight','Bold','FontSize',18)
 subplot(2,2,4), text(5.5,1100,'D','FontWeight','Bold','FontSize',18)
 
 print('NARW_boutregress.png','-dpng','-r300')
 
 return
 
-% get phase info from structure 
-allphases = []; 
+% get phase info from structure
+allphases = [];
 for i = 1:length(tags)
     for j = 1:size(tags{i,7},1)
-    allphases(end+1,:) = tags{i,7}(j,:); 
+        allphases(end+1,:) = tags{i,7}(j,:);
     end
 end
 % replace anything
@@ -156,9 +171,6 @@ lm2 = fitlm(allddur(~isnan(allddur)),mnboutdur(~isnan(mnboutdur)))
 plot(lm2)
 
 
-figure(100), xlabel('Local Time'), adjustfigurefont
-set(gcf,'position',[323 61 512 612],'paperpositionmode','auto')
-print('NARW_alldives_TOD.png','-dpng','-r300')
 
 % figure(101), xlabel('Hours since tag on'), adjustfigurefont
 % set(gcf,'position',[323 61 512 612],'paperpositionmode','auto')
