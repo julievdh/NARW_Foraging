@@ -14,12 +14,8 @@ for i = 1:length(tags)
     loadprh(tag);
     
     % cut depth to time of tag off
-    %p = p(1:tags{i,3});
     t = (1:length(p))/fs/3600; % compute time vector
     
-    % how many dives > 50 m
-    T = finddives(p,fs,50,1);
-    ddur = T(:,2)-T(:,1); % calculate duration of all dives
     
     % import flow speed for the tag
     %     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
@@ -37,7 +33,7 @@ for i = 1:length(tags)
     
     % plot by time of day
     figure(100),
-    subplot('position',[0.13 1.01-(i*0.11) 0.8 0.08]), hold on, box on
+    subplot('position',[0.13 1.01-(i*0.11) 0.85 0.08]), hold on, box on
     UTC = tags{i,2}(4:end);
     % add sunrise and sunset
     [sun_rise,sun_set] = sunRiseSet(44.55,-66.4,-4,datestr(datenum(tags{i,2}(1:3))));
@@ -48,8 +44,6 @@ for i = 1:length(tags)
     
     plot([0 30],[-50 -50],':','color',[0.8 0.8 0.8])
     
-    hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
-    
     % add playback info
     for pb = 1:size(tags{i,7},1)
         pbstart = tags{i,7}(pb,1)+tags{i,7}(pb,2)/60+tags{i,7}(pb,3)/3600; 
@@ -59,22 +53,30 @@ for i = 1:length(tags)
             % calculate time left in recording after playback
             tagend = datevec(addtodate(datenum(tags{i,2}),length(p)/fs,'second'));
             ttend(i) = etime(tagend,[tags{i,2}(1:3) tags{i,7}(end,4:6)])/3600; % time from end playback to end of recording in hours
-            astart = 2+tags{i,7}(end,4)+tags{i,7}(end,5)/60+tags{i,7}(end,6)/3600; % analysis start time
+            astart = 2+(tags{i,7}(end,4)+tags{i,7}(end,5)/60+tags{i,7}(end,6)/3600); % analysis start time: 2h after playback end
             plot([astart astart],[-200 10],'r:')
             % analysis start cue = 2h after playback end
-            astartcue = addtodate(datenum([tags{i,2}(1:3) tags{i,7}(end,4:6)]),2,'hour'); 
+            astartcue = (astart-(tags{i,2}(4)+tags{i,2}(5)/60+tags{i,2}(6)/3600))*3600*fs;
             tags{i,8} = astartcue; 
+        else astartcue = 1;
         end
     end
-    % put this here but only after astartcue 
-    % for j = 1:length(dive)
-    %         if ~isempty(dive(j).vperblock)
-    %             dcue = T(j,1):T(j,2); % time in seconds
-    %             plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+(T(j,1):T(j,2))/3600,-p(round(dcue*fs)),'r','linewidth',3)
-    %         end
-    %     end
-    %
     
+    % how many dives > 50 m
+    T = finddives(p,fs,50,1);
+    T = T(find(T(:,1) > astartcue/fs),:); % keep T after start cue only 
+    ddur = T(:,2)-T(:,1); % calculate duration of all dives
+    
+    % put this here but only after astartcue 
+    for j = 1:size(T,1)
+    %         if ~isempty(dive(j).vperblock)
+                dcue = T(j,1):T(j,2); % time in seconds
+                 plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+(T(j,1):T(j,2))/3600,-p(round(dcue*fs)),'r','linewidth',3)
+    %         end
+        end
+    
+    % plot actual dive profile on top 
+    hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
     
     
     ylim([-200 10]), xlim([8.5 30.5])
@@ -144,7 +146,9 @@ for i = 1:length(tags)
 end
 
 
-figure(100), xlabel('Local Time'), adjustfigurefont
+figure(100), 
+xlabel('Local Time'), [ax1,ha] = suplabel('Depth (m)','y');  
+adjustfigurefont
 set(gcf,'position',[323 145 1038 528],'paperpositionmode','auto')
 print('NARW_alldives_TOD_PB.png','-dpng','-r300')
 
