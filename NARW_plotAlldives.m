@@ -1,5 +1,5 @@
 % list of deployments
-close all, warning off
+clear, close all, warning off
 % tags is deployment name, time of tag on, cue of tag off
 load('NARW_foraging_tags')
 % 7 is playback start/end time; 000000 = no playbacks
@@ -14,23 +14,11 @@ for i = 1:length(tags)
     loadprh(tag);
     
     % cut depth to time of tag off
-    t = (1:length(p))/fs/3600; % compute time vector
-    
-    
-    % import flow speed for the tag
-    %     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
-    %
-    %     NARW_FilteredVol
-    %     NARW_plotalldens
-    %
-    %    figure(24), hold on
-    %    for k = 1:length(dive)
-    %        if isempty(dive(k).vperblock) == 0
-    %            plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
-    %        end
-    %    end
-    %   xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
-    
+    t = (1:length(p))/fs/3600; % compute time vector in hours
+   
+    % import flow speed -- make sure this is based on non-PB dives
+    load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
+   
     % plot by time of day
     figure(100),
     subplot('position',[0.13 1.01-(i*0.11) 0.85 0.08]), hold on, box on
@@ -64,11 +52,11 @@ for i = 1:length(tags)
     
     % how many dives > 50 m
     T = finddives(p,fs,50,1);
-    T = T(find(T(:,1) > astartcue/fs),:); % keep T after start cue only 
+    d2after = find(T(:,1) > astartcue/fs); % find T after start cue only 
     ddur = T(:,2)-T(:,1); % calculate duration of all dives
     
     % put this here but only after astartcue 
-    for j = 1:size(T,1)
+    for j = d2after'
     %         if ~isempty(dive(j).vperblock)
                 dcue = T(j,1):T(j,2); % time in seconds
                  plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+(T(j,1):T(j,2))/3600,-p(round(dcue*fs)),'r','linewidth',3)
@@ -77,12 +65,23 @@ for i = 1:length(tags)
     
     % plot actual dive profile on top 
     hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
-    
-    
+   
     ylim([-200 10]), xlim([8.5 30.5])
     set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0],'xtick',10:2:30,'xticklabels',[10:2:24 2:2:6])
     text(28,-160,regexprep(tag(3:end),'_','-'))
     if i < length(tags), set(gca,'xtick',[]), end
+    
+    %%
+         NARW_FilteredVol
+    %     NARW_plotalldens
+    %
+    %    figure(24), hold on
+    %    for k = 1:length(dive)
+    %        if isempty(dive(k).vperblock) == 0
+    %            plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
+    %        end
+    %    end
+    %   xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
     
     % NARW_divepauseplot
     
