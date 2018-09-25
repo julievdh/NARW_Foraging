@@ -3,10 +3,10 @@
 % plot time versus volume
 figure(6), clf
 set(gcf,'position',[4   289   793   384])
-% for a dive
-for k = 1:size(T,1);
+% for all dives 2 h after playback end
+for k = d2after';
     dcue = T(k,1):T(k,2); % cues for that dive
-    
+   
     c = viridis(size(T,1)); % color dive number
     % dive(k).btm(1) is the first at depth, so descent is until then
     figure(6),
@@ -27,18 +27,26 @@ for k = 1:size(T,1);
     plot(-p(round(dcue*fs)),'color',c(k,:))
     
     % plot total volume filtered and dive duration
-    subplot('position',[0.5 0.1 0.2 0.8]), hold on
-    ylim([0 1000])
-    xlabel('Dive Duration (sec)'), ylabel('Volume Filtered (m^3)')
-    
+
     if isempty(dive(k).vperblock) == 0
-        plot(T(k,2)-T(k,1),sum(dive(k).vperblock(1:j)),'o','color',c(k,:))
+        plot(T(k,2)-T(k,1),sum(dive(k).vperblock(1:j)),'ko','markerfacecolor',c(k,:))
     else if isempty(dive(k).btm) == 1
-            plot(T(k,2)-T(k,1),0,'o','color',c(k,:))
+            plot(T(k,2)-T(k,1),0,'ko','markerfacecolor',c(k,:))
         end
     end
+    
+    subplot('position',[0.5 0.1 0.2 0.8]), hold on
+    if isempty(dive(k).vperblock) == 0
+        errorbar(T(k,2)-T(k,1),mean(dive(k).stops(:,2)-dive(k).stops(:,1)),std(dive(k).stops(:,2)-dive(k).stops(:,1)),'ko','markerfacecolor',c(k,:))
+    else if isempty(dive(k).btm) == 1
+            plot(T(k,2)-T(k,1),0,'ko','markerfacecolor',c(k,:))
+        end
+    end
+    xlabel('Dive Duration (sec)'), ylabel('Duration of Fluking Bouts (sec)')
+    
+    
     subplot('position',[0.75 0.1 0.2 0.8]), hold on % plot duration vs. number of stops
-    plot(ddur(k),size(dive(k).stops,1),'o','color',c(k,:))
+    plot(ddur(k),size(dive(k).stops,1),'ko','markerfacecolor',c(k,:))
     ylim([0 11])
     xlabel('Dive Duration (sec)'), ylabel('Number of bouts')
     
@@ -53,6 +61,7 @@ end
 adjustfigurefont
 
 return
+
 
 %% travel time versus foraging time
 figure(3), hold on
