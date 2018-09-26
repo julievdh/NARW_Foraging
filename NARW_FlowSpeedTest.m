@@ -4,6 +4,7 @@
 clear
 
 load('NARW_foraging_tags') % let's make this more straightforward
+% HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED 
 ID = 7; 
 tag = tags{ID}; 
 loadprh(tag,'p','fs','Aw','Mw','pitch');
@@ -55,7 +56,7 @@ load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.m
 % save(strcat('C:/tag/tagdata/',tag,'_flowspeed'),'medFN','spd','medpitch','T','p','pitch','fs')
 %%
 figure(4), clf, hold on
-th = 50;
+th = 30;
 plot(log10(medFN(medpitch > th)),abs(spd(medpitch > th)),'o') % ascents
 plot(log10(medFN(medpitch < -th)),abs(spd(medpitch < -th)),'o') % descents
 ylabel('Speed (m/s)'), xlabel('Log_1_0(Median Flow Noise)')
@@ -87,7 +88,7 @@ plot(logselFN,selspeed,'o')
 
 % myfit = fittype('a+b*20*log10(x)','dependent',{'y'},'independent',{'x'},'coefficients',{'a','b'});
 %[c,g] = fit(logselFN,selspeed,'poly1','robust','LAR')
-[c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.1 Inf Inf],'robust','LAR')
+[c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.15 Inf Inf],'robust','LAR')
 figure(4),
 plot(c)
 
@@ -103,11 +104,12 @@ end
 %%
 figure(10), clf
 figure(299), clf
-for i = 1:size(T,1); % have to make some rule on dive shape
+d2after = 1:5; 
+for i = d2after; 
     %%
     flowEst = feval(c,log10(medFN(i,:))); % 1 Hz speed estimate from flow sound
-    %figure(8)
-    %plot(flowEst)
+    figure(4)
+    plot(log10(medFN(i,:)),flowEst,'.')
     
     figure(9), clf, hold on % for this example
     dcue = T(i,1):T(i,2); % time in seconds
@@ -143,8 +145,10 @@ for i = 1:size(T,1); % have to make some rule on dive shape
             gl = gl(:,1)+ dcue(btm(1)); % for consistency with other method
         end
         
-        gl = findglides([dcue(btm(1)) dcue(btm(end))],fs,ph);
+        gl = findglides([dcue(btm(1)) dcue(btm(end))],fs,ph,2);
         hold on, plot(gl(:,1)/60,zeros(length(gl(:,1)),1),'k*') % plot detected glides
+        plot(gl(:,2)/60,zeros(length(gl(:,1)),1),'k.') % plot detected glides
+        
         
         % pick out starts/stops from detected glides and save them
         stops = [];
@@ -155,8 +159,9 @@ for i = 1:size(T,1); % have to make some rule on dive shape
             stops = dive(i).stops;
         end
         if isempty(stops) == 0
-            plot(stops(:,2)/60,zeros(length(stops(:,2)),1),'r*') % plot selected stops
+            plot(stops(:,2)/60,zeros(length(stops(:,2)),1)+1,'r*') % plot selected stops
             plot(stops(:,1)/60,zeros(length(stops(:,2)),1),'g*')
+            plot([stops(:,1)/60 stops(:,2)/60],[0 5])
             
             %[pks,locs] = findpeaks(ph(dcue*fs),fs,'minpeakprominence',0.02);
             %plot(dcue(locs*fs),pks,'ko')
@@ -183,6 +188,9 @@ for i = 1:size(T,1); % have to make some rule on dive shape
             
             % store/plot values
             stops = sort(stops);
+            del = find(stops(:,2)-stops(:,1) < 3); 
+            stops(del,:) = []; % delete those (they're input errors)
+                        
             dive(i).stops = stops;
             % block duration
             figure(299), subplot(221), hold on
@@ -212,5 +220,5 @@ end
 
 
 % append stops to file
-save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
+save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','c','g','-append')
 

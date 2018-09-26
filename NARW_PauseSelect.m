@@ -6,15 +6,15 @@ while reenter == 1
     % find nearest glide selected by algorithm
     glall = vertcat(gl(:,1),gl(:,2)); % all glide indices
     glind1 = nearest(glall/60,temp1(1));
-    plot(gl(glind1,1)/60,0,'go')
+    plot(glall(glind1,1)/60,0,'go')
     % input end of range
     disp('select end')
     temp2 = ginput(1);
     glind2 = nearest(glall/60,temp2(1));
-    plot(gl(glind2,1)/60,0,'ro')
+    plot(glall(glind2,1)/60,0,'ro')
     % store
     ct = ct+1;
-    stops(ct,:) = [gl(glind1,1) gl(glind2,1)];
+    stops(ct,:) = [glall(glind1) glall(glind2)];
     % want to enter another?
     reenter = input('select another: 1 or 0? or 2 for final, 3 for other ');
     % end

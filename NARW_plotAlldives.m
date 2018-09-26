@@ -16,7 +16,7 @@ for i = 1:length(tags)
     % cut depth to time of tag off
     t = (1:length(p))/fs/3600; % compute time vector in hours
    
-    % import flow speed -- make sure this is based on non-PB dives
+    % import flow speed -- updated 25 Sept 2018
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
    
     % plot by time of day
@@ -73,17 +73,17 @@ for i = 1:length(tags)
     
     %%
          NARW_FilteredVol
-    %     NARW_plotalldens
-    %
-    %    figure(24), hold on
-    %    for k = 1:length(dive)
-    %        if isempty(dive(k).vperblock) == 0
-    %            plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
-    %        end
-    %    end
-    %   xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
+         NARW_plotalldens
     
-    % NARW_divepauseplot
+       figure(24), hold on
+       for k = 1:length(dive)
+           if isempty(dive(k).vperblock) == 0
+               plot(dive(k).stops(:,2)-dive(k).stops(:,1),dive(k).vperblock,'o')
+           end
+       end
+      xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
+    
+    NARW_divepauseplot
     
     %     for k = 1:size(T,1) % all dives on a tag
     %         if isempty(dive(k).stops) == 0
