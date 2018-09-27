@@ -14,17 +14,17 @@ alldur = []; % all dive durations
 alldepth = []; % all dive depths
 tagid = []; % tag ID counter
 NF = []; % non-foraging dives
-for i = 1:length(tags)
-    tag = tags{i};
-    c = get(gca,'colororder'); % get color order
-    c = repmat(c,ceil(max([tags{:,6}])/size(c,1)),1);    % repeat color order for number of dives
+for i = 1:size(tags,1)
+    tag = tags{i,1};
+    col = get(gca,'colororder'); % get color order
+    col = repmat(col,ceil(max([tags{:,6}])/size(col,1)),1);    % repeat color order for number of dives
     
     % import flow speed for the tag
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
     ddur = T(:,2)-T(:,1); % calculate dive duration
     % calculate total volume
     vperdive = []; % clear it
-    for j = 1:length(dive)
+    for j = tags{i,9}' % over the dives in the analysis portion 
         vperdive(j) = sum(dive(j).vperblock);
         allvperdive(end+1) = vperdive(j);
         for k = 1:length(dive(j).vperblock)
@@ -48,22 +48,22 @@ for i = 1:length(tags)
         alldepth(end+1,1) = T(j,3);
     end
     
-    figure(10), subplot('position',[0.13 1.0-(i*0.095) 0.8 0.08]), hold on, box off
-    if i == 8
-        histogram(vperdive(11:end),'binwidth',25,'facecolor',c(tags{i,6},:)) % because missing first 10 dives
-    else
-        histogram(vperdive,'binwidth',25,'facecolor',c(tags{i,6},:))
-    end
+    figure(10), subplot('position',[0.13 1.0-(i*0.11) 0.85 0.08]), hold on, box off
+    
+    histogram(vperdive(tags{i,9}),'binwidth',25,'facecolor',col(tags{i,6},:))
     ylim([0 10])
     yl = get(gca,'ylim'); text(50,yl(2)*0.85,strcat('Age   ',num2str(tags{i,6})))
     text(50,yl(2)*0.65,regexprep(tag(3:end),'_','-'))
-    xlim([0 1050]),
-    if i <= 9, set(gca,'xtick',[]), end
+    
+    xlim([0 2000]),
+    if i < length(tags), set(gca,'xtick',[]), end
 end
 xlabel('Total Volume Filtered (m^3) Per Dive ')
 adjustfigurefont
 set(gcf,'position',[13     5   512   668],'paperpositionmode','auto')
 print('volfiltered_each.png','-dpng','-r300')
+
+return 
 
 NF = NF([1:17 28:31],:); % because first 10 dives of tag 8 are foraging dives but just don't have sound
 allvperdive = allvperdive([1:117 128:end]); 
