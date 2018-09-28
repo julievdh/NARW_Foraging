@@ -4,12 +4,13 @@ clear, close all, warning off
 load('NARW_foraging_tags')
 % 7 is playback start/end time; 000000 = no playbacks
 % 8 is analysis start time (2h after end last playback)
+% 9 is dives to analyze 
 %%
 allddur = nan(10,40); allnstops = nan(10,40);
 mnboutdur = nan(10,40);
 tagc = viridis(10); % color for tags
 %%
-for i = 1:length(tags)
+for i = 1:size(tags,1)
     tag = tags{i};
     loadprh(tag);
     
@@ -21,7 +22,7 @@ for i = 1:length(tags)
    
     % plot by time of day
     figure(100),
-    subplot('position',[0.13 1.01-(i*0.11) 0.85 0.08]), hold on, box on
+    subplot('position',[0.13 1.01-(tags{i,13}*0.11) 0.85 0.08]), hold on, box on
     UTC = tags{i,2}(4:end);
     % add sunrise and sunset
     [sun_rise,sun_set] = sunRiseSet(44.55,-66.4,-4,datestr(datenum(tags{i,2}(1:3))));
@@ -53,14 +54,16 @@ for i = 1:length(tags)
     % how many dives > 50 m
     T = finddives(p,fs,50,1);
     d2after = find(T(:,1) > astartcue/fs); % find T after start cue only 
+    if i == 7, d2after = d2after(1:end-1); end 
+    tags{i,9} = d2after; % store 
     ddur = T(:,2)-T(:,1); % calculate duration of all dives
     
     % put this here but only after astartcue 
     for j = d2after'
-    %         if ~isempty(dive(j).vperblock)
+            if ~isempty(dive(j).vperblock)
                 dcue = T(j,1):T(j,2); % time in seconds
                  plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+(T(j,1):T(j,2))/3600,-p(round(dcue*fs)),'r','linewidth',3)
-    %         end
+           end
         end
     
     % plot actual dive profile on top 
@@ -69,6 +72,7 @@ for i = 1:length(tags)
     ylim([-200 10]), xlim([8.5 30.5])
     set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0],'xtick',10:2:30,'xticklabels',[10:2:24 2:2:6])
     text(28,-160,regexprep(tag(3:end),'_','-'))
+    text(29,-160,['n = ' num2str(size(tags{i,9},1))])
     if i < length(tags), set(gca,'xtick',[]), end
     
     %%
@@ -85,7 +89,7 @@ for i = 1:length(tags)
     
     NARW_divepauseplot
     
-    %     for k = 1:size(T,1) % all dives on a tag
+         for k = tags{i,9}' % all dives in analysis 
     %         if isempty(dive(k).stops) == 0
     %             figure(11), subplot(2,2,1), hold on
     %             plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:)) % color by tag
@@ -98,34 +102,34 @@ for i = 1:length(tags)
     %         end
     %     end
     %     %
-    %         if isempty(dive(k).btm) == 1 && sum(tag ~= 'eg05_210b') ~= 0 % if there's no bottom and if it's not dives 1-11 in this tag
-    %             % descent speed
-    %             phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
-    %             phase_pitch(k,1) = nanmean(rad2deg(pitch((T(k,1):T(k,4))*fs)));
-    %             % ascent speed
-    %             phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
-    %             phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
-    %         end
-    %
-    %           if dive(k).btm > 1
-    %               % descent speed
-    %               phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
-    %               phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
-    %               % ascent speed
-    %               if find(isinf(dive(k).flowEst),1,'last') < 10
-    %                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
-    %               else
-    %                   phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
-    %               end
-    %               phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
-    %               % bottom speed
-    %               phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
-    %           end
-    %            F(k) = isempty(dive(k).btm); % store that
-    %     end
-    %     tags{i,7} = phase_speed;
-    %     tags{i,8} = phase_pitch;
-    %     tags{i,9} = F;
+            if isempty(dive(k).vperblock) == 1 
+                % descent speed
+                phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
+                phase_pitch(k,1) = nanmean(rad2deg(pitch((T(k,1):T(k,4))*fs)));
+                % ascent speed
+                phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
+                phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
+            end
+    
+          if dive(k).vperblock > 1
+                  % descent speed
+                  phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
+                  phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
+                  % ascent speed
+                  if find(isinf(dive(k).flowEst),1,'last') < 10
+                      phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
+                  else
+                      phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
+                  end
+                  phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
+                  % bottom speed
+                  phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
+              end
+               F(k) = isempty(dive(k).vperblock); % store that
+        end
+         tags{i,10} = phase_speed;
+         tags{i,11} = phase_pitch;
+         tags{i,12} = F;
     
     %     figure(90), hold on
     %     plot(T(:,3),1./(ddur/3600),'o')
@@ -138,7 +142,7 @@ for i = 1:length(tags)
     %     plot(t,-p/100,'k')
     %
     %     % pause
-    %     save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
+         save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
     if i < length(tags)
         clear p ptrack pitch ph Aw Mw fs phase_speed phase_pitch F % to remove carry-over of variables
     end
@@ -176,15 +180,20 @@ print('NARW_boutregress.png','-dpng','-r300')
 return
 
 % get phase info from structure
-allphases = [];
-for i = 1:length(tags)
-    for j = 1:size(tags{i,7},1)
-        allphases(end+1,:) = tags{i,7}(j,:);
+allphase_speed = []; allphase_pitch = []; allF = []; 
+for i = 1:size(tags,1)
+    for j = 1:size(tags{i,10},1)
+        allphase_speed(end+1,:) = tags{i,10}(j,:);
+        allphase_pitch(end+1,:) = tags{i,11}(j,:); 
+        allF(end+1) = tags{i,12}(j); % this one isn't working
     end
 end
 % replace anything
-allphases(isinf(allphases)) = NaN;
-std(allphases(allphases(:,3) > 0,3))
+allphase_speed(allphase_speed == 0) = NaN; 
+allphase_pitch(allphase_pitch == 0) = NaN; 
+% nanmean(allphase_pitch(allF == 1,:))
+% nanmean(allphase_pitch(allF == 0,:))
+
 
 %% stats
 lm1 = fitlm(allddur(~isnan(allddur)),allnstops(~isnan(allnstops)))
