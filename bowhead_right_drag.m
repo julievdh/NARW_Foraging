@@ -11,7 +11,7 @@ k = 1.5;
 % appendages
 g = 1.3;
 
-
+%%
 bowhead_drag = 0.5*rho*4.23*Cd*U.^2*g*k; 
 right_drag1 = 0.5*rho*1*Cd*U.^2*g*k; 
 right_drag2 = 0.5*rho*2*Cd*U.^2*g*k; 
@@ -73,3 +73,28 @@ right_drag2(find(U==1.5))/bowhead_drag(3);
 % plot(h1,allspeeds,data_drag,'o')
 % plot(h2,allspeeds,all_hr_rate/3600,'^')
 
+%% sharks
+whaleshark_drag = 0.5*rho*0.1*Cd*U.^2*g*k; 
+basking_drag = 0.5*rho*0.4*Cd*U.^2*g*k;
+
+% figure(3), clf
+% h1 = axes('Color','w','XColor','k','YColor','k',...
+%           'YLim',[0 450],'Xlim',[0.5 max(U)],'NextPlot','add');
+% h2 = axes('Color','none','XColor','k','YColor','k',...
+%           'YLim',[0 14],'Xlim',[0.5 max(U)],...
+%           'Yaxislocation','right','ytick',[0 3 6 9 12],...
+%           'Xaxislocation','top','xtick',[],'NextPlot','add');
+
+% xlabel(h1,'Swimming Speed (m/s)');
+% ylabel(h1,'Drag (N); Frontal Area Reference');
+% ylabel(h2,'Filtation Rate (m^3/s)');
+
+plot(h1,U,whaleshark_drag,'Linewidth',2)
+plot(h1,U,basking_drag,'Linewidth',2)
+
+whaleshark_frate = 0.1*U; % filtration rates of bowhead and rights based on area and swimming speed
+basking_frate = 0.4*U; 
+
+plot(h2,U,whaleshark_frate,'--','LineWidth',2)
+plot(h2,U,basking_frate,'--','LineWidth',2)
+legend('Whale Shark', 'Basking Shark','location','NW')
