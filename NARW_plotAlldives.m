@@ -20,9 +20,12 @@ for i = 1:size(tags,1)
     % import flow speed -- updated 25 Sept 2018
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
    
+    % flow speed fit
+    gof(i,:) = [g.rsquare g.rmse]; 
+    
     % plot by time of day
     figure(100),
-    subplot('position',[0.13 1.01-(tags{i,13}*0.11) 0.85 0.08]), hold on, box on
+    subplot('position',[0.13 1.01-(tags{i,13}*0.11) 0.86 0.09]), hold on, box on
     UTC = tags{i,2}(4:end);
     % add sunrise and sunset
     [sun_rise,sun_set] = sunRiseSet(44.55,-66.4,-4,datestr(datenum(tags{i,2}(1:3))));
@@ -69,11 +72,11 @@ for i = 1:size(tags,1)
     % plot actual dive profile on top 
     hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
    
-    ylim([-200 10]), xlim([8.5 30.5])
+    ylim([-200 1]), xlim([8.5 30.5])
     set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0],'xtick',10:2:30,'xticklabels',[10:2:24 2:2:6])
-    text(28,-160,regexprep(tag(3:end),'_','-'))
-    text(29,-160,['n = ' num2str(size(tags{i,9},1))])
-    if i < length(tags), set(gca,'xtick',[]), end
+    text(28,-160,regexprep(tag(3:end),'_','-'),'FontSize',12)
+    text(29.3,-160,['n = ' num2str(size(tags{i,9},1))],'FontSize',12)
+    if tags{i,13} < size(tags,1), set(gca,'xtick',[]), end 
     
     %%
          NARW_FilteredVol
@@ -90,16 +93,16 @@ for i = 1:size(tags,1)
     NARW_divepauseplot
     
          for k = tags{i,9}' % all dives in analysis 
-    %         if isempty(dive(k).stops) == 0
-    %             figure(11), subplot(2,2,1), hold on
-    %             plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:)) % color by tag
-    %             allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
-    %             xlabel('Dive duration (min)'), ylabel('Number of fluking bouts')
-    %             subplot(2,2,2), hold on
-    %             errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:)) % color by tag
-    %             mnboutdur(i,k) = mean([dive(k).clearingtime]);
-    %             xlabel('Dive duration (min)'), ylabel('Duration of fluking bouts (sec)')
-    %         end
+            if isempty(dive(k).stops) == 0
+                figure(11), subplot(2,2,1), hold on
+                plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:),'linewidth',1.5) % color by tag
+                allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
+                xlabel('Dive duration (min)'), ylabel('Number of fluking bouts')
+                subplot(2,2,2), hold on
+                errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:),'linewidth',1.5) % color by tag
+                mnboutdur(i,k) = mean([dive(k).clearingtime]);
+                xlabel('Dive duration (min)'), ylabel('Fluking bout duration (sec)')
+            end
     %     end
     %     %
             if isempty(dive(k).vperblock) == 1 
@@ -143,15 +146,15 @@ for i = 1:size(tags,1)
     %
     %     % pause
          save(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'],'dive','-append')
-    if i < length(tags)
+    if i < size(tags,1)
         clear p ptrack pitch ph Aw Mw fs phase_speed phase_pitch F % to remove carry-over of variables
     end
 end
 
 
 figure(100), 
-xlabel('Local Time'), [ax1,ha] = suplabel('Depth (m)','y');  
-adjustfigurefont
+[ax1,ha] = suplabel('Local Time','x'); [ax1,ha] = suplabel('Depth (m)','y');  
+adjustfigurefont('Helvetica',16)
 set(gcf,'position',[323 145 1038 528],'paperpositionmode','auto')
 print('NARW_alldives_TOD_PB.png','-dpng','-r300')
 
@@ -159,19 +162,19 @@ return
 
 figure(11), set(gcf,'paperpositionmode','auto')
 subplot(2,2,3), hold on
-plot(alldepth,allvperdive,'ro')
-plot(alldepth(allvperdive<1),allvperdive(allvperdive<1),'ko')
+plot(alldepth,allvperdive,'ro','linewidth',1.5)
+plot(alldepth(allvperdive<1),allvperdive(allvperdive<1),'ko','linewidth',1.5)
 ylim([0 1200]), xlim([0 200])
 xlabel('Maximum dive depth (m)'), ylabel('Total volume filtered (m^3)')
 subplot(2,2,4), hold on
-plot(alldur/60,allvperdive,'ro')
-plot(alldur(allvperdive<1)/60,allvperdive(allvperdive<1),'ko')
+h = plot(alldur/60,allvperdive,'ro','linewidth',1.5); 
+plot(alldur(allvperdive<1)/60,allvperdive(allvperdive<1),'ko','linewidth',1.5)
 xlim([5 20]), ylim([0 1200]), box off
 xlabel('Dive duration (min)'), ylabel('Total volume filtered (m^3)')
 
 adjustfigurefont('helvetica',14)
-subplot(2,2,1), text(5.5,18,'A','FontWeight','Bold','FontSize',18)
-subplot(2,2,2), text(5.5,180,'B','FontWeight','Bold','FontSize',18)
+subplot(2,2,1), text(5.5,13.5,'A','FontWeight','Bold','FontSize',18), ylim([0 15])
+subplot(2,2,2), text(5.5,135,'B','FontWeight','Bold','FontSize',18)
 subplot(2,2,3), text(8,1100,'C','FontWeight','Bold','FontSize',18)
 subplot(2,2,4), text(5.5,1100,'D','FontWeight','Bold','FontSize',18)
 
@@ -196,19 +199,9 @@ allphase_pitch(allphase_pitch == 0) = NaN;
 
 
 %% stats
-lm1 = fitlm(allddur(~isnan(allddur)),allnstops(~isnan(allnstops)))
+lm1 = fitlm(allddur(~isnan(allddur)),allnstops(~isnan(allnstops))) % dive duration and number of pauses 
 plot(lm1)
 
-lm2 = fitlm(allddur(~isnan(allddur)),mnboutdur(~isnan(mnboutdur)))
+lm2 = fitlm(allddur(~isnan(allddur)),mnboutdur(~isnan(mnboutdur))) % bout duration and dive duration 
 plot(lm2)
-
-
-
-% figure(101), xlabel('Hours since tag on'), adjustfigurefont
-% set(gcf,'position',[323 61 512 612],'paperpositionmode','auto')
-% print('NARW_alldives_TSTO.png','-dpng','-r300')
-
-% max(vertcat(tags{:,5}))/60 = longest surface time above 10 m
-
-
 
