@@ -180,6 +180,7 @@ subplot(2,2,4), text(5.5,1100,'D','FontWeight','Bold','FontSize',18)
 
 print('NARW_boutregress.png','-dpng','-r300')
 
+lm_depth = fitlm(alldepth(allvperdive > 1),allvperdive(allvperdive > 1)); 
 return
 
 % get phase info from structure
