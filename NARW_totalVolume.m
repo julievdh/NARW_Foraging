@@ -114,16 +114,52 @@ view([-39.2000   13.2000])
 
 print('NARW_3dFiltVol.png','-dpng','-r300')
 
+%% dive duration and time spent foraging 
+figure(2), clf, set(gcf,'position',[176 289 1107 384],'paperpositionmode','auto')
+subplot(131),
+h = scatter(alldur/60,allvperdive,50,gapes,'filled','markeredgecolor','k'); alpha(h,0.5)
+xlabel('Dive duration (min)'), ylabel('Total volume filtered (m^3)'), xlim([4 20]) 
+axletter(gca,'A')
+h = colorbar('position',[0.05 0.11 0.01 0.815]); 
+ylabel(h,'Gape area (m^2)')
 
-%% proportional depth figure
-figure(111), clf, hold on 
-col = viridis(17); % ages 2 to 18
-for i = 1:length(allprop)
-plot(allprop(i,:),[alldepth(i) alldepth(i)],'color',col(tags{tagid2(i),6}-1,:))
+subplot(132)
+h = scatter(alldur.*(allprop(:,2)-allprop(:,1))/60,allvperdive,50,gapes,'filled','markeredgecolor','k'); alpha(h,0.5)
+xlabel('Bottom duration (min)'), ylabel('Total volume filtered (m^3)'), 
+adjustfigurefont('Helvetica',14), xlim([0 15])
+axletter(gca,'B')
+
+subplot(133), hold on 
+for i = 1:length(alldepth)
+    h = plot([alldepth(i) alldepth(i)],[allprop(i,1) allprop(i,2)],'k'); alpha(h,0.7)
+h = scatter(alldepth(i),allprop(i,2)-allprop(i,1),50,gapes(i),'filled','markeredgecolor','k'); 
 end
-ylim([95 180])
-xlabel('Proportion of dive cycle foraging'), ylabel('Maximum Dive Depth (m)')
+xlabel('Depth (m)'), ylabel('Proportion of dive')
+axletter(gca,'C')
 adjustfigurefont('Helvetica',14)
+print('NARW_DiveProportion.png','-dpng','-r300')
+%%
+lm1 = fitlm(alldepth,allprop(:,1)) 
+
+lm2 = fitlm(alldepth,allprop(:,2)) % all depth versus bottom proportion end
+
+lm3 = fitlm(alldepth,allprop(:,2)-allprop(:,1)) % all depth versus bottom proportion end
+
+% get effect sizes with: h = plotEffects(lm1)
+%% 
+X = [allbtmspeed' gapes' alldur.*(allprop(:,2)-allprop(:,1))];
+lm_vol = fitlm(X,allvperdive)
+figure
+plotEffects(lm_vol) 
+%% proportional depth figure
+% figure(111), clf, hold on 
+% col = viridis(17); % ages 2 to 18
+% for i = 1:length(allprop)
+% plot(allprop(i,:),[alldepth(i) alldepth(i)],'color',col(tags{tagid2(i),6}-1,:))
+% end
+% ylim([95 180])
+% xlabel('Proportion of dive cycle foraging'), ylabel('Maximum Dive Depth (m)')
+% adjustfigurefont('Helvetica',14)
 %%
 % tbl = table(allvols, allbouts, allrms, allspeeds, alldur, d, tagid);
 % fitlme(tbl,'allrms ~ allbouts + (1|tagid)')
@@ -139,7 +175,7 @@ return
 mean(alldur(allvperdive > 1)) % mean dive duration in seconds
 dbd_vrate = allvperdive./(alldur'/3600); % dive-by-dive filtration rate (m^3/h)
 [mean(dbd_vrate(allvperdive > 1)) std(dbd_vrate(allvperdive > 1))]/3600
-for i = 1:length(tags)
+for i = 1:size(tags,1)
     dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{1})/3600);
 end
 [min(dep_filtrate) max(dep_filtrate)]
@@ -148,7 +184,7 @@ for i = 1:length(allspeeds)
     all_hr_rate(:,i) = allspeeds(i)*gape*3600; % filtration rate of all (m3/h)
     gapes(:,i) = gape;
 end
-[mean(all_hr_rate) std(all_hr_rate)]/3600
+[mean(all_hr_rate) std(all_hr_rate)]/3600 % in m/s
 
 % fluke stroke rate
 [nanmean(allfsr) nanstd(allfsr)]
@@ -160,6 +196,7 @@ for i = 1:length(tags)
     figure(9), hold on
     errorbar(tags{i,6}+rand(1),mean(allbouts(tagid == i)),std(allbouts(tagid == i)))
 end
+
 
 %% bouts per dive statistics
 % % set nans first
