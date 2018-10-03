@@ -90,7 +90,7 @@ for i = 1:size(tags,1)
        end
       xlabel('Duration of fluking bout (sec)'), ylabel('Volume filtered m^3')
     
-    NARW_divepauseplot
+%     NARW_divepauseplot
     
          for k = tags{i,9}' % all dives in analysis 
             if isempty(dive(k).stops) == 0
