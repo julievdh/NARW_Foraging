@@ -1,7 +1,9 @@
-function gapearea = getgape(age) 
-%
-%
-%
+function [gapearea,lnth] = getgape(age) 
+% get estimated gape area for NARW of a given age
+% input: age of animal
+% outputs:
+%      gape: area in m^2
+%      lnth: length estimate from Moore et al. 2004 in m
 
 % estimate length of whale from age (Moore et al. 2004)
 lnth = (1011.033+320.501*log10(age))/100; % in m 
