@@ -53,22 +53,48 @@ subplot('position',[0.65 0.1 0.3 0.8]), hold on
 xlabel('Easting (m)'), ylabel('Northing (m)')
 
 print([tag 'dive_vol_pause.png'],'-dpng','-r300')
-
+return 
 
 %% look at individual dive shapes
-for j = 14:d2after(end)
+sb = 0; 
+figure(3), clf, 
+for j = [9 10 11 12]
+    sb = sb+1; % subplot counter
     dcue = T(j,1):T(j,2); % seconds in dive
-    figure(3), clf, hold on
-    plot3(ptrack(round(dcue*fs),1),ptrack(round(dcue*fs),2),-p(round(dcue*fs)),'color',c(j,:),'linewidth',3)
-    plot3(ptrack(round(dcue*fs),1),ptrack(round(dcue*fs),2),ph(round(dcue*fs))*50-p(round(dcue*fs)),'k')
+
+    subplot(2,2,sb), 
+    hold on
+    % plot3(ptrack(round(dcue*fs),1),ptrack(round(dcue*fs),2),-p(round(dcue*fs)),'color',c(j,:),'linewidth',3)
+%     tort = tortuosity(ptrack(round(dcue*fs),:),fs,1);
+%     xx = [ptrack(dcue(1:fs:end)*fs,1) ptrack(dcue(1:fs:end)*fs,1)]; % x coords, downsampled
+%     yy = [ptrack(dcue(1:fs:end)*fs,2) ptrack(dcue(1:fs:end)*fs,2)]; % y coords, downsampled
+%     zz = [-p(dcue(1:fs:end)*fs) -p(dcue(1:fs:end)*fs)];
+%     cc = [tort(:,1) tort(:,1)];
+%     hs = surf(xx,yy,zz,cc,'EdgeColor','Interp','LineWidth',3);
+%     % view(2), colorbar, caxis([0 1])
+    % center at zero
+    startpt = ptrack(round(dcue(1)*fs),:); 
+    plot3(ptrack(round(dcue*fs),1)-startpt(1),ptrack(round(dcue*fs),2)-startpt(2),-p(round(dcue*fs)),'color',c(j,:),'linewidth',3)
+    hold on, plot3(ptrack(round(dcue(1)*fs),1)-startpt(1),ptrack(round(dcue(1)*fs),2)-startpt(2),-p(round(dcue(1)*fs)),'kv','markerfacecolor','k','MarkerSize',10)
+    plot3(ptrack(round(dcue(end)*fs),1)-startpt(1),ptrack(round(dcue(end)*fs),2)-startpt(2),-p(round(dcue(end)*fs)),'k^','markerfacecolor','k','MarkerSize',10)
+
+    plot3(ptrack(round(dcue*fs),1)-startpt(1),ptrack(round(dcue*fs),2)-startpt(2),ph(round(dcue*fs))*50-p(round(dcue*fs)),'k')
     if isempty(dive(j).stops) == 0
         for k = 1:length(dive(j).stops)
-        plot3(ptrack(round(dive(j).stops(k,1)*fs),1),ptrack(round(dive(j).stops(k,1)*fs),2),-p(round(dive(j).stops(k,1)*fs))+8,'kv')
+        plot3(ptrack(round(dive(j).stops(k,1)*fs),1)-startpt(1),ptrack(round(dive(j).stops(k,1)*fs),2)-startpt(2),-p(round(dive(j).stops(k,1)*fs))+8,'kv')
         end
     end
-    title(j)
-    view([17 27]), grid on, pause
+    view([17 27]), grid on, % pause
+    xlabel('Easting (m)'), ylabel('Northing (m)'), zlabel('Depth (m)')
+    % text(1.66E4,200,num2str(sum(dive(j).vperblock)))
 end
-
-
-    
+!
+adjustfigurefont('Helvetica',14)
+subplot(221), xlim([-250 250]), ylim([0 500]), zlim([-150 10]), title('A','FontSize',18,'FontWeight','bold')
+axletter(gca,[num2str(round(sum(dive(9).vperblock),0)) ' m^3'],14,0.95)
+subplot(222), xlim([-100 400]), ylim([-400 100]), zlim([-150 10]), title('B','FontSize',18,'FontWeight','bold')
+axletter(gca,[num2str(round(sum(dive(10).vperblock),0)) ' m^3'],14,0.95)
+subplot(223), xlim([-150 350]), ylim([-350 150 ]), zlim([-150 10]), title('C','FontSize',18,'FontWeight','bold') 
+axletter(gca,[num2str(round(sum(dive(11).vperblock),0)) ' m^3'],14,0.95)
+subplot(224), xlim([-450 50]), ylim([-150 350]), zlim([-150 10]), title('D','FontSize',18,'FontWeight','bold')
+axletter(gca,[num2str(round(sum(dive(12).vperblock),0)) ' m^3'],14,0.95)
