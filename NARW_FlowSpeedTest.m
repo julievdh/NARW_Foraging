@@ -5,7 +5,7 @@ clear
 
 load('NARW_foraging_tags') % let's make this more straightforward
 % HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED 
-ID = 7; 
+ID = 4; 
 tag = tags{ID}; 
 loadprh(tag,'p','fs','Aw','Mw','pitch');
 
@@ -90,8 +90,14 @@ plot(logselFN,selspeed,'o')
 %[c,g] = fit(logselFN,selspeed,'poly1','robust','LAR')
 [c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.15 Inf Inf],'robust','LAR')
 figure(4),
-plot(c)
-
+plot(c,'k'), legend off
+ci = predint(c,linspace(min(logselFN),max(logselFN),100));
+plot(linspace(min(logselFN),max(logselFN),100),ci,'k--')
+ylabel('Vertical speed (m/s)'), xlabel('log(Flow Noise)'), adjustfigurefont('Helvetica',14)
+axletter(gca,['R^2 = ' num2str(round(g.rsquare,2))],14)
+axletter(gca,['RMSE = ' num2str(round(g.rmse,2)) ' m/s'],14,0.05,0.85)
+set(gcf,'paperpositionmode','auto')
+% print('NARW_FlowNoise_SuppFig.png','-dpng','-r300')
 %% apply
 % calculate pitch
 [~,ph] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]);
@@ -104,7 +110,7 @@ end
 %%
 figure(10), clf
 figure(299), clf
-d2after = 1:5; 
+d2after = 21:22; 
 for i = d2after; 
     %%
     flowEst = feval(c,log10(medFN(i,:))); % 1 Hz speed estimate from flow sound
