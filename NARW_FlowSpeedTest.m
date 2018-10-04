@@ -57,8 +57,8 @@ load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.m
 %%
 figure(4), clf, hold on
 th = 30;
-plot(log10(medFN(medpitch > th)),abs(spd(medpitch > th)),'o') % ascents
-plot(log10(medFN(medpitch < -th)),abs(spd(medpitch < -th)),'o') % descents
+plot(log10(medFN(medpitch > th)),abs(spd(medpitch > th)),'o','LineWidth',1.5) % ascents
+plot(log10(medFN(medpitch < -th)),abs(spd(medpitch < -th)),'o','LineWidth',1.5) % descents
 ylabel('Speed (m/s)'), xlabel('Log_1_0(Median Flow Noise)')
 
 figure(5), clf, hold on
@@ -90,10 +90,10 @@ plot(logselFN,selspeed,'o')
 %[c,g] = fit(logselFN,selspeed,'poly1','robust','LAR')
 [c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.15 Inf Inf],'robust','LAR')
 figure(4),
-plot(c,'k'), legend off
+h = plot(c,'k'); h.LineWidth = 2;  legend off
 ci = predint(c,linspace(min(logselFN),max(logselFN),100));
-plot(linspace(min(logselFN),max(logselFN),100),ci,'k--')
-ylabel('Vertical speed (m/s)'), xlabel('log(Flow Noise)'), adjustfigurefont('Helvetica',14)
+plot(linspace(min(logselFN),max(logselFN),100),ci,'k--','LineWidth',2)
+ylabel('Vertical speed (m/s)'), xlabel('Log_1_0(Flow noise)'), adjustfigurefont('Helvetica',14)
 axletter(gca,['R^2 = ' num2str(round(g.rsquare,2))],14)
 axletter(gca,['RMSE = ' num2str(round(g.rmse,2)) ' m/s'],14,0.05,0.85)
 set(gcf,'paperpositionmode','auto')
