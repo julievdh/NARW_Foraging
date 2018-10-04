@@ -93,6 +93,7 @@ for i = 1:size(tags,1)
 %     NARW_divepauseplot
     
          for k = tags{i,9}' % all dives in analysis 
+            dcue = T(k,1):T(k,2); % cues for that dive
             if isempty(dive(k).stops) == 0
                 figure(11), subplot(2,2,1), hold on
                 plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:),'linewidth',1.5) % color by tag
@@ -118,6 +119,8 @@ for i = 1:size(tags,1)
                   % descent speed
                   phase_speed(k,1) = nanmean(dive(k).flowEst(5:dive(k).btm(1)));
                   phase_pitch(k,1) = mean(rad2deg(pitch(round(dcue(1:dive(k).btm(1))*fs))));
+                  [pks,locs] = findpeaks(ph(round(dcue(1:dive(k).btm(1))*fs)),fs,'minpeakdistance',0.8,'minpeakprominence',0.05);
+                  phase_fsr(k,1) = 1./mean(diff(locs))/fs;
                   % ascent speed
                   if find(isinf(dive(k).flowEst),1,'last') < 10
                       phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):end));
@@ -125,14 +128,21 @@ for i = 1:size(tags,1)
                       phase_speed(k,2) = nanmean(dive(k).flowEst(dive(k).btm(end):find(isinf(dive(k).flowEst(5:end)) == 1,1,'first')));
                   end
                   phase_pitch(k,2) = mean(rad2deg(pitch(round(dcue(dive(k).btm(end):end)*fs))));
+                  [pks,locs] = findpeaks(ph(round(dcue(dive(k).btm(end):end)*fs)),fs,'minpeakdistance',0.8,'minpeakprominence',0.05);
+                  phase_fsr(k,2) = 1./mean(diff(locs))/fs;
+                 
                   % bottom speed
                   phase_speed(k,3) = nanmean(dive(k).flowEst(dive(k).btm));
+                  [pks,locs] = findpeaks(ph(round(dcue(dive(k).btm)*fs)),fs,'minpeakdistance',0.8,'minpeakprominence',0.05);
+                  phase_fsr(k,3) = 1./mean(diff(locs))/fs;
+                 
               end
                F(k) = isempty(dive(k).vperblock); % store that
         end
          tags{i,10} = phase_speed;
          tags{i,11} = phase_pitch;
          tags{i,12} = F;
+         tags{i,13} = phase_fsr; 
     
     %     figure(90), hold on
     %     plot(T(:,3),1./(ddur/3600),'o')
@@ -184,17 +194,19 @@ lm_depth = fitlm(alldepth(allvperdive > 1),allvperdive(allvperdive > 1));
 return
 
 % get phase info from structure
-allphase_speed = []; allphase_pitch = []; allF = []; 
+allphase_speed = []; allphase_pitch = []; allF = []; allphase_fsr = [];  
 for i = 1:size(tags,1)
     for j = 1:size(tags{i,10},1)
         allphase_speed(end+1,:) = tags{i,10}(j,:);
         allphase_pitch(end+1,:) = tags{i,11}(j,:); 
+        allphase_fsr(end+1,:) = tags{i,13}(j,:); 
         allF(end+1) = tags{i,12}(j); % this one isn't working
     end
 end
 % replace anything
 allphase_speed(allphase_speed == 0) = NaN; 
 allphase_pitch(allphase_pitch == 0) = NaN; 
+allphase_fsr(allphase_fsr == 0) = NaN; 
 % nanmean(allphase_pitch(allF == 1,:))
 % nanmean(allphase_pitch(allF == 0,:))
 
