@@ -21,6 +21,7 @@ alldepth = []; % all dive depths
 allprop = []; % all prop of time on bottom
 allbtmspeed = [];
 sdbtmspeed = []; 
+alltort = []; 
 NF = []; % non-foraging dives
 for i = 1:size(tags,1)
     tag = tags{i,1};
@@ -63,6 +64,14 @@ for i = 1:size(tags,1)
             allbtmspeed(end+1) = NaN; % mean bottom speed
             sdbtmspeed(end+1) = NaN; % sd
         end
+        if isfield(dive,'tort') == 1
+            if isempty(dive(j).tort) == 0
+            alltort(end+1,1:2) = dive(j).tort; 
+            else alltort(end+1,1:2) = NaN; 
+            end
+        else alltort(end+1,1:2) = NaN; 
+        end
+              
         alldepth(end+1,1) = T(j,3);
         allbperdive(end+1,1) = size(dive(j).stops,1); 
     end
@@ -94,8 +103,9 @@ print('volfiltered_each.png','-dpng','-r300')
 
 %% 
 for i = 1:length(tagid2)
-gape = getgape(tags{tagid2(i),6});
+[gape, lnth] = getgape(tags{tagid2(i),6});
 gapes(:,i) = gape;
+lnths(:,i) = lnth; 
 end 
 figure(9), clf, hold on 
 for i = 1:length(allbtmspeed)
@@ -178,16 +188,24 @@ dbd_vrate = allvperdive./(alldur'/3600); % dive-by-dive filtration rate (m^3/h)
 for i = 1:size(tags,1)
     dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{1})/3600);
 end
-[min(dep_filtrate) max(dep_filtrate)]
+round([min(dep_filtrate) max(dep_filtrate)])
 for i = 1:length(allspeeds)
     gape = getgape(tags{tagid(i),6});
     all_hr_rate(:,i) = allspeeds(i)*gape*3600; % filtration rate of all (m3/h)
     gapes(:,i) = gape;
 end
-[mean(all_hr_rate) std(all_hr_rate)]/3600 % in m/s
+round([mean(all_hr_rate) std(all_hr_rate)])/3600 % in m/s
 
 % fluke stroke rate
 [nanmean(allfsr) nanstd(allfsr)]
+
+% gape effect for discussion:
+tag2_vols = allvperdive(tagid2 == 2); 
+tag2_vols = tag2_vols(tag2_vols > 1); 
+[mean(tag2_vols) std(tag2_vols)]
+% SEE NARW_gapeEffect.m
+
+% nanmean(allbtmspeed./lnths)
 
 return
 
@@ -197,7 +215,15 @@ for i = 1:length(tags)
     errorbar(tags{i,6}+rand(1),mean(allbouts(tagid == i)),std(allbouts(tagid == i)))
 end
 
-
+%% some tortuosity 
+figure
+plot(alltort(allvperdive > 1,1),mnboutdur(~isnan(mnboutdur)),'o')
+xlabel('Tortuosity'),ylabel('Mean bout duration (sec)')
+lmtort2 = fitlm(alltort(allvperdive > 1,1),mnboutdur(~isnan(mnboutdur)))
+figure
+plot(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1),'o')
+xlabel('Tortuosity'),ylabel('Total volume filtered (m^3)')
+lmtort1 = fitlm(alltort(:,1),allvperdive); 
 %% bouts per dive statistics
 % % set nans first
 % cv_bouts_bydive = nan(10,39);
