@@ -88,19 +88,26 @@ for j = [9 10 11 12]
     view([17 27]), grid on, % pause
     xlabel('Easting (m)'), ylabel('Northing (m)'), zlabel('Depth (m)'), rotate_labels(gca)
     set(gca,'xtick',-400:200:400,'ytick',-400:200:400) 
+    
+    tort(:,j) = nanmean(tortuosity(ptrack(dcue(dive(j).btm)*fs,:),fs,10),1);
+    % nanmean(tort)
 end
-!
+
 adjustfigurefont('Helvetica',14)
 subplot(221), xlim([-250 250]), ylim([0 500]), zlim([-150 10]), title('A','FontSize',18,'FontWeight','bold')
 axletter(gca,['vol: ' num2str(round(sum(dive(9).vperblock),0)) ' m^3'],14,0.9)
+axletter(gca,['tortuosity ' num2str(round(tort(1,9),3))],14,0.9,0.7)
 
 subplot(222), xlim([-100 400]), ylim([-400 100]), zlim([-150 10]), title('B','FontSize',18,'FontWeight','bold')
 axletter(gca,['vol: ' num2str(round(sum(dive(10).vperblock),0)) ' m^3'],14,0.9)
+axletter(gca,['tortuosity ' num2str(round(tort(1,10),3))],14,0.9,0.7)
 
 subplot(223), xlim([-150 350]), ylim([-350 150 ]), zlim([-150 10]), title('C','FontSize',18,'FontWeight','bold') 
 axletter(gca,['vol: ' num2str(round(sum(dive(11).vperblock),0)) ' m^3'],14,0.9)
+axletter(gca,['tortuosity ' num2str(round(tort(1,11),3))],14,0.9,0.7)
 
 subplot(224), xlim([-450 50]), ylim([-150 350]), zlim([-150 10]), title('D','FontSize',18,'FontWeight','bold')
 axletter(gca,['vol: ' num2str(round(sum(dive(12).vperblock),0)) ' m^3'],14,0.9)
+axletter(gca,['tortuosity ' num2str(round(tort(1,12),3))],14,0.9,0.7)
 colorbar('position',[0.93 0.11 0.02 0.815])
-print('NARW_ptrack4.png','-dpng','-r300')
+% print('NARW_ptrack4.png','-dpng','-r300')

@@ -95,11 +95,11 @@ for i = 1:size(tags,1)
          for k = tags{i,9}' % all dives in analysis 
             dcue = T(k,1):T(k,2); % cues for that dive
             if isempty(dive(k).stops) == 0
-                figure(11), subplot(2,2,1), hold on
+                figure(11), subplot('position',[0.75 0.1 0.2 0.8]), hold on % plot duration vs. number of stops
                 plot(ddur(k)/60,size(dive(k).stops,1),'o','color',tagc(i,:),'linewidth',1.5) % color by tag
                 allddur(i,k) = ddur(k); allnstops(i,k) = size(dive(k).stops,1);  % store those values
                 xlabel('Dive duration (min)'), ylabel('Number of fluking bouts')
-                subplot(2,2,2), hold on
+                subplot('position',[0.5 0.1 0.2 0.8]), hold on
                 errorbar(ddur(k)/60,mean([dive(k).clearingtime]),std([dive(k).clearingtime]),'o','color',tagc(i,:),'linewidth',1.5) % color by tag
                 mnboutdur(i,k) = mean([dive(k).clearingtime]);
                 xlabel('Dive duration (min)'), ylabel('Fluking bout duration (sec)')
@@ -170,23 +170,20 @@ print('NARW_alldives_TOD_PB.png','-dpng','-r300')
 
 return
 
-figure(11), set(gcf,'paperpositionmode','auto')
-subplot(2,2,3), hold on
+figure(11), set(gcf,'paperpositionmode','auto','position',[4         289        1005         384])
+subplot('position',[0.07 0.1 0.35 0.8]), hold on
 plot(alldepth,allvperdive,'ro','linewidth',1.5)
 plot(alldepth(allvperdive<1),allvperdive(allvperdive<1),'ko','linewidth',1.5)
-ylim([0 1200]), xlim([0 200])
+ylim([0 1700]), xlim([0 200])
+axletter(gca,'D')
 xlabel('Maximum dive depth (m)'), ylabel('Total volume filtered (m^3)')
-subplot(2,2,4), hold on
-h = plot(alldur/60,allvperdive,'ro','linewidth',1.5); 
-plot(alldur(allvperdive<1)/60,allvperdive(allvperdive<1),'ko','linewidth',1.5)
-xlim([5 20]), ylim([0 1200]), box off
-xlabel('Dive duration (min)'), ylabel('Total volume filtered (m^3)')
 
-adjustfigurefont('helvetica',14)
-subplot(2,2,1), text(5.5,13.5,'A','FontWeight','Bold','FontSize',18), ylim([0 15])
-subplot(2,2,2), text(5.5,135,'B','FontWeight','Bold','FontSize',18)
-subplot(2,2,3), text(8,1100,'C','FontWeight','Bold','FontSize',18)
-subplot(2,2,4), text(5.5,1100,'D','FontWeight','Bold','FontSize',18)
+adjustfigurefont('helvetica',16)
+
+subplot('position',[0.5 0.1 0.2 0.8]), hold on 
+xlim([400/60 1000/60]), axletter(gca,'E')
+subplot('position',[0.75 0.1 0.2 0.8]), hold on % plot duration vs. number of stops
+ylim([0 15]), xlim([0 1000/60]), axletter(gca,'F')
 
 print('NARW_boutregress.png','-dpng','-r300')
 

@@ -5,7 +5,7 @@
 %[v,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
 %pdeg = rad2deg(pitch); 
 
-for i = 3:10; size(T,1); % have to make some rule on dive shape
+for i = 1:10; size(T,1); % have to make some rule on dive shape
     %%
     figure(9), clf, hold on % for this example
     dcue = T(i,1):T(i,2); % time in seconds

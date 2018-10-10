@@ -53,6 +53,7 @@ for k = d2after';
     if isempty(dive(k).stops) ~= 1
         figure(16), hold on
         line([dive(k).stops(1,1)-dcue(1) dive(k).stops(end,2)-dcue(1)]/length(dcue),[i+0.02*k i+0.02*k],'color',c(k,:))
+    dive(k).prop = [dive(k).stops(1,1)-dcue(1) dive(k).stops(end,2)-dcue(1)]/length(dcue); % store this value 
     end
     
     % pause

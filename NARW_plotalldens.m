@@ -11,6 +11,10 @@ if exist('dive','var')
         c = viridis(size(T,1)); % color dive number
         
         if isempty(dive(j).stops) == 0
+            % calculate tortuosity
+            if exist('ptrack','var') == 1
+            dive(j).tort = nanmean(tortuosity(ptrack(round(dcue(dive(j).btm)*fs),:),fs,10));
+            end 
             
             subplot(2,2,1), hold on
             dive(j).clearingtime = [dive(j).stops(:,2)-dive(j).stops(:,1)]';
