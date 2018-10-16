@@ -113,8 +113,9 @@ h = plot3([allbtmspeed(i)-sdbtmspeed(i) allbtmspeed(i)+sdbtmspeed(i)],[gapes(i) 
 alpha(h,0.5)
 end
 scatter3(allbtmspeed,gapes,(allprop(:,2)-allprop(:,1)).*alldur,60,allvperdive,'filled','markeredgecolor','k')
-h = scatter(allbtmspeed,gapes,'ko','markeredgealpha',0.5); % projection on bottom
-h = scatter3(2+zeros(length(gapes),1),gapes,(allprop(:,2)-allprop(:,1)).*alldur,'ko','markeredgealpha',0.5);  % projection on wall
+jit = rand(size(gapes));
+h = scatter(allbtmspeed,gapes+jit/20,'ko','markeredgealpha',0.5); % projection on bottom
+h = scatter3(2+zeros(length(gapes),1),gapes+jit/20,(allprop(:,2)-allprop(:,1)).*alldur,'ko','markeredgealpha',0.5);  % projection on wall
 % h = scatter3(allbtmspeed,2+zeros(length(gapes),1),(allprop(:,2)-allprop(:,1)).*alldur,'ko','markeredgealpha',0.5);  % projection on wall
 xlabel('Bottom speed (m/s)')
 ylabel('Gape area (m^2)')
