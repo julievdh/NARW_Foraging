@@ -19,6 +19,8 @@ allvperdive = []; % all volumes per dive
 alldur = []; % all dive durations
 alldepth = []; % all dive depths
 allprop = []; % all prop of time on bottom
+allstart = []; % all bottom start
+allend = []; % all bottom end
 allbtmspeed = [];
 sdbtmspeed = []; 
 alltort = []; 
@@ -57,10 +59,14 @@ for i = 1:size(tags,1)
         tagid2(end+1,1) = i; 
         if isempty(dive(j).vperblock) == 0
             allprop(end+1,1:2) = dive(j).prop; % proportion of time spent foraging
+            allstart(end+1) = dive(j).btm(1); 
+            allend(end+1) = dive(j).btm(end); 
             allbtmspeed(end+1) = mean(dive(j).flowEst(dive(j).btm)); % mean bottom speed
             sdbtmspeed(end+1) = std(dive(j).flowEst(dive(j).btm)); % sd
         else
             allprop(end+1,1:2) = NaN; % proportion of time spent foraging
+            allstart(end+1) = NaN;
+            allend(end+1) = NaN;
             allbtmspeed(end+1) = NaN; % mean bottom speed
             sdbtmspeed(end+1) = NaN; % sd
         end
@@ -184,6 +190,9 @@ plotEffects(lm_vol)
 % for i = 1:length(allspeeds)
 % plot(allspeeds(i),tags{tagid(i),6},'o','color',c(tags{tagid(i),6},:))
 % end
+
+% nanmean(allend)
+
 return
 
 mean(alldur(allvperdive > 1)) % mean dive duration in seconds
