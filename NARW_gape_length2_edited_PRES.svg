@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill-opacity:1; color-rendering:auto; color-interpolation:auto; stroke:black; text-rendering:auto; stroke-linecap:square; stroke-miterlimit:10; stroke-opacity:1; shape-rendering:auto; fill:black; stroke-dasharray:none; font-weight:normal; stroke-width:1; font-family:'Dialog'; font-style:normal; stroke-linejoin:miter; font-size:12px; stroke-dashoffset:0; image-rendering:auto;" width="576" height="432" id="svg2" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs id="genericDefs"/>
+  <line y2="-74.610168" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="482.18643" y1="-74.610168" id="line98"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="36.18644" y1="-74.610168" id="line100"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="80.786438" x2="80.786438" y1="-74.610168" id="line102"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="125.38644" x2="125.38644" y1="-74.610168" id="line104"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="169.98645" x2="169.98645" y1="-74.610168" id="line106"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="214.58644" x2="214.58644" y1="-74.610168" id="line108"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="259.18643" x2="259.18643" y1="-74.610168" id="line110"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="303.78644" x2="303.78644" y1="-74.610168" id="line112"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="348.38644" x2="348.38644" y1="-74.610168" id="line114"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="392.98642" x2="392.98642" y1="-74.610168" id="line116"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="437.58643" x2="437.58643" y1="-74.610168" id="line118"/>
+  <line y2="-79.07016" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="482.18643" x2="482.18643" y1="-74.610168" id="line120"/>
+  <text x="32.68644" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text124">0</text>
+  <text x="77.286438" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text128">2</text>
+  <text x="121.88644" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text132">4</text>
+  <text x="166.48645" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text136">6</text>
+  <text x="211.08644" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text140">8</text>
+  <text x="252.18645" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text144">10</text>
+  <text x="296.78644" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text148">12</text>
+  <text x="341.38644" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text152">14</text>
+  <text x="385.98642" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text156">16</text>
+  <text x="430.58643" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text160">18</text>
+  <text x="475.18643" y="-60.210175" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text164">20</text>
+  <text x="225.18666" y="-45.210175" style="font-size: 13px; stroke: none; font-family: Helvetica; white-space: pre;" id="text168">Age (years)</text>
+  <line y2="-426.61017" style="fill:none;stroke:#7b3294;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="36.18644" y1="-74.610168" id="line172"/>
+  <line y2="-74.610168" style="fill:none;stroke:#7b3294;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="40.646439" y1="-74.610168" id="line174"/>
+  <line y2="-154.61017" style="fill:none;stroke:#7b3294;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="40.646439" y1="-154.61017" id="line176"/>
+  <line y2="-234.61017" style="fill:none;stroke:#7b3294;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="40.646439" y1="-234.61017" id="line178"/>
+  <line y2="-314.61017" style="fill:none;stroke:#7b3294;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="40.646439" y1="-314.61017" id="line180"/>
+  <line y2="-394.61017" style="fill:none;stroke:#7b3294;stroke-width:0.5;stroke-linejoin:round" x1="36.18644" x2="40.646439" y1="-394.61017" id="line182"/>
+  <text x="24.78644" y="-71.110168" style="fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text186">0</text>
+  <text x="14.684876" y="-151.11017" style="fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text190">0.5</text>
+  <text x="14.778626" y="-231.11017" style="fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text194">1.0</text>
+  <text x="14.684876" y="-311.11017" style="fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text198">1.5</text>
+  <text x="14.778626" y="-391.11017" style="fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text202">2.0</text>
+  <text x="203.61017" y="9.1864405" style="font-size: 13px; fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text206" transform="matrix(0,-1,1,0,0,0)">Gape Area (m</text>
+  <text x="285.61017" y="3.1864407" style="font-size: 10px; fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text210" transform="matrix(0,-1,1,0,0,0)">2</text>
+  <text x="291.61017" y="9.1864405" style="font-size: 13px; fill: rgb(123, 50, 148); stroke: none; font-family: Helvetica; white-space: pre;" id="text214" transform="matrix(0,-1,1,0,0,0)">)</text>
+  <path d="m 58.486441,-188.42087 22.3,-35.716 22.299999,-22.9001 22.3,-17.1465 22.3,-13.8136 22.3,-11.6196 22.3,-10.0581 22.3,-8.8858 22.3,-7.9712 22.3,-7.2365 22.3,-6.6323 22.3,-6.1264 22.3,-5.696 22.3,-5.3251 22.3,-5.0021 22.3,-4.718 22.3,-4.466 22.3,-4.2411 22.3,-4.0387 22.3,-3.856" style="fill:none;stroke:#7b3294;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none" id="path218"/>
+  <path d="m 58.486441,-301.08157 22.3,-21.6116 22.299999,-12.642 22.3,-8.9696 22.3,-6.9574 22.3,-5.6846 22.3,-4.8063 22.3,-4.1633 22.3,-3.6724 22.3,-3.285 22.3,-2.9717 22.3,-2.7129 22.3,-2.4957 22.3,-2.3106 22.3,-2.1511 22.3,-2.0122 22.3,-1.8903 22.3,-1.7821 22.3,-1.6857 22.3,-1.5993" style="fill:none;stroke:#006bb1;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" id="path220"/>
+  <path d="m 58.486441,-235.42267 22.3,-32.0607 22.299999,-18.7543 22.3,-13.3064 22.3,-10.3212 22.3,-8.4331 22.3,-7.13 22.3,-6.1764 22.3,-5.4479 22.3,-4.8733 22.3,-4.4085 22.3,-4.0246 22.3,-3.7022 22.3,-3.4278 22.3,-3.1912 22.3,-2.9852 22.3,-2.8041 22.3,-2.6438 22.3,-2.5008 22.3,-2.3725" style="fill:none;stroke:#ff2900;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" id="path222"/>
+  <path d="m 40.686441,-183.11017 -0.8787,-2.1213 -2.1213,-0.8787 -2.1213,0.8787 -0.8787,2.1213 0.8787,2.1213 2.1213,0.8787 2.1213,-0.8787 z" style="fill:none;stroke:#0072bd;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round" id="path224"/>
+  <path d="m 45.686441,-236.11017 -0.8787,-2.1213 -2.1213,-0.8787 -2.1213,0.8787 -0.8787,2.1213 0.8787,2.1213 2.1213,0.8787 2.1213,-0.8787 z" style="fill:none;stroke:#0072bd;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round" id="path226"/>
+  <path d="m 40.686441,-111.11017 -0.8787,-2.1213 -2.1213,-0.8787 -2.1213,0.8787 -0.8787,2.1213 0.8787,2.1213 2.1213,0.8787 2.1213,-0.8787 z" style="fill:none;stroke:#7b3294;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round" id="path228"/>
+  <path d="m 45.686441,-156.11017 -0.8787,-2.1213 -2.1213,-0.8787 -2.1213,0.8787 -0.8787,2.1213 0.8787,2.1213 2.1213,0.8787 2.1213,-0.8787 z" style="fill:none;stroke:#7b3294;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round" id="path230"/>
+  <line x1="36.18644" x2="482.18643" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-425.61017" id="line232"/>
+  <line x1="38.416443" x2="38.416443" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line234"/>
+  <line x1="83.016441" x2="83.016441" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line236"/>
+  <line x1="127.61643" x2="127.61643" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line238"/>
+  <line x1="172.21645" x2="172.21645" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line240"/>
+  <line x1="216.81645" x2="216.81645" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line242"/>
+  <line x1="261.41644" x2="261.41644" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line244"/>
+  <line x1="306.01642" x2="306.01642" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line246"/>
+  <line x1="350.61642" x2="350.61642" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line248"/>
+  <line x1="395.21643" x2="395.21643" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line250"/>
+  <line x1="439.81644" x2="439.81644" y1="-425.61017" style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round" y2="-421.15018" id="line252"/>
+  <text x="27.916445" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text256">6.9 </text>
+  <text x="71.016441" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text260">11.1</text>
+  <text x="115.61643" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text264">12.1</text>
+  <text x="160.21645" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text268">12.6</text>
+  <text x="206.31645" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text272">13  </text>
+  <text x="249.41646" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text276">13.3</text>
+  <text x="294.01642" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text280">13.6</text>
+  <text x="338.61642" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text284">13.8</text>
+  <text x="384.71643" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text288">14  </text>
+  <text x="427.81644" y="-433.01016" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text292">14.1</text>
+  <text x="210.68665" y="-448.01016" style="font-size: 13px; stroke: none; font-family: Helvetica; white-space: pre;" id="text296">Body Length (m)</text>
+  <line y2="-425.61017" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="482.18643" x2="482.18643" y1="-74.610168" id="line300"/>
+  <line y2="-74.610168" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="482.18643" x2="477.72641" y1="-74.610168" id="line302"/>
+  <line y2="-154.38287" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="482.18643" x2="477.72641" y1="-154.38287" id="line304"/>
+  <line y2="-234.15567" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="482.18643" x2="477.72641" y1="-234.15567" id="line306"/>
+  <line y2="-313.92838" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="482.18643" x2="477.72641" y1="-313.92838" id="line308"/>
+  <line y2="-393.70108" style="fill:none;stroke-width:0.5;stroke-linejoin:round" x1="482.18643" x2="477.72641" y1="-393.70108" id="line310"/>
+  <text x="486.58646" y="-71.110168" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text314">0</text>
+  <text x="486.58646" y="-150.88287" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text318">0.5</text>
+  <text x="486.58646" y="-230.65567" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text322">1.0</text>
+  <text x="486.58646" y="-310.42838" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text326">1.5</text>
+  <text x="486.58646" y="-390.20108" style="stroke: none; font-family: Helvetica; white-space: pre;" id="text330">2.0</text>
+  <text id="text334" transform="matrix(0, -1, 1, 0, -657.949768, -275.41684)" style="fill: rgb(0, 107, 177); font-family: Helvetica; font-size: 18px; stroke: none; white-space: pre;" x="-161.423" y="534.803">Head Width (m)   </text>
+  <text transform="matrix(0, -1, 1, 0, -656.949768, -275.41684)" id="text6084" style="fill: rgb(255, 41, 0); font-family: Helvetica; font-size: 18px; stroke: none; white-space: pre;" x="-173.072" y="555.513">Baleen Length (m)   </text>
+  <path style="fill:#0066ff;stroke:#0c63f8;stroke-width:2.49994326;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" d="M -443.218 55.817 L -443.218 96.265" id="path3761"/>
+  <path style="fill:none;stroke:#000000;stroke-width:1.26153219px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -407.199 46.253 C -409.794 55.549 -416.685 63.959 -426.603 65.66 C -438.136 68.398 -449.726 64.801 -461.064 63.043 C -469.402 62.215 -471.032 72.33 -469.584 78.496 C -468.943 86.283 -459.681 88.087 -454.048 84.229 C -442.1 81.771 -428.577 80.963 -418.11 88.389 C -410.803 91.91 -406.146 98.315 -404.024 106.005" id="path4531"/>
+  <path style="fill:none;stroke:#000000;stroke-width:1.22852242px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -400.702 45.284 C -419.883 50.448 -439.571 53.424 -459.048 57.022 C -471.451 60.846 -477.047 79.753 -465.432 87.622 C -452.556 97.059 -435.987 98.103 -421.158 102.736 C -406.792 106.639 -392.079 108.981 -377.208 109.497 C -362.74 111.72 -347.958 114.601 -333.431 110.955 C -306.65 106.53 -281.156 96.903 -255.971 87.124 C -242.729 82.194 -225.013 82.853 -216.376 95.597 C -209.21 105.484 -203.847 117.802 -192.596 123.698 C -181.466 125.359 -193.048 110.223 -191.834 104.248 C -193.236 95.604 -195.727 83.119 -201.375 76.037 C -200.215 62.691 -194.762 49.926 -195.302 36.523 C -192.497 31.364 -190.238 20.978 -198.652 29.768 C -211.234 37.946 -216.375 52.473 -223.664 64.643 C -233.604 74.246 -248.575 70.059 -259.492 64.568 C -283.677 53.966 -307.945 41.857 -334.423 38.437 C -356.847 36.127 -378.973 39.973 -400.702 45.284 Z" id="path4533"/>
+  <path style="fill:none;stroke:#000000;stroke-width:1.22852242px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -401.265 45.284 C -394.476 39.264 -388.996 31.744 -381.276 26.805 C -378.749 25.499 -376.035 23.603 -373.044 24.426 C -368.782 24.832 -364.555 25.628 -360.41 26.675 C -358.482 27.378 -358.738 30.107 -360.707 30.468 C -363.562 32.838 -367.281 36.379 -369.5 39.381" id="path4537"/>
+  <path style="fill:none;stroke:#000000;stroke-width:1.22852242px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -398.735 107.97 C -393.559 113.741 -388.539 120.114 -381.334 123.447 C -377.54 125.597 -373.519 127.472 -369.212 128.304 C -366.39 127.902 -364.052 126.1 -361.35 125.321 C -360.052 124.502 -358.215 124.672 -357.198 123.407 C -356.71 121.937 -358.151 120.711 -358.791 119.504 C -360.937 116.444 -363.685 113.879 -366.408 111.343" id="path4541"/>
+  <path style="fill:none;stroke:#000000;stroke-width:1.23585403px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -470.268 8.572 L -202.327 8.572" id="path4590"/>
+  <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -514.651 32.946 C -511.677 33.098 -508.702 33.251 -505.728 33.403 C -505.763 43.571 -507.046 53.71 -508.616 63.74 C -509.883 68.598 -510.2 73.561 -510.547 78.548 C -510.987 84.317 -512.307 89.961 -513.483 95.6 C -513.642 100.004 -513.052 104.463 -514.364 108.758 C -514.539 112.951 -514.453 105.011 -514.588 103.72 C -515.021 93.558 -514.642 83.392 -514.507 73.234 C -514.828 65.603 -514.331 57.989 -513.874 50.379 C -513.685 44.552 -514.33 38.755 -514.651 32.946 Z" id="path4609"/>
+  <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -505.956 34.776 L -506.643 43.014 L -506.643 53.31 L -509.389 72.759 L -510.304 80.768 L -510.99 87.175 L -512.592 94.268 L -512.592 98.387 L -513.05 104.107 L -514.651 111.887" id="path4611"/>
+  <path style="fill:#ffdd55;stroke:#ff2900;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M -518.312 32.488 L -518.312 112.344" id="path4617"/>
+  <g id="g3645" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" transform="matrix(1, 0, 0, 1, -693.520691, -241.967255)">
+    <line id="line3647" y1="384" x2="521" x1="75" style="fill:none" y2="384"/>
+    <line id="line3649" y1="384" x2="75" x1="75" style="fill:none" y2="379.54001"/>
+    <line id="line3651" y1="384" x2="119.6" x1="119.6" style="fill:none" y2="379.54001"/>
+    <line id="line3653" y1="384" x2="164.2" x1="164.2" style="fill:none" y2="379.54001"/>
+    <line id="line3655" y1="384" x2="208.8" x1="208.8" style="fill:none" y2="379.54001"/>
+    <line id="line3657" y1="384" x2="253.39999" x1="253.39999" style="fill:none" y2="379.54001"/>
+    <line id="line3659" y1="384" x2="298" x1="298" style="fill:none" y2="379.54001"/>
+    <line id="line3661" y1="384" x2="342.60001" x1="342.60001" style="fill:none" y2="379.54001"/>
+    <line id="line3663" y1="384" x2="387.20001" x1="387.20001" style="fill:none" y2="379.54001"/>
+    <line id="line3665" y1="384" x2="431.79999" x1="431.79999" style="fill:none" y2="379.54001"/>
+    <line id="line3667" y1="384" x2="476.39999" x1="476.39999" style="fill:none" y2="379.54001"/>
+    <line id="line3669" y1="384" x2="521" x1="521" style="fill:none" y2="379.54001"/>
+  </g>
+  <g id="g3671" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -619.520691, 149.432739)">
+    <text id="text3673" style="font-size: 16px; stroke: none; white-space: pre;" x="-3.5" y="10">0</text>
+  </g>
+  <g id="g3675" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -574.920715, 149.432739)">
+    <text id="text3677" style="font-size: 16px; stroke: none; white-space: pre;" x="-3.5" y="10">2</text>
+  </g>
+  <g id="g3679" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -530.320679, 149.432739)">
+    <text id="text3681" style="font-size: 16px; stroke: none; white-space: pre;" x="-3.5" y="10">4</text>
+  </g>
+  <g id="g3683" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -485.720703, 149.432739)">
+    <text id="text3685" style="font-size: 16px; stroke: none; white-space: pre;" x="-3.5" y="10">6</text>
+  </g>
+  <g id="g3687" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -441.120697, 149.432739)">
+    <text id="text3689" style="font-size: 16px; stroke: none; white-space: pre;" x="-3.5" y="10">8</text>
+  </g>
+  <g id="g3691" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -396.520691, 149.432739)">
+    <text id="text3693" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="10">10</text>
+  </g>
+  <g id="g3695" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -351.920685, 149.432739)">
+    <text id="text3697" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="10">12</text>
+  </g>
+  <g id="g3699" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -307.320709, 149.432739)">
+    <text id="text3701" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="10">14</text>
+  </g>
+  <g id="g3703" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -262.720703, 149.432739)">
+    <text id="text3705" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="10">16</text>
+  </g>
+  <g id="g3707" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -218.120712, 149.432739)">
+    <text id="text3709" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="10">18</text>
+  </g>
+  <g id="g3711" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -173.520706, 149.432739)">
+    <text id="text3713" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="10">20</text>
+  </g>
+  <g id="g3715" style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -396.520508, 163.432739)">
+    <text id="text3717" style="font-size: 18px; stroke: none; white-space: pre;" x="-36.227" y="17.681">Age (years)</text>
+  </g>
+  <g id="g3719" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" transform="matrix(1, 0, 0, 1, -693.520691, -241.967255)">
+    <line id="line3721" y1="384" x2="75" x1="75" style="fill:none" y2="32"/>
+    <line id="line3723" y1="384" x2="79.459999" x1="75" style="fill:none" y2="384"/>
+    <line id="line3725" y1="304" x2="79.459999" x1="75" style="fill:none" y2="304"/>
+    <line id="line3727" y1="224" x2="79.459999" x1="75" style="fill:none" y2="224"/>
+    <line id="line3729" y1="144" x2="79.459999" x1="75" style="fill:none" y2="144"/>
+    <line id="line3731" y1="64" x2="79.459999" x1="75" style="fill:none" y2="64"/>
+  </g>
+  <g id="g3733" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -626.256653, 142.032745)">
+    <text id="text3735" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="3.5">0</text>
+  </g>
+  <g id="g3737" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -630.920715, 62.032742)">
+    <text id="text3739" style="font-size: 16px; stroke: none; white-space: pre;" x="-17" y="3.5">0.5</text>
+  </g>
+  <g id="g3741" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -638.920715, -17.967258)">
+    <text id="text3743" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="3.5">1.0</text>
+  </g>
+  <g id="g3745" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -628.920715, -97.967255)">
+    <text id="text3747" style="font-size: 16px; stroke: none; white-space: pre;" x="-17" y="3.5">1.5</text>
+  </g>
+  <g id="g3749" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -638.920715, -177.967255)">
+    <text id="text3751" style="font-size: 16px; stroke: none; white-space: pre;" x="-7" y="3.5">2.0</text>
+  </g>
+  <g id="g3753" style="font-size:13px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(0, -1, 1, 0, -654.747559, 10.805845)">
+    <text id="text3755" style="font-size: 18px; stroke: none; white-space: pre;" y="0" x="0">Gape Area (m  )</text>
+    <text style="fill: rgb(51, 51, 51); font-family: sans-serif; font-size: 14px; white-space: pre;" x="114.505" y="-8.315">2</text>
+  </g>
+  <path d="M -596.221 28.222 L -573.921 -7.494 L -551.621 -30.394 L -529.321 -47.541 L -507.021 -61.354 L -484.721 -72.974 L -462.421 -83.032 L -440.121 -91.918 L -417.821 -99.889 L -395.521 -107.125 L -373.221 -113.758 L -350.921 -119.884 L -328.621 -125.58 L -306.321 -130.905 L -284.021 -135.907 L -261.721 -140.625 L -239.421 -145.091 L -217.121 -149.332 L -194.821 -153.371 L -172.521 -157.227" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#7b3294;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3767"/>
+  <path d="M -596.221 -84.439 L -573.921 -106.05 L -551.621 -118.692 L -529.321 -127.662 L -507.021 -134.619 L -484.721 -140.304 L -462.421 -145.11 L -440.121 -149.273 L -417.821 -152.946 L -395.521 -156.231 L -373.221 -159.203 L -350.921 -161.915 L -328.621 -164.411 L -306.321 -166.722 L -284.021 -168.873 L -261.721 -170.885 L -239.421 -172.775 L -217.121 -174.557 L -194.821 -176.243 L -172.521 -177.842" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#0072bd;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3769"/>
+  <path d="M -596.221 -18.78 L -573.921 -50.84 L -551.621 -69.595 L -529.321 -82.901 L -507.021 -93.222 L -484.721 -101.655 L -462.421 -108.785 L -440.121 -114.962 L -417.821 -120.41 L -395.521 -125.283 L -373.221 -129.692 L -350.921 -133.716 L -328.621 -137.418 L -306.321 -140.846 L -284.021 -144.037 L -261.721 -147.023 L -239.421 -149.827 L -217.121 -152.47 L -194.821 -154.971 L -172.521 -157.344" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#ff2900;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3771"/>
+  <path d="M -616.662 33.233 L -612.017 -19.567 L -596.221 -84.439" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#0072bd;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3773"/>
+  <path d="M -616.662 105.041 L -612.946 60.425 L -596.221 28.222" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#7b3294;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3775"/>
+  <path d="M -571.021 -7.467 L -571.899 -9.589 L -574.021 -10.467 L -576.142 -9.589 L -577.021 -7.467 L -576.142 -5.346 L -574.021 -4.467 L -571.899 -5.346 Z" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3777"/>
+  <path d="M -549.021 -30.467 L -549.899 -32.589 L -552.021 -33.467 L -554.142 -32.589 L -555.021 -30.467 L -554.142 -28.346 L -552.021 -27.467 L -549.899 -28.346 Z" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3779"/>
+  <path d="M -526.021 -48.467 L -526.899 -50.589 L -529.021 -51.467 L -531.142 -50.589 L -532.021 -48.467 L -531.142 -46.346 L -529.021 -45.467 L -526.899 -46.346 Z" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3781"/>
+  <path d="M -437.021 -92.467 L -437.899 -94.589 L -440.021 -95.467 L -442.142 -94.589 L -443.021 -92.467 L -442.142 -90.346 L -440.021 -89.467 L -437.899 -90.346 Z" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3783"/>
+  <path d="M -192.021 -153.467 L -192.899 -155.589 L -195.021 -156.467 L -197.142 -155.589 L -198.021 -153.467 L -197.142 -151.346 L -195.021 -150.467 L -192.899 -151.346 Z" style="font-size:12px;font-style:normal;font-weight:normal;fill:#7b3294;fill-opacity:1;stroke:#7b3294;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" id="path3785"/>
+  <line x1="-618.521" x2="-172.521" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-208.967" id="line3787"/>
+  <line x1="-616.291" x2="-616.291" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3789"/>
+  <line x1="-571.691" x2="-571.691" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3791"/>
+  <line x1="-527.091" x2="-527.091" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3793"/>
+  <line x1="-482.491" x2="-482.491" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3795"/>
+  <line x1="-437.891" x2="-437.891" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3797"/>
+  <line x1="-393.291" x2="-393.291" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3799"/>
+  <line x1="-348.691" x2="-348.691" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3801"/>
+  <line x1="-304.091" x2="-304.091" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3803"/>
+  <line x1="-259.491" x2="-259.491" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3805"/>
+  <line x1="-214.891" x2="-214.891" y1="-208.967" style="font-size:12px;font-style:normal;font-weight:normal;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" y2="-204.507" id="line3807"/>
+  <g id="g3809" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -616.29071, -213.367249)">
+    <text id="text3811" style="font-size: 16px; stroke: none; white-space: pre;" x="-10.5" y="-3">6.9 </text>
+  </g>
+  <g id="g3813" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -571.690735, -213.367249)">
+    <text id="text3815" style="font-size: 16px; stroke: none; white-space: pre;" x="-12" y="-3">11.1</text>
+  </g>
+  <g id="g3817" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -527.090698, -213.367249)">
+    <text id="text3819" style="font-size: 16px; stroke: none; white-space: pre;" x="-12" y="-3">12.1</text>
+  </g>
+  <g id="g3821" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -482.490692, -213.367249)">
+    <text id="text3823" style="font-size: 16px; stroke: none; white-space: pre;" x="-12" y="-3">12.6</text>
+  </g>
+  <g id="g3825" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -437.890717, -213.367249)">
+    <text id="text3827" style="font-size: 16px; stroke: none; white-space: pre;" x="-10.5" y="-3">13  </text>
+  </g>
+  <g id="g3829" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -393.29071, -213.367249)">
+    <text id="text3831" style="font-size: 16px; stroke: none; white-space: pre;" x="-12" y="-3">13.3</text>
+  </g>
+  <g id="g3833" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -348.690704, -213.367249)">
+    <text id="text3835" style="font-size: 16px; stroke: none; white-space: pre;" x="-12" y="-3">13.6</text>
+  </g>
+  <g id="g3837" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -304.090698, -213.367249)">
+    <text id="text3839" style="font-size: 16px; stroke: none; white-space: pre;" x="-12" y="-3">13.8</text>
+  </g>
+  <g id="g3841" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -259.490692, -213.367249)">
+    <text id="text3843" style="font-size: 16px; stroke: none; white-space: pre;" x="-10.5" y="-3">14  </text>
+  </g>
+  <g id="g3845" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -214.890701, -213.367249)">
+    <text id="text3847" style="font-size: 16px; stroke: none; white-space: pre;" x="-12" y="-3">14.1</text>
+  </g>
+  <g id="g3849" style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -395.520508, -235.367249)">
+    <text id="text3851" style="font-size: 18px; stroke: none; white-space: pre;" x="-48.5" y="-3">Body Length (m)</text>
+  </g>
+  <g id="g3853" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog" transform="matrix(1, 0, 0, 1, -693.520691, -241.967255)">
+    <line id="line3855" y1="384" x2="521" x1="521" style="fill:none" y2="33"/>
+    <line id="line3857" y1="384" x2="516.53998" x1="521" style="fill:none" y2="384"/>
+    <line id="line3859" y1="304.22729" x2="516.53998" x1="521" style="fill:none" y2="304.22729"/>
+    <line id="line3861" y1="224.4545" x2="516.53998" x1="521" style="fill:none" y2="224.4545"/>
+    <line id="line3863" y1="144.68179" x2="516.53998" x1="521" style="fill:none" y2="144.68179"/>
+    <line id="line3865" y1="64.909103" x2="516.53998" x1="521" style="fill:none" y2="64.909103"/>
+  </g>
+  <g id="g3867" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -168.120712, 142.032745)">
+    <text id="text3869" style="font-size: 16px; stroke: none; white-space: pre;" x="0" y="3.5">0</text>
+  </g>
+  <g id="g3871" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -168.120712, 62.260036)">
+    <text id="text3873" style="font-size: 16px; stroke: none; white-space: pre;" x="0" y="3.5">0.5</text>
+  </g>
+  <g id="g3875" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -168.120712, -17.51276)">
+    <text id="text3877" style="font-size: 16px; stroke: none; white-space: pre;" x="0" y="3.5">1.0</text>
+  </g>
+  <g id="g3879" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -168.120712, -97.285446)">
+    <text id="text3881" style="font-size: 16px; stroke: none; white-space: pre;" x="0" y="3.5">1.5</text>
+  </g>
+  <g id="g3883" style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" transform="matrix(1, 0, 0, 1, -168.120712, -177.058151)">
+    <text id="text3885" style="font-size: 16px; stroke: none; white-space: pre;" x="0" y="3.5">2.0</text>
+  </g>
+  <text id="text5787" transform="matrix(0, -1, 1, 0, -666.949768, -247.41684)" style="font-size: 10px; stroke: none; font-family: Helvetica; white-space: pre;" y="138.632" x="-358.428"><tspan id="tspan5789" style="font-size: 10px; fill: rgb(0, 107, 177); fill-opacity: 1; word-spacing: 0px;"/><tspan id="tspan5791" style="font-size: 10px; fill: rgb(255, 41, 0); fill-opacity: 1; stroke: none; word-spacing: 0px;">Baleen Length (m)   </tspan></text>
+  <text transform="matrix(0, -1, 1, 0, -666.949768, -247.41684)" id="text5793" style="font-size: 10px; stroke: none; font-family: Helvetica; white-space: pre;" y="189.888" x="-357.287"><tspan id="tspan5795" style="font-size: 10px; fill: rgb(0, 107, 177); fill-opacity: 1; word-spacing: 0px;">Head Width (m)   </tspan><tspan id="tspan5797" style="font-size: 10px; fill: rgb(0, 107, 177); fill-opacity: 1; word-spacing: 0px;"/><tspan id="tspan5799" style="font-size: 10px; fill: rgb(0, 107, 177); fill-opacity: 1; word-spacing: 0px;"/></text>
+  <g transform="matrix(1, 0, 0, 1, -228.944229, 3.192074)" style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Helvetica" id="g5801">
+    <text x="-48.5" y="-3" style="stroke: none; white-space: pre;" id="text5803"><tspan style="font-size:10px" id="tspan5805">Body Length (m)</tspan></text>
+  </g>
+  <text x="60.659" y="324.733" style="white-space: pre; fill: rgb(51, 51, 51); font-family: sans-serif; font-size: 24px;"> </text>
+</svg>
