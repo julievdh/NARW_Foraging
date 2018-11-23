@@ -25,7 +25,7 @@ for i = 1:size(tags,1)
     
     % plot by time of day
     figure(100),set(gcf,'position',[323 145 1038 604],'paperpositionmode','auto')
-    subplot('position',[0.13 1.0-(tags{i,13}*0.11) 0.86 0.09]), hold on, box on
+    subplot('position',[0.13 1.0-(tags{i,3}*0.11) 0.86 0.09]), hold on, box on
     UTC = tags{i,2}(4:end);
     % add sunrise and sunset
     [sun_rise,sun_set] = sunRiseSet(44.55,-66.4,-4,datestr(datenum(tags{i,2}(1:3))));
@@ -76,7 +76,7 @@ for i = 1:size(tags,1)
     set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0],'xtick',10:2:30,'xticklabels',[10:2:24 2:2:6])
     text(27.9,-160,regexprep(tag(3:end),'_','-'),'FontSize',14)
     text(29.3,-160,['n = ' num2str(size(tags{i,9},1))],'FontSize',14)
-    if tags{i,13} < size(tags,1), set(gca,'xtick',[]), end 
+    if tags{i,3} < size(tags,1), set(gca,'xtick',[]), end 
     
     %%
          NARW_FilteredVol
