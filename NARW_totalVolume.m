@@ -264,10 +264,20 @@ rm = fitrm(t,'meas1-meas4~tagid+diveid','WithinDesign',Meas)
 %% at bottom // per dive // per deployment
 figure(99)
 histogram(3600*(allvperdive./allbtmdur),[0:500:10000])
+xlabel('Filtration rate on bottom (m^3/h)')
+adjustfigurefont('Helvetica',16)
+print('NARW_Frate_bottom_pres','-dpng','-r300')
 
 figure(98)
 histogram(dbd_vrate(allvperdive > 1),[0:500:10000])
+xlabel('Filtration rate per dive (m^3/h)')
+adjustfigurefont('Helvetica',16)
+print('NARW_Frate_dive_pres','-dpng','-r300')
+
 
 figure(97)
 histogram(dep_filtrate,[0:500:10000])
-
+xlabel('Filtration rate per deployment (m^3/h)')
+adjustfigurefont('Helvetica',16)
+ylim([0 5]), set(gca,'ytick',[0:5])
+print('NARW_Frate_dep_pres','-dpng','-r300')
