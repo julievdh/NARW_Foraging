@@ -21,11 +21,12 @@ alldepth = []; % all dive depths
 allprop = []; % all prop of time on bottom
 allstart = []; % all bottom start
 allend = []; % all bottom end
+allbtmdur = []; % all bottom duration
 allbtmspeed = [];
 sdbtmspeed = []; 
 alltort = []; 
 NF = []; % non-foraging dives
-for i = 1:size(tags,1)
+for i = 1:8; %size(tags,1)
     tag = tags{i,1};
     col = get(gca,'colororder'); % get color order
     col = repmat(col,ceil(max([tags{:,6}])/size(col,1)),1);    % repeat color order for number of dives
@@ -61,12 +62,14 @@ for i = 1:size(tags,1)
             allprop(end+1,1:2) = dive(j).prop; % proportion of time spent foraging
             allstart(end+1) = dive(j).btm(1); 
             allend(end+1) = dive(j).btm(end); 
+            allbtmdur(end+1) = dive(j).btm(end)-dive(j).btm(1); 
             allbtmspeed(end+1) = mean(dive(j).flowEst(dive(j).btm)); % mean bottom speed
             sdbtmspeed(end+1) = std(dive(j).flowEst(dive(j).btm)); % sd
         else
             allprop(end+1,1:2) = NaN; % proportion of time spent foraging
             allstart(end+1) = NaN;
             allend(end+1) = NaN;
+            allbtmdur(end+1) = NaN; 
             allbtmspeed(end+1) = NaN; % mean bottom speed
             sdbtmspeed(end+1) = NaN; % sd
         end
@@ -257,3 +260,14 @@ t = table(tagid,diveid,allbouts,allrms,allfsr,allspeeds,...
 Meas = table([1 2 3 4]','VariableNames',{'Measurements'});
 
 rm = fitrm(t,'meas1-meas4~tagid+diveid','WithinDesign',Meas)
+
+%% at bottom // per dive // per deployment
+figure(99)
+histogram(3600*(allvperdive./allbtmdur),[0:500:10000])
+
+figure(98)
+histogram(dbd_vrate(allvperdive > 1),[0:500:10000])
+
+figure(97)
+histogram(dep_filtrate,[0:500:10000])
+
