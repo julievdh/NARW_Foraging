@@ -5,7 +5,7 @@ clear
 
 load('NARW_foraging_tags') % let's make this more straightforward
 % HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED 
-ID = 4; 
+ID = 10; 
 tag = tags{ID}; 
 loadprh(tag,'p','fs','Aw','Mw','pitch');
 
@@ -16,7 +16,7 @@ warning off
 % find dives
 T = finddives(p,fs,50,1);
 load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
-
+d2after = tags{ID,9}; 
 %%
 % for all dives
 % %for i = 1:size(T,1) % missing first 10 dives in first 2 .dtgs
@@ -56,13 +56,13 @@ load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.m
 % save(strcat('C:/tag/tagdata/',tag,'_flowspeed'),'medFN','spd','medpitch','T','p','pitch','fs')
 %%
 figure(4), clf, hold on
-th = 30;
+th = 50;
 plot(log10(medFN(medpitch > th)),abs(spd(medpitch > th)),'o','LineWidth',1.5) % ascents
 plot(log10(medFN(medpitch < -th)),abs(spd(medpitch < -th)),'o','LineWidth',1.5) % descents
 ylabel('Speed (m/s)'), xlabel('Log_1_0(Median Flow Noise)')
 
 figure(5), clf, hold on
-for i = 1:size(T,1)
+for i = d2after'
     scatter(abs(spd(i,:)),log10(medFN(i,:)),20,abs(medpitch(i,:)))
     % pause
 end
@@ -70,7 +70,7 @@ colorbar
 xlabel('Speed (m/s)'), ylabel('Flow Noise'),
 
 selspeed = []; selFN = [];
-for i = 1:size(T,1)
+for i = d2after'
     ii = find(abs(medpitch(i,:)) > th);
     selspeed = horzcat(selspeed,abs(spd(i,ii)));
     selFN = horzcat(selFN,medFN(i,ii));
@@ -110,8 +110,7 @@ end
 %%
 figure(10), clf
 figure(299), clf
-d2after = 18; 
-for i = d2after; 
+for i = 6:7; %d2after'; 
     %%
     flowEst = feval(c,log10(medFN(i,:))); % 1 Hz speed estimate from flow sound
     figure(4)

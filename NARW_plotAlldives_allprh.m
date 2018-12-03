@@ -11,7 +11,7 @@ load('NARW_foraging_tags_all')
 % mnboutdur = nan(10,40);
 tagc = viridis(size(tags,1)); % color for tags
 %%
-for i = 1:size(tags,1)
+for i = 8; %1:size(tags,1)
     tag = tags{i};
     loadprh(tag);
     

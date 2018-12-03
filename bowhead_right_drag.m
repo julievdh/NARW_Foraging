@@ -72,6 +72,7 @@ right_drag2(find(U==1.5))/bowhead_drag(3);
 
 % plot(h1,allspeeds,data_drag,'o')
 % plot(h2,allspeeds,all_hr_rate/3600,'^')
+return 
 
 %% sharks
 whaleshark_drag = 0.5*rho*0.1*Cd*U.^2*g*k; 

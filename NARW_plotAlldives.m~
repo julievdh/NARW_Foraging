@@ -106,15 +106,14 @@ for i = 1:size(tags,1)
                 xlabel('Dive duration (min)'), ylabel('Fluking bout duration (sec)')
             end
     %     end
-            phase_pitch = [];
-            phase_speed = []; 
+    
             if isempty(dive(k).vperblock) == 1 
                 % descent speed
                 phase_speed(k,1) = nanmean(dive(k).flowEst(round((T(k,1)+5:T(k,4))-T(k,1)+1)));
-                phase_pitch(k,1) = nanmean(rad2deg(pitch(round(T(k,1):T(k,4)*fs))));
+                phase_pitch(k,1) = nanmean(rad2deg(pitch(round(T(k,1):T(k,4))*fs)));
                 % ascent speed
                 phase_speed(k,2) = nanmean(dive(k).flowEst(round((T(k,4):T(k,2)-10)-T(k,1))));
-                phase_pitch(k,2) = nanmean(rad2deg(pitch(round((T(k,4):T(k,2))*fs))));
+                phase_pitch(k,2) = nanmean(rad2deg(pitch((T(k,4):T(k,2))*fs)));
             end
     
           if dive(k).vperblock > 1

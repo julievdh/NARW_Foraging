@@ -1,6 +1,7 @@
 % NARW_RCD
 % obtain rate of change in direction every 10 s
-
+addpath '/Users/jvanderhoop/Documents/MATLAB/CircStat2012a'
+warning off 
 
 % load prh
 load('NARW_foraging_tags')
@@ -8,7 +9,7 @@ alld = [];
 alls = [];
 d_RCD = []; 
 s_RCD = []; 
-for i = 1:size(tags,1)
+for i = 1:8 %size(tags,1)
     tag = tags{i}; ID = i;
     loadprh(tag)
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
@@ -97,7 +98,10 @@ for i = 1:size(tags,1)
 end
 return 
 
+mean(rad2deg(mnRCD))
+
 adjustfigurefont('Helvetica',14)
+xlim([-180 180])
 xlabel('Rate of Change in Direction (^o/10 s)')
 print('RCD_NARW_BoF','-dpng','-r300')
 
