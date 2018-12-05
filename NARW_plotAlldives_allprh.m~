@@ -158,11 +158,11 @@ for i = [1 2 3 6]
     % plot actual dive profile on top
     hh=plot((UTC(1)+UTC(2)/60+UTC(3)/3600)+[1:length(p)]/fs/3600,-p,'k','LineWidth',1);
     
-    ylim([-200 1]), xlim([8.5 26])
+    ylim([-200 1]), xlim([8.5 30.5])
     set(gca,'ytick',[-150 -50 0],'yticklabels',[150 50 0],'xtick',10:2:30,'xticklabels',[10:2:24 2:2:6])
-    text(23.8,-160,regexprep(tag(3:end),'_','-'),'FontSize',14)
-    text(25,-160,['n = ' num2str(size(tags{i,9},1))],'FontSize',14)
-    if i < 6, set(gca,'xtick',[]), end
+    text(27.9,-160,regexprep(tag(3:end),'_','-'),'FontSize',14)
+    text(29.3,-160,['n = ' num2str(size(tags{i,9},1))],'FontSize',14)
+    if i < 50, set(gca,'xtick',[]), end
     
     %%
     
@@ -171,7 +171,7 @@ for i = [1 2 3 6]
 end
 [ax1,ha] = suplabel('Local Time','x'); [ax1,ha] = suplabel('Depth (m)','y');
 adjustfigurefont('Helvetica',18)
-set(gcf,'position',[323 145 1038 600],'paperpositionmode','auto')
+set(gcf,'position',[323 145 1038 40],'paperpositionmode','auto')
 print('NARW_alldives_TOD_paper.png','-dpng','-r300')
 
 return 

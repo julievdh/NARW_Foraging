@@ -25,7 +25,7 @@ for i = 1:size(tags,1)
     
     % plot by time of day
     figure(100),set(gcf,'position',[323 145 1038 604],'paperpositionmode','auto')
-    subplot('position',[0.13 1.0-(tags{i,3}*0.09) 0.86 0.09]), hold on, box on
+    subplot('position',[0.13 0.98-(tags{i,3}*0.09) 0.86 0.08]), hold on, box on
     UTC = tags{i,2}(4:end);
     % add sunrise and sunset
     [sun_rise,sun_set] = sunRiseSet(44.55,-66.4,-4,datestr(datenum(tags{i,2}(1:3))));
@@ -35,7 +35,7 @@ for i = 1:size(tags,1)
     h1.EdgeColor = [0.7 0.7 0.7]; h1.FaceAlpha = 0.7; h1.EdgeAlpha = 0.5;
 
     % plot([0 30],[-50 -50],':','color',[0.8 0.8 0.8])
-    
+
     % add playback info
     for pb = 1:size(tags{i,7},1)
         pbstart = tags{i,7}(pb,1)+tags{i,7}(pb,2)/60+tags{i,7}(pb,3)/3600; 
@@ -164,7 +164,8 @@ end
 
 
 figure(100), 
-[ax1,ha] = suplabel('Local Time','x'); [ax1,ha] = suplabel('Depth (m)','y');  
+%[ax1,ha] = suplabel('Local Time','x'); 
+[ax1,ha] = suplabel('Depth (m)','y');  
 adjustfigurefont('Helvetica',18)
 set(gcf,'position',[323 145 1038 604],'paperpositionmode','auto')
 print('NARW_alldives_TOD_PB.png','-dpng','-r300')
