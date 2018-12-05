@@ -25,7 +25,7 @@ for i = 1:size(tags,1)
     
     % plot by time of day
     figure(100),set(gcf,'position',[323 145 1038 604],'paperpositionmode','auto')
-    subplot('position',[0.13 1.2-(tags{i,3}*0.11) 0.86 0.05]), hold on, box on
+    subplot('position',[0.13 1.0-(tags{i,3}*0.09) 0.86 0.09]), hold on, box on
     UTC = tags{i,2}(4:end);
     % add sunrise and sunset
     [sun_rise,sun_set] = sunRiseSet(44.55,-66.4,-4,datestr(datenum(tags{i,2}(1:3))));
@@ -33,7 +33,7 @@ for i = 1:size(tags,1)
     ss = str2num(sun_set(1:2))+str2num(sun_set(4:5))/60+str2num(sun_set(7:8))/3600;
     h1 = patch([ss 24+sr 24+sr ss ss],[8 8 -198 -198 0],[0.7 0.7 0.7]);
     h1.EdgeColor = [0.7 0.7 0.7]; h1.FaceAlpha = 0.7; h1.EdgeAlpha = 0.5;
-    
+
     % plot([0 30],[-50 -50],':','color',[0.8 0.8 0.8])
     
     % add playback info
