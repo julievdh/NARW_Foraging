@@ -219,7 +219,7 @@ for i = 1:length(allspeeds)
     all_hr_rate(:,i) = allspeeds(i)*gape*3600; % filtration rate of all (m3/h) at the bottom of dives
     gapes(:,i) = gape;
 end
-round([mean(all_hr_rate) std(all_hr_rate)])/3600 % in m/s
+round([nanmean(all_hr_rate) nanstd(all_hr_rate)])/3600 % in m/s
 
 % fluke stroke rate
 [nanmean(allfsr) nanstd(allfsr)]

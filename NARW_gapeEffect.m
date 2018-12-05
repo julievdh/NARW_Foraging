@@ -48,3 +48,5 @@ plot(gape,pdiff,'ko')
 
 clear btm stops vperblock 
 end
+
+% 
