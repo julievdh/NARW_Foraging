@@ -71,8 +71,6 @@ allPlength = vertcat(platelength',NPRW(:,2),Antarctic(:,2));
 
 ft = fitlm(allBlength,allPlength); % fit the model 
 
-print('NPRW_SRW_baleenlength','-dpng','-r300')
-
 %% apply the model for body lengths 
 
 for whaleAge = 1:20; 
@@ -83,6 +81,15 @@ lnth(whaleAge) = lnth(whaleAge)/100;
 end
 % estimate baleen length
 Blength = feval(ft,lnth);
+AllLength = feval(ft,[min(bodylength) max(NPRW(:,1))]); 
+
+% plot the fit on the figure 
+plot([min(bodylength) max(NPRW(:,1))],AllLength,'color',[.6 .6 .6])
+plot(lnth,Blength,'k')
+
+
+print('NPRW_SRW_baleenlength','-dpng','-r300')
+
 
 % estimate gape with length and width 
 A2 = (snt.*Blength)./2;
