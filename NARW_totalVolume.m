@@ -262,7 +262,6 @@ lmtort1 = fitlm(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1));
 % % size(find(cv_bouts_bydive > 0)) % just check size
 
 %% stat test
-load fisheriris
 diveid = tagid.*d;
 t = table(tagid,diveid,allbouts,allrms,allfsr,allspeeds,...
     'VariableNames',{'tagid','diveid','meas1','meas2','meas3','meas4'});
@@ -290,3 +289,21 @@ xlabel('Filtration rate per deployment (m^3/h)')
 adjustfigurefont('Helvetica',16)
 ylim([0 5]), set(gca,'ytick',[0:5])
 print('NARW_Frate_dep_pres','-dpng','-r300')
+
+%% plot by bottom, by dive, by deployment 
+figure(100), hold on 
+plot(repmat(1,length(allvperdive),1)+rand(length(allvperdive),1),3600*(allvperdive./allbtmdur),'o','linewidth',1.5) % on bottom
+plot(repmat(2,length(find(allvperdive>1)),1)+rand(length(find(allvperdive>1)),1),dbd_vrate(allvperdive > 1),'o','linewidth',1.5) % per dive
+plot(repmat(3,length(dep_filtrate),1)+rand(length(dep_filtrate),1),dep_filtrate,'o','linewidth',1.5) % per deployment 
+
+ylabel('Filtration rate (m^3/h)') 
+adjustfigurefont('Helvetica',16)
+
+figure(101), hold on
+scatterby(tagid2,3600*(allvperdive(i)./allbtmdur(i)),30,col(tagid2,:)); 
+scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1),30,col(tagid2(find(allvperdive>1)),:)); 
+scatterby(22+[1:10],dep_filtrate,30,col(1:10,:)); 
+ylabel('Filtration rate (m^3/h)') 
+set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
+adjustfigurefont('Helvetica',16)
+
