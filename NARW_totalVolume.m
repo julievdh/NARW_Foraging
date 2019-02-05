@@ -211,7 +211,7 @@ mean(alldur(allvperdive > 1)) % mean dive duration in seconds
 dbd_vrate = allvperdive./(alldur'/3600); % dive-by-dive filtration rate (m^3/h)
 [mean(dbd_vrate(allvperdive > 1)) std(dbd_vrate(allvperdive > 1))]/3600
 for i = 1:size(tags,1)
-    dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{1})/3600);
+    dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{i})/3600);
 end
 round([min(dep_filtrate) max(dep_filtrate)])
 for i = 1:length(allspeeds)
@@ -307,3 +307,4 @@ ylabel('Filtration rate (m^3/h)')
 set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
 adjustfigurefont('Helvetica',16)
 
+% extend to full day? 
