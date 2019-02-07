@@ -51,7 +51,7 @@ minlong  = -66-longdeg/2;
 
 %%
 
-figure(1),
+figure(1), clf
 set(gcf, 'Position',[100 100 800 800])
 set(gcf, 'color', 'white');
 hold on
@@ -106,8 +106,27 @@ tagonlon = [66.42783333
 66.39583333
 66.46483333];
 
+% add tag off for tags where have data
+tagofflat = [44.55668333
+44.57363333
+44.61615
+44.649
+0
+44.56026667];
+
+tagofflon = [66.46508333
+66.52308333
+66.43483333
+66.4395
+0
+66.51348333];
+
+tagofflon(tagofflon == 0) = NaN;
+tagofflat(tagofflat == 0) = NaN; % replace zeros with NaN
+
 %% plot
 plot(-tagonlon,tagonlat,'ko')
+plot(-tagofflon,tagofflat,'ro')
 
 CH = [-66.45 44.81666667;
     -66.28333333 44.78333333;
@@ -122,6 +141,7 @@ plot(CH(:,1),CH(:,2),'r','linewidth',1.5)
 
 % print -dpng NARW_BoF_tagpos -r300
 
+return 
 %% tag duration 
 
 tdur = [2.516666667
