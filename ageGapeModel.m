@@ -69,7 +69,7 @@ adjustfigurefont
 allBlength = vertcat(bodylength',NPRW(:,1),Antarctic(:,1));
 allPlength = vertcat(platelength',NPRW(:,2),Antarctic(:,2));
 
-ft = fitlm(allBlength,allPlength); % fit the model 
+ft = fit(allBlength,allPlength,'poly1'); % fit the model 
 
 %% apply the model for body lengths 
 
@@ -83,16 +83,19 @@ end
 Blength = feval(ft,lnth);
 AllLength = feval(ft,[min(bodylength) max(NPRW(:,1))]); 
 
-% plot the fit on the figure 
+% plot the fit on the figure -- ADD ERROR? plot_ci
+ci = predint(ft,[min(bodylength) max(NPRW(:,1))]);
+H = plot_ci([min(bodylength) max(NPRW(:,1))],ci,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
+
 plot([min(bodylength) max(NPRW(:,1))],AllLength,'color',[.6 .6 .6])
 plot(lnth,Blength,'k')
 
+% get equation from ft.Coefficients and add text
 
 print('NPRW_SRW_baleenlength','-dpng','-r300')
 
-
 % estimate gape with length and width 
-A2 = (snt.*Blength)./2;
+A2 = (snt.*Blength')./2;
 
 %% for plotting multiple axes 
 figure(22), clf
@@ -133,3 +136,33 @@ plot(h1,age,gapes,'o','color',[123/255 50/255 148/255])
 adjustfigurefont
 print('NARW_gape_length2','-dsvg','-r300')
 
+%% add mouth size to calculate baleen filter area
+
+mouthlength = [2	235; 0	140; 3	197; 
+2	230; 0	69; 12	300; 2	299; 
+2.5	200; 3	235; 0	90; 12	337;
+0	101; 4	250; 0	77; 2	278;
+28	309; 10	320; 0	128; 1	165;
+1	245; 12	361; 30	360; 15	280; 
+12	373; 9	315; 0	13; 1	98;
+1	187.9; 2 	238; 0	85; 1	161;
+0	109; 0	115; 2	210; 2	220; 1	206];
+
+bodylen = [1030; 760; 1100; 1090; 412; 1360;
+1155; 1030; 1266; 478; 1415; 513; 1270; 417; 1259; 1370; 
+1350; 771; 910; 1100; 1370; 1600; 1490; 1380; 1470; 600
+560; 658; 1260; 401; 772; 470; 495; 975; 1000; 885]; 
+
+figure(18), clf, hold on 
+plot(allBlength,allPlength*100,'o')
+plot(bodylen/100,mouthlength(:,2),'o')
+xlabel('Body Length (m)')
+
+ft2 = fit(bodylen/100,mouthlength(:,2),'poly1'); % fit the model
+Mlength = feval(ft2,lnth);
+
+plot(lnth,Blength*100,'k')
+plot(lnth,Mlength,'k')
+H = plot_ci([min(bodylength) max(NPRW(:,1))],ci*100,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
+ci2 = predint(ft2,[min(bodylength) max(NPRW(:,1))]);
+H2 = plot_ci([min(bodylength) max(NPRW(:,1))],ci2,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
