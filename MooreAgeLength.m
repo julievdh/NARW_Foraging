@@ -1,3 +1,5 @@
+function ci_length = MooreAgeLength
+
 % obtain fit and prediction interval for published relationship in Moore et
 % al. 2005 Morphometry and gross morphology right whales... 
 
@@ -15,20 +17,20 @@ ii = find(age ~= 0);
 
 
 % plot
-figure(1), clf, hold on 
-plot(age,lnth,'o')
+% figure(1), clf, hold on 
+% plot(age,lnth,'o')
 % plot Michael's Fit
 whaleAge = 1:30;
 lnthFit(whaleAge) = 1011.033+320.501*log10(whaleAge); % MOORE ET AL 2004
-plot(whaleAge,lnthFit)
+% plot(whaleAge,lnthFit)
 
 % fit
 ft = fit(log10(age(ii)'),lnth(ii)','poly1');
 % good, same fit as Michael's 
 
 % prediction interval 
-ci = predint(ft,log10(whaleAge));
-plot(whaleAge,ci(:,1))
-plot(whaleAge,ci(:,2))
+ci_length = predint(ft,log10(whaleAge),0.68);
 
-xlabel('Age'), ylabel('Length (cm)'), adjustfigurefont
+% plot(whaleAge,ci_length(:,1))
+% plot(whaleAge,ci_length(:,2))
+% xlabel('Age'), ylabel('Length (cm)'), adjustfigurefont
