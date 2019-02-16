@@ -1,4 +1,4 @@
-function [gapearea,lnth] = getgape(age) 
+function [gapearea,ci_gapes,lnth] = getgape(age) 
 % get estimated gape area for NARW of a given age
 % input: age of animal
 % outputs:
@@ -6,15 +6,16 @@ function [gapearea,lnth] = getgape(age)
 %      lnth: length estimate from Moore et al. 2004 in m
 
 % estimate length of whale from age (Moore et al. 2004)
-lnth = (1011.033+320.501*log10(age))/100; % in m 
+[lnth,ci_length] = MooreAgeLength(age);
 
 % load length/witdh data from Carolyn Miller: Eubalaena glacialis and
 % Eubalaena australis calves and moms
 load('EgEaWidthsCAMthesis')
 % fit 10% width to length 
-wd10 = fitlm(data(:,1),data(:,2)); 
+wd10 = fit(data(:,1),data(:,2),'poly1'); 
 % estimate witdh from length
 width = feval(wd10,lnth); 
+ci_width = predint(wd10,lnth,0.68); % confidence interval 
 
 %% add  baleen length
 %Best and Schell 1996, table 1
@@ -58,8 +59,13 @@ allBlength = vertcat(bodylength',NPRW(:,1),Antarctic(:,1));
 allPlength = vertcat(platelength',NPRW(:,2),Antarctic(:,2));
 
 % fit the model 
-bln = fitlm(allBlength,allPlength); 
+bln = fit(allBlength,allPlength,'poly1'); 
 % estimate baleen length from body length
-baleen = feval(bln,lnth);
+baleen = feval(bln,lnth/100);
+ci_baleen = predint(bln,lnth/100,0.68);
+
+errorProp % propagate errors into gape 
 
 gapearea = (width*baleen)/2; % m^2
+
+ci_gapes = del_all*gapearea; 
