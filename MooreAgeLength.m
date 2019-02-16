@@ -1,3 +1,6 @@
+% obtain fit and prediction interval for published relationship in Moore et
+% al. 2005 Morphometry and gross morphology right whales... 
+
 % data from Table 4 Moore et al 2005 Morphometry
 lnth = [1030 760 1100 479 457 1090 412 1005 1360 473 1155 1266 1030 478 ...
     1415 513 1270 417 1259 455 1460 1370 1350 771 910 1455 1200 1100];
@@ -28,3 +31,4 @@ ci = predint(ft,log10(whaleAge));
 plot(whaleAge,ci(:,1))
 plot(whaleAge,ci(:,2))
 
+xlabel('Age'), ylabel('Length (cm)'), adjustfigurefont
