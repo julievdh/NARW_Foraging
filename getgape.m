@@ -1,9 +1,11 @@
-function [gapearea,ci_gapes,lnth] = getgape(age) 
+function [gapearea,ci_gapes,width,ci_width] = getgape(age) 
 % get estimated gape area for NARW of a given age
 % input: age of animal
 % outputs:
 %      gape: area in m^2
-%      lnth: length estimate from Moore et al. 2004 in m
+%      ci_gape: 95% confidence interval around gape estimate, propagated
+%      width: width of snout based on Miller et al
+%      ci_width: 95% confidence interval around width estimate
 
 % estimate length of whale from age (Moore et al. 2004)
 [lnth,ci_length] = MooreAgeLength(age);

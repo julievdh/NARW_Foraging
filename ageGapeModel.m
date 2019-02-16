@@ -77,6 +77,7 @@ ft = fit(allBlength,allPlength,'poly1'); % fit the model
 
 % estimate baleen length
 Blength = feval(ft,lnth);
+ci_Blength = predint(ft,lnth,0.95,'functional','off'); % for figure
 AllLength = feval(ft,[min(bodylength) max(NPRW(:,1))]);
 
 % plot the fit on the figure -- ADD ERROR? plot_ci
@@ -90,12 +91,9 @@ plot(lnth,Blength,'k')
 
 print('NPRW_SRW_baleenlength','-dpng','-r300')
 
-% estimate gape with length and width
-A2 = (snt.*Blength')./2;
 
 %% for plotting multiple axes
 figure(22), clf
-test = 1011.033+320.501*log10(0.1:2:20); % vector of estimated lengths
 axesPosition = [110 40 200 200];  %# Axes position, in pixels
 yWidth = 30;                      %# y axes spacing, in pixels
 
@@ -112,12 +110,9 @@ ylabel(h2,'Head Width (m), Baleen Length (m)');
 ylabel(h1,'Gape Area (m^2)');
 xlabel(h2,'Body Length (m)');
 
-% plot(h1,1:20,A2,'color',[123/255 50/255 148/255])
-% plot(h1,A,'--','color',[123/255 50/255 148/255])
-plot(h1,1:20,snt,'color',[0    0.4470    0.7410])
+% plot baleen lengths and CI
 plot(h1,1:20,Blength,'color',[ 0.9290    0.6940    0.1250])
-
-plot(h1,[1/12 3.5/12 1],[0.68 1.01 snt(1)],'-','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
+plot(h1,1:20,ci_Blength,'k:','color',[ 0.9290    0.6940    0.1250])
 
 % add size of whales in our study
 age = [2     3     4     8    19]; % unique([tags{:,6}])
@@ -125,13 +120,19 @@ for n = 1:length(age)
     [gapes(n), ci_gapes(n)] = getgape(age(n));
 end
 for whaleAge = 1:20
-    [all_gapes(whaleAge),all_ci_gapes(whaleAge)] = getgape(whaleAge); 
+    [all_gapes(whaleAge),all_ci_gapes(whaleAge),all_widths(whaleAge),all_ci_widths(whaleAge,1:2)] = getgape(whaleAge); 
 end
+% plot widths and CI
+plot(h2,1:20,all_widths/100,'color',[0    0.4470    0.7410])
+plot(h2,1:20,all_ci_widths/100,':','color',[0    0.4470    0.7410])
+plot(h1,[1/12 3.5/12 1],[0.68 1.01 all_widths(1)/100],'-','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
+
+% plot gapes and CI
 plot(h1,[1/12 3/12 1],[(0.68.^2)./2 (1.01.^2)./2 all_gapes(1)/100],'-','color',[123/255 50/255 148/255]) % area for calves
 plot(h1,1:20,all_gapes/100,'color',[123/255 50/255 148/255])        
-plot(h1,1:20,all_gapes/100-all_ci_gapes/100,'--','color',[123/255 50/255 148/255])
-plot(h1,1:20,all_gapes/100+all_ci_gapes/100,'--','color',[123/255 50/255 148/255])
-plot(h1,age,gapes/100,'o','color',[123/255 50/255 148/255])
+plot(h1,1:20,all_gapes/100-all_ci_gapes/100,':','color',[123/255 50/255 148/255])
+plot(h1,1:20,all_gapes/100+all_ci_gapes/100,':','color',[123/255 50/255 148/255])
+plot(h1,age,gapes/100,'o','color',[123/255 50/255 148/255],'markerfacecolor',[123/255 50/255 148/255])
 
 adjustfigurefont
 print('NARW_gape_length2','-dsvg','-r300')
