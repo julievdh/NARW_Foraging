@@ -15,7 +15,7 @@ load('EgEaWidthsCAMthesis')
 wd10 = fit(data(:,1),data(:,2),'poly1'); 
 % estimate witdh from length
 width = feval(wd10,lnth); 
-ci_width = predint(wd10,lnth,0.68); % confidence interval 
+ci_width = predint(wd10,lnth,0.95,'functional','off'); % confidence interval 
 
 %% add  baleen length
 %Best and Schell 1996, table 1
@@ -62,7 +62,7 @@ allPlength = vertcat(platelength',NPRW(:,2),Antarctic(:,2));
 bln = fit(allBlength,allPlength,'poly1'); 
 % estimate baleen length from body length
 baleen = feval(bln,lnth/100);
-ci_baleen = predint(bln,lnth/100,0.68);
+ci_baleen = predint(bln,lnth/100,0.95,'functional','off');
 
 errorProp % propagate errors into gape 
 

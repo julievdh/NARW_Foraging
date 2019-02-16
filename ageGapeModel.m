@@ -80,7 +80,7 @@ Blength = feval(ft,lnth);
 AllLength = feval(ft,[min(bodylength) max(NPRW(:,1))]);
 
 % plot the fit on the figure -- ADD ERROR? plot_ci
-ci_baleen = predint(ft,[min(bodylength) max(NPRW(:,1))],0.68);
+ci_baleen = predint(ft,[min(bodylength) max(NPRW(:,1))],0.95,'functional','off');
 H = plot_ci([min(bodylength) max(NPRW(:,1))],ci_baleen,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
 
 plot([min(bodylength) max(NPRW(:,1))],AllLength,'color',[.6 .6 .6])
@@ -136,6 +136,7 @@ plot(h1,age,gapes/100,'o','color',[123/255 50/255 148/255])
 adjustfigurefont
 print('NARW_gape_length2','-dsvg','-r300')
 
+return 
 %% add mouth size to calculate baleen filter area
 
 mouthlength = [2	235; 0	140; 3	197;
