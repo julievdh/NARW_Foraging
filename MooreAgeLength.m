@@ -30,7 +30,17 @@ ft = fit(log10(age(ii)'),lnth(ii)','poly1');
 
 % prediction interval 
 length_out = feval(ft,log10(age_in)); 
-ci_length = predint(ft,log10(age_in),0.68);
+ci_length = predint(ft,log10(age_in),0.68,'functional','off');
+
+return 
+% for paper 
+paper_lengths_out = feval(ft,log10([4 3 18 4 11 2 11 3 3 4]));
+paper_ci_length = predint(ft,log10([4 3 18 4 11 2 11 3 3 4]),0.68,'functional','off');
+sds = (paper_ci_length(:,1)-paper_lengths_out); % standard deviations 
+figure(99), clf, hold on
+errorbar([4 3 18 4 11 2 11 3 3 4],paper_lengths_out/100,sds/100,'o') % plot in m
+plot(age,lnth/100,'o')
+xlabel('Age'), ylabel('Body Length (m)') 
 
 % plot(whaleAge,ci_length(:,1))
 % plot(whaleAge,ci_length(:,2))
