@@ -115,7 +115,7 @@ plot(h1,1:20,Blength,'color',[ 0.9290    0.6940    0.1250])
 plot(h1,1:20,ci_Blength,'k:','color',[ 0.9290    0.6940    0.1250])
 
 % add size of whales in our study
-age = [2     3     4     8    19]; % unique([tags{:,6}])
+age = [2     3     4     11    18]; % unique([tags{:,6}])
 for n = 1:length(age)
     [gapes(n), ci_gapes(n)] = getgape(age(n));
 end
@@ -125,7 +125,7 @@ end
 % plot widths and CI
 plot(h2,1:20,all_widths/100,'color',[0    0.4470    0.7410])
 plot(h2,1:20,all_ci_widths/100,':','color',[0    0.4470    0.7410])
-plot(h1,[1/12 3.5/12 1],[0.68 1.01 all_widths(1)/100],'-','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
+plot(h2,[1/12 3.5/12 0.98],[0.68 1.01 all_widths(1)/100],'-','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
 
 % plot gapes and CI
 plot(h1,[1/12 3/12 1],[(0.68.^2)./2 (1.01.^2)./2 all_gapes(1)/100],'-','color',[123/255 50/255 148/255]) % area for calves
