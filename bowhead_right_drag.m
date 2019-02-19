@@ -42,8 +42,9 @@ MouthFriction = [1.0238559	84.90758
 16.008991	5394.221];
 plot(MouthFriction(:,1),MouthFriction(:,2),'o')
 % fit a relationship to this for smoother plotting
-
-% get sizes and reorder for plotting 
+ft3 = fit(MouthFriction(1:4,1),MouthFriction(1:4,2),'poly1');
+ft5 = fit(MouthFriction(5:9,1),MouthFriction(5:9,2),'poly1');
+ft72 = fit(MouthFriction(10:13,1),MouthFriction(10:13,2),'poly1'); 
 
 figure(2), clf, hold on 
 plot(U,4.2*U,'--','LineWidth',2)
@@ -55,9 +56,9 @@ legend('Bowhead, 4.2 m^2 gape', 'Right, 1m^2 gape', 'Right, 2m^2 gape','location
 
 figure(3), clf
 h1 = axes('Color','w','XColor','k','YColor','k',...
-          'YLim',[0 4000],'Xlim',[0.5 max(U)],'NextPlot','add');
+          'YLim',[0 3500],'Xlim',[0.5 max(U)],'NextPlot','add');
 h2 = axes('Color','none','XColor','k','YColor','k',...
-          'YLim',[0 14],'Xlim',[0.5 max(U)],...
+          'YLim',[0 13],'Xlim',[0.5 max(U)],...
           'Yaxislocation','right','ytick',[0 3 6 9 12],...
           'Xaxislocation','top','xtick',[],'NextPlot','add');
 
@@ -65,17 +66,17 @@ xlabel(h1,'Swimming Speed (m/s)');
 ylabel(h1,'Mouth Friction Drag (N)');
 ylabel(h2,'Filtation Rate (m^3/s)');
 
-plot(h1,sqrt(MouthFriction(1:4,1)),MouthFriction(1:4,2),'Linewidth',2)
-plot(h1,sqrt(MouthFriction(5:9,1)),MouthFriction(5:9,2),'Linewidth',2)
-plot(h1,sqrt(MouthFriction(10:13,1)),MouthFriction(10:13,2),'Linewidth',2)
+plot(h1,U,feval(ft72,U.^2),'Linewidth',2)
+plot(h1,U,feval(ft5,U.^2),'Linewidth',2)
+plot(h1,U,feval(ft3,U.^2),'Linewidth',2)
 
 bowhead_frate = 4.2*U; % filtration rates of bowhead and rights based on area and swimming speed
 right_frate1 = 1*U; 
 right_frate2 = 2*U; 
 
 plot(h2,U,bowhead_frate,'--','LineWidth',2)
-plot(h2,U,right_frate1,'--','LineWidth',2)
 plot(h2,U,right_frate2,'--','LineWidth',2)
+plot(h2,U,right_frate1,'--','LineWidth',2)
 legend('Bowhead, 4.2 m^2 gape', 'Right, 1m^2 gape', 'Right, 2m^2 gape','location','NW')
 
 adjustfigurefont('Helvetica',14), print('bowhead_right_drag','-dpng')
