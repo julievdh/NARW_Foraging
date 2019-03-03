@@ -5,7 +5,7 @@ clear
 
 load('NARW_foraging_tags') % let's make this more straightforward
 % HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED 
-ID = 10; 
+ID = 8; 
 tag = tags{ID}; 
 loadprh(tag,'p','fs','Aw','Mw','pitch');
 
@@ -88,7 +88,7 @@ plot(logselFN,selspeed,'o')
 
 % myfit = fittype('a+b*20*log10(x)','dependent',{'y'},'independent',{'x'},'coefficients',{'a','b'});
 %[c,g] = fit(logselFN,selspeed,'poly1','robust','LAR')
-[c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.15 Inf Inf],'robust','LAR')
+[c,g] = fit(logselFN',selspeed','poly2','lower',[-Inf -1 -Inf],'upper',[0.2 Inf Inf],'robust','LAR')
 figure(4),
 h = plot(c,'k'); h.LineWidth = 2;  legend off
 ci = predint(c,linspace(min(logselFN),max(logselFN),100));
@@ -96,8 +96,12 @@ plot(linspace(min(logselFN),max(logselFN),100),ci,'k--','LineWidth',2)
 ylabel('Vertical speed (m/s)'), xlabel('Log_1_0(Flow noise)'), adjustfigurefont('Helvetica',14)
 axletter(gca,['R^2 = ' num2str(round(g.rsquare,2))],14)
 axletter(gca,['RMSE = ' num2str(round(g.rmse,2)) ' m/s'],14,0.05,0.85)
+axletter(gca,['y = ' num2str(round(c.p3,2)) ' + ' num2str(round(c.p2,2)) 'x + ' num2str(round(c.p1,2)) 'x^2'],12,0.65,0.1)
 set(gcf,'paperpositionmode','auto')
-% print('NARW_FlowNoise_SuppFig.png','-dpng','-r300')
+print('NARW_FlowNoise_SuppFig.png','-dpng','-r300')
+
+% expvsquad
+
 %% apply
 % calculate pitch
 [~,ph] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]);
