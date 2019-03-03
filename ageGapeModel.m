@@ -59,19 +59,10 @@ NPRW = [10.777474	0.39463958
     17.820353	2.3610904
     18.331057	1.9995272];
 
-figure(21), clf, hold on
-plot(bodylength,platelength,'v','linewidth',1)
-plot(NPRW(:,1),NPRW(:,2),'^','linewidth',1)
-plot(Antarctic(:,1),Antarctic(:,2),'o','linewidth',1)
-
-xlabel('Body length (m)')
-ylabel('Length of longest baleen plate (m)')
-adjustfigurefont
-
 allBlength = vertcat(bodylength',NPRW(:,1),Antarctic(:,1));
 allPlength = vertcat(platelength',NPRW(:,2),Antarctic(:,2));
 
-ft = fit(allBlength,allPlength,'poly1'); % fit the model
+[ft,gof] = fit(allBlength,allPlength,'poly1'); % fit the model
 
 %% apply the model for body lengths
 
@@ -82,10 +73,23 @@ AllLength = feval(ft,[min(bodylength) max(NPRW(:,1))]);
 
 % plot the fit on the figure -- ADD ERROR? plot_ci
 ci_baleen = predint(ft,[min(bodylength) max(NPRW(:,1))],0.95,'functional','off');
-H = plot_ci([min(bodylength) max(NPRW(:,1))],ci_baleen,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
+
+figure(21), clf, hold on
+H = plot_ci([min(bodylength) max(NPRW(:,1))],ci_baleen,'patchcolor',[0 0 0],'patchalpha',0.1,'linecolor','w');
 
 plot([min(bodylength) max(NPRW(:,1))],AllLength,'color',[.6 .6 .6])
 plot(lnth,Blength,'k')
+plot(bodylength,platelength,'v','linewidth',1.5)
+plot(NPRW(:,1),NPRW(:,2),'^','linewidth',1.5)
+plot(Antarctic(:,1),Antarctic(:,2),'o','linewidth',1.5)
+
+xlabel('Body length (m)')
+ylabel('Length of longest baleen plate (m)')
+adjustfigurefont('Helvetica',14)
+axletter(gca,['y = ' num2str(round(ft.p2,2)) ' + ' num2str(round(c.p1,2)) 'x'],12,0.75,0.1)
+axletter(gca,['R^2 = ' num2str(round(gof.rsquare,2))],14)
+axletter(gca,['RMSE = ' num2str(round(gof.rmse,2)) ' m'],14,0.05,0.85)
+
 
 % get equation from ft.Coefficients and add text
 
@@ -168,3 +172,11 @@ plot(lnth,Mlength,'k')
 H = plot_ci([min(bodylength) max(NPRW(:,1))],ci_baleen*100,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
 ci2 = predint(ft2,[min(bodylength) max(NPRW(:,1))]);
 H2 = plot_ci([min(bodylength) max(NPRW(:,1))],ci2,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
+
+ylabel({'Baleen length (m)','Mouth length (m)'})
+
+right_AF = [10.905109	3.3263597
+12.218978	3.7447698
+14.978102	5
+16.116789	5.6903768
+16.9927	5.6903768]; 
