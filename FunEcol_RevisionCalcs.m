@@ -134,3 +134,8 @@ plot(lnth,Mlength,'k')
 
 BFA = Blength*100.*Mlength; 
 H = plot_ci([min(bodylength) max(NPRW(:,1))],ci*100,'patchcolor',[0 0 0],'patchalpha',0.25,'linecolor','w');
+
+%% check for roll/heading changes when pitch changes 
+PRHplotNARWcheck
+
+%% 
