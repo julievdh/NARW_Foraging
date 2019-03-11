@@ -114,7 +114,7 @@ end
 %%
 figure(10), clf
 figure(299), clf
-for i = 6:7; %d2after'; 
+for i = d2after'; 
     %%
     flowEst = feval(c,log10(medFN(i,:))); % 1 Hz speed estimate from flow sound
     figure(4)
