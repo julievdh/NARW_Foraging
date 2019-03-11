@@ -4,9 +4,9 @@
 clear
 
 load('NARW_foraging_tags') % let's make this more straightforward
-% HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED 
-ID = 8; 
-tag = tags{ID}; 
+% HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED
+ID = 8;
+tag = tags{ID};
 loadprh(tag,'p','fs','Aw','Mw','pitch');
 
 t = (1:length(p))/fs;
@@ -16,7 +16,7 @@ warning off
 % find dives
 T = finddives(p,fs,50,1);
 load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
-d2after = tags{ID,9}; 
+d2after = tags{ID,9};
 %%
 % for all dives
 % %for i = 1:size(T,1) % missing first 10 dives in first 2 .dtgs
@@ -114,7 +114,7 @@ end
 %%
 figure(10), clf
 figure(299), clf
-for i = d2after'; 
+for i = d2after';
     %%
     flowEst = feval(c,log10(medFN(i,:))); % 1 Hz speed estimate from flow sound
     figure(4)
@@ -135,16 +135,25 @@ for i = d2after';
     title(['Dive ' num2str(i)])
     xlabel('Time (min)')
     
-    % calculate filtered volume    
-    if ID ~= [5 7 8 9] % if we don't have a length measurement
-    gape = getgape(tags{ID,6}); 
+    % calculate filtered volume
+    switch ID
+        case 5
+            gape = getgape(tags{ID,6}, 1190);
+        case 9
+            gape = getgape(tags{ID,6}, 1210);
+        case 7
+            gape = getgape(tags{ID,6}, 1250);
+        case 8
+            gape = getgape(tags{ID,6}, 1250);
+        otherwise
+            gape = getgape(tags{ID,6});
     end
     
     % find bottom time based on pitch angle < 20
     [frst,lst] = findbottomtime(pdeg(round(dcue*fs)),fs,1);
     %%
-    if isnan(frst) ~= 1 
-        %% 
+    if isnan(frst) ~= 1
+        %%
         btm = frst:lst; % bottom time in seconds
         plot(dcue/60,pdeg(round(dcue*fs))) % plot pitch through time
         %plot(dcue(btm)/60,pdeg(dcue(btm)*fs),'.') % plot pitch on bottom
@@ -199,9 +208,9 @@ for i = d2after';
             
             % store/plot values
             stops = sort(stops);
-            del = find(stops(:,2)-stops(:,1) < 3); 
+            del = find(stops(:,2)-stops(:,1) < 3);
             stops(del,:) = []; % delete those (they're input errors)
-                        
+            
             dive(i).stops = stops;
             % block duration
             figure(299), subplot(221), hold on
