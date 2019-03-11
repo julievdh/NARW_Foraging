@@ -156,12 +156,21 @@ for i = [4, 10];
     dcue = T(i,1)-50:T(i,2)+50;
     subplot(121), hold on % depth
     plot([0 0],[-140 10],'--','color',[0.5 0.5 0.5])
-    plot(dcue-T(i,1),-p(round(dcue*fs)))
+    plot([T(i,2)-T(i,1) T(i,2)-T(i,1)],[-140 10],'--','color',[0.5 0.5 0.5])
+    plot(dcue-T(i,1),-p(round(dcue*fs)),'LineWidth',1.5)
+    ylim([-140 10]), xlim([-50 811])
+    xlabel('Time (s)'), set(gca,'xtick',0:120:900)
+    ylabel('Depth (m)'), box on
 
     subplot(122), hold on % pitch
     plot([0 0],[-80 80],'--','color',[0.5 0.5 0.5])
-    plot(dcue-T(i,1),pdeg(round(dcue*fs)))
-    
+    plot([T(i,2)-T(i,1) T(i,2)-T(i,1)],[-80 80],'--','color',[0.5 0.5 0.5])
+    plot(dcue-T(i,1),pdeg(round(dcue*fs)),'LineWidth',1.5)
+    ylim([-80 80]), xlim([-50 811])
+    xlabel('Time (s)'), set(gca,'xtick',0:120:900)
+    ylabel('Pitch (degrees)'), box on
 end
 
-adjustfigurefont 
+adjustfigurefont('Helvetica',14)
+set(gcf,'paperpositionmode','auto')
+print('NARW_DiveCompare','-dpng','-r300')
