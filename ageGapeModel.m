@@ -1,14 +1,14 @@
 % NARW mouth gape model test
 for whaleAge = 1:20;
     [whaleLength,ci] = MooreAgeLength(whaleAge); % MOORE ET AL 2004
-    whaleLength = whaleLength/100; ci = ci/100; 
-
-    lnth(whaleAge) = whaleLength; 
-    ci_length(whaleAge,1:2) = ci; 
+    whaleLength = whaleLength/100; ci = ci/100;
+    
+    lnth(whaleAge) = whaleLength;
+    ci_length(whaleAge,1:2) = ci;
     
     [width,stations] = bodywidth(lnth(whaleAge)); % this is mesomorphic but I don't really like it for going across age stages.
-    figure(19), hold on
-    plot(stations, width)
+    % figure(19), hold on
+    % plot(stations, width)
     
     snt(whaleAge) = width(1)*2; % fix this relationship but you get the idea
     
@@ -100,48 +100,55 @@ print('NPRW_SRW_baleenlength','-dpng','-r300')
 figure(22), clf
 axesPosition = [110 40 200 200];  %# Axes position, in pixels
 yWidth = 30;                      %# y axes spacing, in pixels
-test = 1011.033+320.501*log10(0.1:2:20); % vector of estimated lengths
 h1 = axes('Color','w','XColor','k','YColor',[123/255 50/255 148/255],...
-    'YLim',[0 2.2],'Xlim',[0 20],'NextPlot','add');
+    'YLim',[0.5 2.5],'Xlim',[10 14.5],'NextPlot','add');
 h2 = axes('Color','none','XColor','k','YColor','k',...
-    'YLim',[0 2.2],'Xlim',[0 20],...
-    'Xtick',0.1:2:20,'xticklabels',round(test/100,1),...
+    'YLim',[0.5 2.5],'Xlim',[10 14.5],...
+    'Xtick',[11.08 12.04 12.62 13.02 13.33 13.57 13.80 13.96 14.15],...
+    'xticklabels',{'2','4','6','8','10','12','14','16','18'},...
     'Yaxislocation','right',...
     'Xaxislocation','top','NextPlot','add');
 
-xlabel(h1,'Age (years)');
+xlabel(h1,'Body Length (m)');
+xlabel(h2,'Age (years)');
 ylabel(h2,'Head Width (m), Baleen Length (m)');
 ylabel(h1,'Gape Area (m^2)');
-xlabel(h2,'Body Length (m)');
 
 % plot baleen lengths and CI
-plot(h1,1:20,Blength,'color',[ 0.9290    0.6940    0.1250])
-plot(h1,1:20,ci_Blength,'k:','color',[ 0.9290    0.6940    0.1250])
+plot(h1,lnth,Blength,'color',[ 0.9290    0.6940    0.1250])
+plot(h1,lnth,ci_Blength,'k:','color',[ 0.9290    0.6940    0.1250])
 
 % add size of whales in our study
-age = [2     3     4     11    18]; % unique([tags{:,6}])
+age = [2     3     4     11   ]; % unique([tags{:,6}])
 for n = 1:length(age)
     [gapes(n), ci_gapes(n)] = getgape(age(n));
 end
 for whaleAge = 1:20
-    [all_gapes(whaleAge),all_ci_gapes(whaleAge),all_widths(whaleAge),all_ci_widths(whaleAge,1:2)] = getgape(whaleAge); 
+    [all_gapes(whaleAge),all_ci_gapes(whaleAge),all_widths(whaleAge),all_ci_widths(whaleAge,1:2)] = getgape(whaleAge);
 end
+measd = [1190 1212 1246 1250]; % measured lengths from Perryman
+measage = [4 3 18 11];
+for i = 1:length(measd)
+    [measgape(i),meas_ci_gape(i)] = getgape(measage(i),measd(i));
+end
+
 % plot widths and CI
-plot(h2,1:20,all_widths/100,'color',[0    0.4470    0.7410])
-plot(h2,1:20,all_ci_widths/100,':','color',[0    0.4470    0.7410])
-plot(h2,[1/12 3.5/12 0.98],[0.68 1.01 all_widths(1)/100],'-','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
+plot(h2,lnth,all_widths/100,'color',[0    0.4470    0.7410])
+plot(h2,lnth,all_ci_widths/100,':','color',[0    0.4470    0.7410])
+%plot(h2,[1/12 3.5/12 0.98],[0.68 1.01 all_widths(1)/100],'-','color',[0    0.4470    0.7410]) % width data for calves from Carolyn Miller
 
 % plot gapes and CI
-plot(h1,[1/12 3/12 1],[(0.68.^2)./2 (1.01.^2)./2 all_gapes(1)/100],'-','color',[123/255 50/255 148/255]) % area for calves
-plot(h1,1:20,all_gapes/100,'color',[123/255 50/255 148/255])        
-plot(h1,1:20,all_gapes/100-all_ci_gapes/100,':','color',[123/255 50/255 148/255])
-plot(h1,1:20,all_gapes/100+all_ci_gapes/100,':','color',[123/255 50/255 148/255])
-plot(h1,age,gapes/100,'o','color',[123/255 50/255 148/255],'markerfacecolor',[123/255 50/255 148/255])
+%plot(h1,[1/12 3/12 1],[(0.68.^2)./2 (1.01.^2)./2 all_gapes(1)/100],'-','color',[123/255 50/255 148/255]) % area for calves
+plot(h1,lnth,all_gapes/100,'color',[123/255 50/255 148/255])
+plot(h1,lnth,all_gapes/100-all_ci_gapes/100,':','color',[123/255 50/255 148/255])
+plot(h1,lnth,all_gapes/100+all_ci_gapes/100,':','color',[123/255 50/255 148/255])
+plot(h1,lnth(age),gapes/100,'o','color',[123/255 50/255 148/255],'markerfacecolor',[123/255 50/255 148/255])
+plot(h1,measd/100,measgape/100,'o','color',[123/255 50/255 148/255])
 
 adjustfigurefont
 print('NARW_gape_length2','-dsvg','-r300')
 
-return 
+return
 %% add mouth size to calculate baleen filter area
 
 mouthlength = [2	235; 0	140; 3	197;
@@ -176,7 +183,7 @@ H2 = plot_ci([min(bodylength) max(NPRW(:,1))],ci2,'patchcolor',[0 0 0],'patchalp
 ylabel({'Baleen length (m)','Mouth length (m)'})
 
 right_AF = [10.905109	3.3263597
-12.218978	3.7447698
-14.978102	5
-16.116789	5.6903768
-16.9927	5.6903768]; 
+    12.218978	3.7447698
+    14.978102	5
+    16.116789	5.6903768
+    16.9927	5.6903768];
