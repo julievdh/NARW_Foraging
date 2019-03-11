@@ -1,4 +1,4 @@
-function [gapearea,ci_gapes,width,ci_width] = getgape(age) 
+function [gapearea,ci_gapes,width,ci_width] = getgape(age,lnth) 
 % get estimated gape area for NARW of a given age
 % input: age of animal
 % outputs:
@@ -6,9 +6,10 @@ function [gapearea,ci_gapes,width,ci_width] = getgape(age)
 %      ci_gape: 95% confidence interval around gape estimate, propagated
 %      width: width of snout based on Miller et al
 %      ci_width: 95% confidence interval around width estimate
-
+if nargin <2
 % estimate length of whale from age (Moore et al. 2004)
 [lnth,ci_length] = MooreAgeLength(age);
+end
 
 % load length/witdh data from Carolyn Miller: Eubalaena glacialis and
 % Eubalaena australis calves and moms
