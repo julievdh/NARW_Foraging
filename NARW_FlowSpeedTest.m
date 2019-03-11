@@ -135,8 +135,10 @@ for i = d2after';
     title(['Dive ' num2str(i)])
     xlabel('Time (min)')
     
-    % calculate filtered volume
+    % calculate filtered volume    
+    if ID ~= [5 7 8 9] % if we don't have a length measurement
     gape = getgape(tags{ID,6}); 
+    end
     
     % find bottom time based on pitch angle < 20
     [frst,lst] = findbottomtime(pdeg(round(dcue*fs)),fs,1);
