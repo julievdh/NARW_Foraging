@@ -86,7 +86,7 @@ plot(Antarctic(:,1),Antarctic(:,2),'o','linewidth',1.5)
 xlabel('Body length (m)')
 ylabel('Length of longest baleen plate (m)')
 adjustfigurefont('Helvetica',14)
-axletter(gca,['y = ' num2str(round(ft.p2,2)) ' + ' num2str(round(c.p1,2)) 'x'],12,0.75,0.1)
+axletter(gca,['y = ' num2str(round(ft.p2,2)) ' + ' num2str(round(ft.p1,2)) 'x'],12,0.75,0.1)
 axletter(gca,['R^2 = ' num2str(round(gof.rsquare,2))],14)
 axletter(gca,['RMSE = ' num2str(round(gof.rmse,2)) ' m'],14,0.05,0.85)
 
@@ -100,7 +100,7 @@ print('NPRW_SRW_baleenlength','-dpng','-r300')
 figure(22), clf
 axesPosition = [110 40 200 200];  %# Axes position, in pixels
 yWidth = 30;                      %# y axes spacing, in pixels
-
+test = 1011.033+320.501*log10(0.1:2:20); % vector of estimated lengths
 h1 = axes('Color','w','XColor','k','YColor',[123/255 50/255 148/255],...
     'YLim',[0 2.2],'Xlim',[0 20],'NextPlot','add');
 h2 = axes('Color','none','XColor','k','YColor','k',...
