@@ -200,6 +200,7 @@ X = [allbtmspeed' gapes' alldur.*(allprop(:,2)-allprop(:,1))];
 lm_vol = fitlm(X,allvperdive)
 figure
 h = plotEffects(lm_vol)
+% h(1).XData 
 %% proportional depth figure
 % figure(111), clf, hold on
 % col = viridis(17); % ages 2 to 18
@@ -231,8 +232,22 @@ for i = 1:size(tags,1)
     dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{i})/3600);
 end
 round([min(dep_filtrate) max(dep_filtrate)])
+gapes = []; 
 for i = 1:length(allspeeds)
-    gape = getgape(tags{tagid(i),6});
+    ID = tagid(i);
+    switch ID
+        case 5
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1190);
+        case 9
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1210);
+        case 7
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        case 8
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        otherwise
+            [gape,~,~,~,lnth] = getgape(tags{ID,6});
+    end
+    gape = gape/100; 
     all_hr_rate(:,i) = allspeeds(i)*gape*3600; % filtration rate of all (m3/h) at the bottom of dives
     gapes(:,i) = gape;
 end
@@ -262,6 +277,7 @@ figure
 plot(alltort(allvperdive > 1,1),mnboutdur(allvperdive > 1),'o')
 xlabel('Tortuosity'),ylabel('Mean bout duration (sec)')
 lmtort2 = fitlm(alltort(allvperdive > 1,1),mnboutdur(allvperdive > 1))
+
 figure
 plot(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1),'o')
 xlabel('Tortuosity'),ylabel('Total volume filtered (m^3)')
@@ -317,12 +333,13 @@ ylabel('Filtration rate (m^3/h)')
 adjustfigurefont('Helvetica',16)
 
 figure(101), clf, hold on
-scatterby(tagid2,3600*(allvperdive./allbtmdur),30,col(tagid2,:));
+scatterby(tagid2,3600*(allvperdive(allvperdive > 1)./allbtmdur(allvperdive > 1)),30,col(tagid2,:));
 scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1),30,col(tagid2(find(allvperdive>1)),:));
 scatterby(22+[1:10],dep_filtrate,30,col(1:10,:));
 ylabel('Filtration rate (m^3/h)')
 set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
 adjustfigurefont('Helvetica',16)
+print -dpng NARW_filtrate -r300
 
 % extend to full day?
 for i = 1:length(dep_filtrate)
