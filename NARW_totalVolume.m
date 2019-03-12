@@ -13,7 +13,7 @@ tagid = []; % tag ID counter
 d = []; % dive counter
 
 % DIVE-SPECIFIC
-tagid2 = []; 
+tagid2 = [];
 allbperdive = []; % number of bouts per dive
 allvperdive = []; % all volumes per dive
 alldur = []; % all dive durations
@@ -23,8 +23,8 @@ allstart = []; % all bottom start
 allend = []; % all bottom end
 allbtmdur = []; % all bottom duration
 allbtmspeed = [];
-sdbtmspeed = []; 
-alltort = []; 
+sdbtmspeed = [];
+alltort = [];
 mnboutdur = []; % mean bout duration for dives
 NF = []; % non-foraging dives
 for i = 1:size(tags,1)
@@ -58,12 +58,12 @@ for i = 1:size(tags,1)
             NF(end+1,1:2) = [j i];
         end
         alldur(end+1,1) = ddur(j);
-        tagid2(end+1,1) = i; 
+        tagid2(end+1,1) = i;
         if isempty(dive(j).vperblock) == 0
             allprop(end+1,1:2) = dive(j).prop; % proportion of time spent foraging
-            allstart(end+1) = dive(j).btm(1); 
-            allend(end+1) = dive(j).btm(end); 
-            allbtmdur(end+1) = dive(j).btm(end)-dive(j).btm(1); 
+            allstart(end+1) = dive(j).btm(1);
+            allend(end+1) = dive(j).btm(end);
+            allbtmdur(end+1) = dive(j).btm(end)-dive(j).btm(1);
             allbtmspeed(end+1) = mean(dive(j).flowEst(dive(j).btm)); % mean bottom speed
             sdbtmspeed(end+1) = std(dive(j).flowEst(dive(j).btm)); % sd
             mnboutdur(end+1) = mean([dive(j).clearingtime]);
@@ -71,21 +71,21 @@ for i = 1:size(tags,1)
             allprop(end+1,1:2) = NaN; % proportion of time spent foraging
             allstart(end+1) = NaN;
             allend(end+1) = NaN;
-            allbtmdur(end+1) = NaN; 
+            allbtmdur(end+1) = NaN;
             allbtmspeed(end+1) = NaN; % mean bottom speed
             sdbtmspeed(end+1) = NaN; % sd
-            mnboutdur(end+1) = NaN; 
+            mnboutdur(end+1) = NaN;
         end
         if isfield(dive,'tort') == 1
             if isempty(dive(j).tort) == 0
-            alltort(end+1,1:2) = dive(j).tort; 
-            else alltort(end+1,1:2) = NaN; 
+                alltort(end+1,1:2) = dive(j).tort;
+            else alltort(end+1,1:2) = NaN;
             end
-        else alltort(end+1,1:2) = NaN; 
+        else alltort(end+1,1:2) = NaN;
         end
-              
+        
         alldepth(end+1,1) = T(j,3);
-        allbperdive(end+1,1) = size(dive(j).stops,1); 
+        allbperdive(end+1,1) = size(dive(j).stops,1);
     end
     
     figure(10), subplot('position',[0.1 1.0-(i*0.11) 0.85 0.08]), hold on, box off
@@ -104,8 +104,8 @@ adjustfigurefont
 set(gcf,'position',[13     5   512   668],'paperpositionmode','auto')
 print('volfiltered_each.png','-dpng','-r300')
 
-allvols(isnan(allvols)) = 0; 
-allvperdive(isinf(allvperdive)) = 0; 
+allvols(isnan(allvols)) = 0;
+allvperdive(isinf(allvperdive)) = 0;
 
 round([mean(allvperdive(allvperdive>0)) std(allvperdive(allvperdive>0))]) % volumes per dive
 [mean(allvols(allvols > 0)) std(allvols(allvols > 0))] % volume per bout
@@ -113,7 +113,7 @@ round([mean(allvperdive(allvperdive>0)) std(allvperdive(allvperdive>0))]) % volu
 
 [mean(allbouts) std(allbouts)] % bout duration
 median(allpauses(allpauses > 0)) % median pause duration
-allspeeds(isinf(allspeeds)) = NaN; 
+allspeeds(isinf(allspeeds)) = NaN;
 [nanmean(allspeeds(allvols > 0)) nanstd(allspeeds(allvols > 0))] % speed during bout
 
 [min(allbperdive) max(allbperdive) mean(allbperdive) std(allbperdive)] % bouts per dive
@@ -121,20 +121,32 @@ allspeeds(isinf(allspeeds)) = NaN;
 [mean(alldepth(allvperdive > 1)) std(alldepth(allvperdive > 1))]
 [mean(alldepth(allvperdive < 1)) std(alldepth(allvperdive < 1))]
 
-%% 
-gapes = []; 
+%%
+gapes = [];
 for i = 1:length(tagid2)
-[gape, lnth] = getgape(tags{tagid2(i),6});
-gapes(:,i) = gape;
-lnths(:,i) = lnth; 
-end 
-figure(9), clf, hold on 
-for i = 1:length(allbtmspeed)
-h = plot3([allbtmspeed(i)-sdbtmspeed(i) allbtmspeed(i)+sdbtmspeed(i)],[gapes(i) gapes(i)],[(allprop(i,2)-allprop(i,1)).*alldur(i) (allprop(i,2)-allprop(i,1)).*alldur(i)],'color',[0.5 0.5 0.5]);
-alpha(h,0.5)
+    ID = tagid2(i);
+    switch ID
+        case 5
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1190);
+        case 9
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1210);
+        case 7
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        case 8
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        otherwise
+            [gape,~,~,~,lnth] = getgape(tags{ID,6});
+    end
+    gapes(:,i) = gape/100;
+    lnths(:,i) = lnth/100;
 end
-scatter3(allbtmspeed,gapes,(allprop(:,2)-allprop(:,1)).*alldur,60,allvperdive,'filled','markeredgecolor','k')
+figure(9), clf, hold on
 jit = rand(size(gapes));
+for i = 1:length(allbtmspeed)
+    h = plot3([allbtmspeed(i)-sdbtmspeed(i) allbtmspeed(i)+sdbtmspeed(i)],[gapes(i)+jit(i)/20 gapes(i)+jit(i)/20],[(allprop(i,2)-allprop(i,1)).*alldur(i) (allprop(i,2)-allprop(i,1)).*alldur(i)],'color',[0.5 0.5 0.5]);
+    alpha(h,0.5)
+end
+scatter3(allbtmspeed,gapes+jit/20,(allprop(:,2)-allprop(:,1)).*alldur,60,allvperdive,'filled','markeredgecolor','k')
 h = scatter(allbtmspeed,gapes+jit/20,'ko','markeredgealpha',0.5); % projection on bottom
 h = scatter3(2+zeros(length(gapes),1),gapes+jit/20,(allprop(:,2)-allprop(:,1)).*alldur,'ko','markeredgealpha',0.5);  % projection on wall
 % h = scatter3(allbtmspeed,2+zeros(length(gapes),1),(allprop(:,2)-allprop(:,1)).*alldur,'ko','markeredgealpha',0.5);  % projection on wall
@@ -142,32 +154,32 @@ xlabel('Bottom speed (m/s)')
 ylabel('Gape area (m^2)')
 zlabel('Bottom time (sec)')
 grid on
-h = colorbar; 
+h = colorbar;
 ylabel(h,'Volume filtered (m^3)')
 adjustfigurefont('Helvetica',14)
 view([-55.6000   23.6000])
 
 print('NARW_3dFiltVol.png','-dpng','-r300')
 
-%% dive duration and time spent foraging 
+%% dive duration and time spent foraging
 figure(2), clf, set(gcf,'position',[176 289 1107 384],'paperpositionmode','auto')
 subplot(131),
 h = scatter(alldur/60,allvperdive,50,gapes,'filled','markeredgecolor','k'); alpha(h,0.5)
-xlabel('Dive duration (min)'), ylabel('Total volume filtered (m^3)'), xlim([4 20]) 
+xlabel('Dive duration (min)'), ylabel('Total volume filtered (m^3)'), xlim([4 20])
 axletter(gca,'A')
-h = colorbar('position',[0.05 0.11 0.01 0.815]); 
+h = colorbar('position',[0.05 0.11 0.01 0.815]);
 ylabel(h,'Gape area (m^2)')
 
 subplot(132)
 h = scatter(alldur.*(allprop(:,2)-allprop(:,1))/60,allvperdive,50,gapes,'filled','markeredgecolor','k'); alpha(h,0.5)
-xlabel('Bottom duration (min)'), ylabel('Total volume filtered (m^3)'), 
+xlabel('Bottom duration (min)'), ylabel('Total volume filtered (m^3)'),
 adjustfigurefont('Helvetica',14), xlim([0 15])
 axletter(gca,'B')
 
-subplot(133), hold on 
+subplot(133), hold on
 for i = 1:length(alldepth)
     h = plot([alldepth(i) alldepth(i)],[allprop(i,1) allprop(i,2)],'k'); alpha(h,0.7)
-h = scatter(alldepth(i),allprop(i,2)-allprop(i,1),50,gapes(i),'filled','markeredgecolor','k'); 
+    h = scatter(alldepth(i),allprop(i,2)-allprop(i,1),50,gapes(i),'filled','markeredgecolor','k');
 end
 xlabel('Depth (m)'), ylabel('Proportion of dive')
 xlim([80 185])
@@ -175,7 +187,7 @@ axletter(gca,'C')
 adjustfigurefont('Helvetica',14)
 print('NARW_DiveProportion.png','-dpng','-r300')
 %%
-lm1 = fitlm(alldepth,allprop(:,1)) 
+lm1 = fitlm(alldepth,allprop(:,1))
 
 lm2 = fitlm(alldepth,allprop(:,2)) % all depth versus bottom proportion end
 
@@ -183,13 +195,13 @@ lm3 = fitlm(alldepth,allprop(:,2)-allprop(:,1)) % all depth versus bottom propor
 
 % get effect sizes with: h = plotEffects(lm1)
 % do predictions with [ypred,yci] = predict(lm1,82)
-%% 
+%%
 X = [allbtmspeed' gapes' alldur.*(allprop(:,2)-allprop(:,1))];
 lm_vol = fitlm(X,allvperdive)
 figure
-h = plotEffects(lm_vol) 
+h = plotEffects(lm_vol)
 %% proportional depth figure
-% figure(111), clf, hold on 
+% figure(111), clf, hold on
 % col = viridis(17); % ages 2 to 18
 % for i = 1:length(allprop)
 % plot(allprop(i,:),[alldepth(i) alldepth(i)],'color',col(tags{tagid2(i),6}-1,:))
@@ -230,8 +242,8 @@ round([nanmean(all_hr_rate) nanstd(all_hr_rate)])/3600 % in m/s
 [nanmean(allfsr) nanstd(allfsr)]
 
 % gape effect for discussion:
-tag2_vols = allvperdive(tagid2 == 2); 
-tag2_vols = tag2_vols(tag2_vols > 1); 
+tag2_vols = allvperdive(tagid2 == 2);
+tag2_vols = tag2_vols(tag2_vols > 1);
 [mean(tag2_vols) std(tag2_vols)]
 % SEE NARW_gapeEffect.m
 
@@ -245,7 +257,7 @@ for i = 1:length(tags)
     errorbar(tags{i,6}+rand(1),mean(allbouts(tagid == i)),std(allbouts(tagid == i)))
 end
 
-%% some tortuosity 
+%% some tortuosity
 figure
 plot(alltort(allvperdive > 1,1),mnboutdur(allvperdive > 1),'o')
 xlabel('Tortuosity'),ylabel('Mean bout duration (sec)')
@@ -253,7 +265,7 @@ lmtort2 = fitlm(alltort(allvperdive > 1,1),mnboutdur(allvperdive > 1))
 figure
 plot(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1),'o')
 xlabel('Tortuosity'),ylabel('Total volume filtered (m^3)')
-lmtort1 = fitlm(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1)); 
+lmtort1 = fitlm(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1));
 %% bouts per dive statistics
 % % set nans first
 % cv_bouts_bydive = nan(10,39);
@@ -295,24 +307,24 @@ adjustfigurefont('Helvetica',16)
 ylim([0 5]), set(gca,'ytick',[0:5])
 print('NARW_Frate_dep_pres','-dpng','-r300')
 
-%% plot by bottom, by dive, by deployment 
-figure(100), hold on 
+%% plot by bottom, by dive, by deployment
+figure(100), hold on
 plot(repmat(1,length(allvperdive),1)+rand(length(allvperdive),1),3600*(allvperdive./allbtmdur),'o','linewidth',1.5) % on bottom
 plot(repmat(2,length(find(allvperdive>1)),1)+rand(length(find(allvperdive>1)),1),dbd_vrate(allvperdive > 1),'o','linewidth',1.5) % per dive
-plot(repmat(3,length(dep_filtrate),1)+rand(length(dep_filtrate),1),dep_filtrate,'o','linewidth',1.5) % per deployment 
+plot(repmat(3,length(dep_filtrate),1)+rand(length(dep_filtrate),1),dep_filtrate,'o','linewidth',1.5) % per deployment
 
-ylabel('Filtration rate (m^3/h)') 
+ylabel('Filtration rate (m^3/h)')
 adjustfigurefont('Helvetica',16)
 
 figure(101), clf, hold on
-scatterby(tagid2,3600*(allvperdive./allbtmdur),30,col(tagid2,:)); 
-scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1),30,col(tagid2(find(allvperdive>1)),:)); 
-scatterby(22+[1:10],dep_filtrate,30,col(1:10,:)); 
-ylabel('Filtration rate (m^3/h)') 
+scatterby(tagid2,3600*(allvperdive./allbtmdur),30,col(tagid2,:));
+scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1),30,col(tagid2(find(allvperdive>1)),:));
+scatterby(22+[1:10],dep_filtrate,30,col(1:10,:));
+ylabel('Filtration rate (m^3/h)')
 set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
 adjustfigurefont('Helvetica',16)
 
 % extend to full day?
 for i = 1:length(dep_filtrate)
-day_filtrate = dep_filtrate(i)*(24/(gettagdur(tags{i})/3600));
-end 
+    day_filtrate = dep_filtrate(i)*(24/(gettagdur(tags{i})/3600));
+end
