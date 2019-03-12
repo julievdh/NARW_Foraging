@@ -5,7 +5,7 @@ figure(10), clf
 % BOUT-SPECIFIC
 allvols = []; % all filtered volumes per bout
 allbouts = []; % all bout durations
-allpauses = [];
+allpauses = []; % pause duration (s)
 allspeeds = []; % speeds of all bouts
 allrms = []; % RMS amplitude during all bouts
 allfsr = []; % fluke stroke rate during all bouts
@@ -52,7 +52,7 @@ for i = 1:size(tags,1)
             end
         end
         for k = 2:size(dive(j).stops,1)
-            allpauses(end+1,1) = dive(j).stops(k,1)-dive(j).stops(k-1,2);
+            allpauses(end+1,1) = dive(j).stops(k,1)-dive(j).stops(k-1,2); % pause duration
         end
         if isempty(dive(j).vperblock) == 1
             NF(end+1,1:2) = [j i];
@@ -105,11 +105,16 @@ set(gcf,'position',[13     5   512   668],'paperpositionmode','auto')
 print('volfiltered_each.png','-dpng','-r300')
 
 allvols(isnan(allvols)) = 0; 
+allvperdive(isinf(allvperdive)) = 0; 
 
-[mean(allvperdive(allvperdive>0)) std(allvperdive(allvperdive>0))] % volumes per dive
-[mean(allvols) std(allvols)] % volume per bout
+round([mean(allvperdive(allvperdive>0)) std(allvperdive(allvperdive>0))]) % volumes per dive
+[mean(allvols(allvols > 0)) std(allvols(allvols > 0))] % volume per bout
+[min(allvols(allvols > 0)) max(allvols)] % volume per bout
+
 [mean(allbouts) std(allbouts)] % bout duration
-[mean(allspeeds) std(allspeeds)] % speed during bout
+median(allpauses(allpauses > 0)) % median pause duration
+allspeeds(isinf(allspeeds)) = NaN; 
+[nanmean(allspeeds(allvols > 0)) nanstd(allspeeds(allvols > 0))] % speed during bout
 
 [min(allbperdive) max(allbperdive) mean(allbperdive) std(allbperdive)] % bouts per dive
 
@@ -299,12 +304,15 @@ plot(repmat(3,length(dep_filtrate),1)+rand(length(dep_filtrate),1),dep_filtrate,
 ylabel('Filtration rate (m^3/h)') 
 adjustfigurefont('Helvetica',16)
 
-figure(101), hold on
-scatterby(tagid2,3600*(allvperdive(i)./allbtmdur(i)),30,col(tagid2,:)); 
+figure(101), clf, hold on
+scatterby(tagid2,3600*(allvperdive./allbtmdur),30,col(tagid2,:)); 
 scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1),30,col(tagid2(find(allvperdive>1)),:)); 
 scatterby(22+[1:10],dep_filtrate,30,col(1:10,:)); 
 ylabel('Filtration rate (m^3/h)') 
 set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
 adjustfigurefont('Helvetica',16)
 
-% extend to full day? 
+% extend to full day?
+for i = 1:length(dep_filtrate)
+day_filtrate = dep_filtrate(i)*(24/(gettagdur(tags{i})/3600));
+end 

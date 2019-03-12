@@ -4,8 +4,9 @@
 clear
 
 load('NARW_foraging_tags') % let's make this more straightforward
-% HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED
-ID = 8;
+% HAVE TO RECOMPUTE VOLUMES FOR ALL TO ENSURE CORRECT GAPE IS USED - new
+% gapes, including from measured lengths (Perryman) 11 March 2019 
+ID = 10;
 tag = tags{ID};
 loadprh(tag,'p','fs','Aw','Mw','pitch');
 
@@ -56,7 +57,7 @@ d2after = tags{ID,9};
 % save(strcat('C:/tag/tagdata/',tag,'_flowspeed'),'medFN','spd','medpitch','T','p','pitch','fs')
 %%
 figure(4), clf, hold on
-th = 50;
+th = 30;
 plot(log10(medFN(medpitch > th)),abs(spd(medpitch > th)),'o','LineWidth',1.5) % ascents
 plot(log10(medFN(medpitch < -th)),abs(spd(medpitch < -th)),'o','LineWidth',1.5) % descents
 ylabel('Speed (m/s)'), xlabel('Log_1_0(Median Flow Noise)')
@@ -64,7 +65,7 @@ ylabel('Speed (m/s)'), xlabel('Log_1_0(Median Flow Noise)')
 figure(5), clf, hold on
 for i = d2after'
     scatter(abs(spd(i,:)),log10(medFN(i,:)),20,abs(medpitch(i,:)))
-    % pause
+    pause
 end
 colorbar
 xlabel('Speed (m/s)'), ylabel('Flow Noise'),
@@ -72,6 +73,7 @@ xlabel('Speed (m/s)'), ylabel('Flow Noise'),
 selspeed = []; selFN = [];
 for i = d2after'
     ii = find(abs(medpitch(i,:)) > th);
+    % ii = find(medpitch(i,:) < -th); 
     selspeed = horzcat(selspeed,abs(spd(i,ii)));
     selFN = horzcat(selFN,medFN(i,ii));
     selFN(isnan(selspeed)) = [];
@@ -98,7 +100,7 @@ axletter(gca,['R^2 = ' num2str(round(g.rsquare,2))],14)
 axletter(gca,['RMSE = ' num2str(round(g.rmse,2)) ' m/s'],14,0.05,0.85)
 axletter(gca,['y = ' num2str(round(c.p3,2)) ' + ' num2str(round(c.p2,2)) 'x + ' num2str(round(c.p1,2)) 'x^2'],12,0.65,0.1)
 set(gcf,'paperpositionmode','auto')
-print('NARW_FlowNoise_SuppFig.png','-dpng','-r300')
+% print('NARW_FlowNoise_SuppFig.png','-dpng','-r300')
 
 % expvsquad
 
@@ -138,15 +140,15 @@ for i = d2after';
     % calculate filtered volume
     switch ID
         case 5
-            gape = getgape(tags{ID,6}, 1190);
+            gape = getgape(tags{ID,6}, 1190)/100;
         case 9
-            gape = getgape(tags{ID,6}, 1210);
+            gape = getgape(tags{ID,6}, 1210)/100;
         case 7
-            gape = getgape(tags{ID,6}, 1250);
+            gape = getgape(tags{ID,6}, 1250)/100;
         case 8
-            gape = getgape(tags{ID,6}, 1250);
+            gape = getgape(tags{ID,6}, 1250)/100;
         otherwise
-            gape = getgape(tags{ID,6});
+            gape = getgape(tags{ID,6})/100;
     end
     
     % find bottom time based on pitch angle < 20
@@ -203,7 +205,7 @@ for i = d2after';
             vol = cumsum(frate(~isinf(frate))); % integrate rate for filtered volume
             figure(10), hold on
             plot(dcue(btm(~isinf(frate)))-dcue(btm(1)),vol), xlabel('Seconds into dive'), ylabel('Cumulative Filtered Volume (m^3)')
-            plot(stops(:,2)-dcue(btm(1)),vol(round(stops(:,2)-dcue(btm(1)))),'o')
+            %plot(stops(:,2)-dcue(btm(1)),vol(round(stops(:,2)-dcue(btm(1)))),'o')
             pause
             
             % store/plot values
