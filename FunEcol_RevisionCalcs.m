@@ -161,7 +161,7 @@ for i = [4, 10];
     ylim([-140 10]), xlim([-50 811])
     xlabel('Time (s)'), set(gca,'xtick',0:120:900)
     ylabel('Depth (m)'), box on
-
+    
     subplot(122), hold on % pitch
     plot([0 0],[-80 80],'--','color',[0.5 0.5 0.5])
     plot([T(i,2)-T(i,1) T(i,2)-T(i,1)],[-80 80],'--','color',[0.5 0.5 0.5])
@@ -174,3 +174,45 @@ end
 adjustfigurefont('Helvetica',14)
 set(gcf,'paperpositionmode','auto')
 print('NARW_DiveCompare','-dpng','-r300')
+
+%% heading/pitch/depth
+
+warning off
+
+load('NARW_foraging_tags')
+for ID = 1;
+    tag = tags{ID};
+    loadprh(tag);
+    load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
+    [~,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
+    
+    for j = 31 % DO THIS FOR ALL TAGS too
+        
+        figure(18), clf
+        hold on
+        for k = [1:3 7:size(dive(j).stops,1)-1]
+            x = ((dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)-dive(j).stops(k,2)*fs)/fs;
+            subplot(411), hold on, box on
+            plot(x,rad2deg(ph(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)))
+            xlim([-60 60])
+            subplot(412), hold on, box on
+            plot(x,rad2deg(roll(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)))
+            xlim([-60 60])
+            subplot(413), hold on, box on
+            plot(x,rad2deg(head(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)))
+            xlim([-60 60])
+            subplot(414), hold on, box on
+            plot(x,-p(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))
+            xlim([-60 60])
+        end
+        subplot(411), % title(regexprep(tag,'_','  '));
+        ylabel('Pitch (deg)')
+        subplot(412), ylabel('Roll (deg)')
+        subplot(413), ylabel('Heading (deg)')
+        subplot(414), ylabel('Depth'), xlabel('Time (s)')
+        adjustfigurefont('Helvetica',14)
+        
+        print(['NARW_stop_prhd_dive' num2str(j) '_' tag '.png'],'-dpng','-r90')
+        
+    end
+end
