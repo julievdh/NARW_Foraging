@@ -188,25 +188,42 @@ for ID = 1;
     
     for j = 31
         
-        figure(18), clf
-        hold on
+        figure(18), clf, hold on
+        set(gcf,'position',[841   181   512   492],'paperpositionmode','auto')
+        
+        allhd = nan(size(dive(j).stops,1)-1,3);
+        allrl = nan(size(dive(j).stops,1)-1,3); 
+        alldpth = nan(size(dive(j).stops,1)-1,3);
+        
         for k = [1:3 6:size(dive(j).stops,1)-1]
             x = ((dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)-dive(j).stops(k,2)*fs)/fs;
-            s1 = subplot(411); hold on, box on
+            % all changes in heading, roll and depth
+            allhd(k,:) = rad2deg([head(round((dive(j).stops(k,2)-20)*fs)) head(round((dive(j).stops(k,2))*fs)) head(round((dive(j).stops(k,2)+20)*fs))]);
+            allrl(k,:) = rad2deg([roll(round((dive(j).stops(k,2)-20)*fs)) roll(round((dive(j).stops(k,2))*fs)) roll(round((dive(j).stops(k,2)+20)*fs))]);
+            alldpth(k,:) = [-p(round((dive(j).stops(k,2)-20)*fs)) -p(round((dive(j).stops(k,2))*fs)) -p(round((dive(j).stops(k,2)+20)*fs))];
+
+
+            
+            
+            s1 = subplot(411); hold on, box on, grid on
             plot(x,rad2deg(ph(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(ph(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            s1 = subplot(412); hold on, box on
+            s2 = subplot(412); hold on, box on, grid on
             plot(x,rad2deg(roll(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(roll(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            s1 = subplot(413); hold on, box on
+            s3 = subplot(413); hold on, box on, grid on
             plot(x,rad2deg(head(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(head(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            s1 = subplot(414); hold on, box on
+            s4 = subplot(414); hold on, box on, grid on
             plot(x,-p(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)+p(round(dive(j).stops(k,2)*fs)))
             xlim([-60 60])
         end
         subplot(411), % title(regexprep(tag,'_','  '));
         Del = texlabel(Delta); 
+        s1.YLabel.Position(1) = -69.8182; 
+        s2.YLabel.Position(1) = -69.8182; 
+        s3.YLabel.Position(1) = -69.8182; 
+        s4.YLabel.Position(1) = -69.8182; 
         ylabel([test 'Pitch (deg)'])
         subplot(412), ylabel([test 'Roll (deg)'])
         subplot(413), ylabel([test 'Heading (deg)'])
@@ -217,6 +234,17 @@ for ID = 1;
         
     end
 end
+
+figure(19), clf
+subplot(131)
+plot([allrl(:,1)-allrl(:,2) allrl(:,3)-allrl(:,2)]','o-')
+xlim([0 3])
+subplot(132)
+plot([allhd(:,1)-allhd(:,2) allhd(:,3)-allhd(:,2)]','o-')
+xlim([0 3])
+subplot(133)
+plot([alldpth(:,1)-alldpth(:,2) alldpth(:,3)-alldpth(:,2)]','o-')
+xlim([0 3])
 
 %% visualise with plotter
 F = plot_3d_model;
