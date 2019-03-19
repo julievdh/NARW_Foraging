@@ -60,7 +60,7 @@ fillseg(new,[0.50196     0.50196     0.50196],[0 0 0]);
 
 H1 =plot(Bathy_100m_contour(:,1),Bathy_100m_contour(:,2))
 H2= plot(Bathy_200m_contour(:,1),Bathy_200m_contour(:,2))
-set(H2, 'color', [0.31373     0.31765     0.31373])
+set(H2, 'color', [0.5     0.7     0.1])
 set(H1, 'color', [0.31373     0.31765     0.31373])
 % text(-66.325,42.46,'25 km','fontsize',12, 'fontweight','bold', 'backgroundcolor', 'w')
 % plot(scbar_25(:,1), scbar_25(:,2), 'k-', 'linewidth', 5)
