@@ -192,22 +192,27 @@ print('NARW_boutregress.png','-dpng','-r300')
 lm_depth = fitlm(alldepth(allvperdive > 1),allvperdive(allvperdive > 1));
 return
 
-% get phase info from structure
+%% get phase info from structure
 allphase_speed = []; allphase_pitch = []; allF = []; allphase_fsr = [];
 for i = 1:size(tags,1)
     for j = 1:size(tags{i,10},1)
         allphase_speed(end+1,:) = tags{i,10}(j,:);
         allphase_pitch(end+1,:) = tags{i,11}(j,:);
         allphase_fsr(end+1,:) = tags{i,13}(j,:);
-        allF(end+1) = tags{i,12}(j); % this one isn't working
+        allF(end+1) = tags{i,12}(j); 
     end
 end
 % replace anything
 allphase_speed(allphase_speed == 0) = NaN;
 allphase_pitch(allphase_pitch == 0) = NaN;
 allphase_fsr(allphase_fsr == 0) = NaN;
-% nanmean(allphase_pitch(allF == 1,:))
-% nanmean(allphase_pitch(allF == 0,:))
+allphase_speed(isinf(allphase_speed(:,3)),3) = NaN;
+% nanmean(allphase_pitch(allF == 1,:)) % non-foraging
+% nanmean(allphase_pitch(allF == 0,:)) % foraging
+% nanmean(allphase_speed(allF == 1,:)) % non-foraging
+% nanmean(allphase_speed(allF == 0,:)) % foraging
+% nanmean(allphase_fsr(allF == 1,:)) % non-foraging
+% nanmean(allphase_fsr(allF == 0,:)) % foraging
 
 
 %% stats
