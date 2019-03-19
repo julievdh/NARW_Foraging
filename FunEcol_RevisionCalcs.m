@@ -216,3 +216,8 @@ for ID = 1;
         
     end
 end
+
+%% visualise with plotter
+F = plot_3d_model;
+divetest = [ph(dive(j).stops(1,1)*fs:dive(j).stops(end,2)*fs) roll(dive(j).stops(1,1)*fs:dive(j).stops(end,2)*fs) head(dive(j).stops(1,1)*fs:dive(j).stops(end,2)*fs)];
+rot_3d_model(F,divetest) ;
