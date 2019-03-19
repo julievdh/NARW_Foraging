@@ -186,31 +186,32 @@ for ID = 1;
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
     [~,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
     
-    for j = 31 % DO THIS FOR ALL TAGS too
+    for j = 31
         
         figure(18), clf
         hold on
-        for k = [1:3 7:size(dive(j).stops,1)-1]
+        for k = [1:3 6:size(dive(j).stops,1)-1]
             x = ((dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)-dive(j).stops(k,2)*fs)/fs;
-            subplot(411), hold on, box on
-            plot(x,rad2deg(ph(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)))
+            s1 = subplot(411); hold on, box on
+            plot(x,rad2deg(ph(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(ph(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            subplot(412), hold on, box on
-            plot(x,rad2deg(roll(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)))
+            s1 = subplot(412); hold on, box on
+            plot(x,rad2deg(roll(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(roll(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            subplot(413), hold on, box on
-            plot(x,rad2deg(head(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)))
+            s1 = subplot(413); hold on, box on
+            plot(x,rad2deg(head(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(head(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            subplot(414), hold on, box on
-            plot(x,-p(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))
+            s1 = subplot(414); hold on, box on
+            plot(x,-p(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)+p(round(dive(j).stops(k,2)*fs)))
             xlim([-60 60])
         end
         subplot(411), % title(regexprep(tag,'_','  '));
-        ylabel('Pitch (deg)')
-        subplot(412), ylabel('Roll (deg)')
-        subplot(413), ylabel('Heading (deg)')
-        subplot(414), ylabel('Depth'), xlabel('Time (s)')
-        adjustfigurefont('Helvetica',14)
+        Del = texlabel(Delta); 
+        ylabel([test 'Pitch (deg)'])
+        subplot(412), ylabel([test 'Roll (deg)'])
+        subplot(413), ylabel([test 'Heading (deg)'])
+        subplot(414), ylabel([test 'Depth (m)']), xlabel('Time (s)')
+        adjustfigurefont('Helvetica',12)
         
         print(['NARW_stop_prhd_dive' num2str(j) '_' tag '.png'],'-dpng','-r90')
         
