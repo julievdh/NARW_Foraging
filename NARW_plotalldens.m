@@ -5,16 +5,19 @@ figure(18), clf
 ddur = T(:,2)-T(:,1);
 [v,ph] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
 
+clear ptrack % clear existing 
+
 if exist('dive','var')
     for j = 1:length(dive)
         dcue = T(j,1):T(j,2); % cues for that dive
         c = viridis(size(T,1)); % color dive number
         
         if isempty(dive(j).stops) == 0
+            % calculate pitch track for dive using flowEst
+            flowtrack = ptrack(Aw(round(dcue(1:end-10)*fs),:),Mw(round(dcue(1:end-10)*fs),:),dive(j).flowEst(1:(length(dcue)-10)),fs);
+    
             % calculate tortuosity
-            if exist('ptrack','var') == 1
-            dive(j).tort = nanmean(tortuosity(ptrack(round(dcue(dive(j).btm)*fs),:),fs,10));
-            end 
+            dive(j).tort = nanmean(tortuosity(flowtrack(dive(j).btm,1:2),fs,10));
             
             subplot(2,2,1), hold on
             dive(j).clearingtime = [dive(j).stops(:,2)-dive(j).stops(:,1)]';
