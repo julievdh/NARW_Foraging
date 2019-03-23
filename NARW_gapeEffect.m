@@ -1,6 +1,6 @@
 % gape effect
 load('NARW_foraging_tags')
-for ID = 1:8;
+for ID = 1:10;
 tag = tags{ID};
 
 % import flow speed for the tag
@@ -15,16 +15,27 @@ for i = d2after' %
     btm = dive(i).btm;
     vperblock = dive(i).vperblock;
     
-    gape = getgape(tags{ID,6});
+        switch ID
+        case 5
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1190);
+        case 9
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1210);
+        case 7
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        case 8
+            [gape,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        otherwise
+            [gape,~,~,~,lnth] = getgape(tags{ID,6});
+    end
     
-    frate_var = gape*flowEst;
-    frate_12 = 1.2*flowEst;
+    frate_var = (gape/100)*flowEst;
+    frate_12 = 1.2*flowEst; frate_12(isinf(frate_12)) = NaN; 
     
     vperblock_12 = [];
     for k = 1:size(stops,1)
-        vperblock_12(:,k) = sum(frate_12(round(stops(k,1)-dcue(btm(1)):round(stops(k,2)-dcue(btm(1))))));
+        vperblock_12(:,k) = nansum(frate_12(round(stops(k,1)-dcue(btm(1)):round(stops(k,2)-dcue(btm(1))))));
     end
-    vtot_var(:,i) = sum(vperblock); % vperdive with estimated gape
+    vtot_var(:,i) = sum(vperblock(~isinf(vperblock))); % vperdive with estimated gape
     vtot_12(:,i) = sum(vperblock_12); %vperdive with 1.2m2 gape
 end
 
