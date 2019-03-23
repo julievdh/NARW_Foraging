@@ -12,9 +12,9 @@ anna = ptrack; clear ptrack % resave variable and clear because ptrack is also f
 
 T = finddives(p,fs,50,1);
 
-% set up figure
+%% set up figure
 sb = 0;
-figure(3), clf, set(gcf,'position',[494  -95 752 559],'paperpositionmode','auto')
+figure(3), clf, set(gcf,'position',[394  61 950 560],'paperpositionmode','auto')
 for j = [9 10 11 12]
     sb = sb+1; % subplot counter
     dcue = T(j,1):T(j,2); % seconds in dive
@@ -56,24 +56,29 @@ for j = [9 10 11 12]
     % nanmean(tort)
 end
 
-adjustfigurefont('Helvetica',14)
 subplot(221), xlim([-50 10]), ylim([-10 50]), zlim([-150 10]), title('A','FontSize',18,'FontWeight','bold')
-axletter(gca,['vol: ' num2str(round(sum(dive(9).vperblock),0)) ' m^3'],14,0.9)
-axletter(gca,['tortuosity ' num2str(round(tort(1,9),3))],14,0.9,0.7)
+ax = get(gca,'position'); set(gca,'position',ax-[0.05 0 0 0])
+axletter(gca,['vol: ' num2str(round(sum(dive(9).vperblock),0)) ' m^3'],14,0.8,1.1)
+axletter(gca,['tortuosity ' num2str(round(tort(1,9),3))],14,0.8,0.8)
 
 subplot(222), xlim([0 60]), ylim([-20 40]), zlim([-150 10]), title('B','FontSize',18,'FontWeight','bold')
-axletter(gca,['vol: ' num2str(round(sum(dive(10).vperblock),0)) ' m^3'],14,0.9)
-axletter(gca,['tortuosity ' num2str(round(tort(1,10),3))],14,0.9,0.7)
+ax = get(gca,'position'); set(gca,'position',ax-[0.03 0 0 0])
+axletter(gca,['vol: ' num2str(round(sum(dive(10).vperblock),0)) ' m^3'],14,0.8,1.1)
+axletter(gca,['tortuosity ' num2str(round(tort(1,10),3))],14,0.8,0.8)
 
 subplot(223), xlim([-10 50]), ylim([-50 10]), zlim([-150 10]), title('C','FontSize',18,'FontWeight','bold')
-axletter(gca,['vol: ' num2str(round(sum(dive(11).vperblock),0)) ' m^3'],14,0.9)
-axletter(gca,['tortuosity ' num2str(round(tort(1,11),3))],14,0.9,0.7)
+ax = get(gca,'position'); set(gca,'position',ax-[0.05 0 0 0])
+axletter(gca,['vol: ' num2str(round(sum(dive(11).vperblock),0)) ' m^3'],14,0.8,1.1)
+axletter(gca,['tortuosity ' num2str(round(tort(1,11),3))],14,0.8,0.8)
 
 subplot(224), xlim([-50 10]), ylim([-10 50]), zlim([-150 10]), title('D','FontSize',18,'FontWeight','bold')
-axletter(gca,['vol: ' num2str(round(sum(dive(12).vperblock),0)) ' m^3'],14,0.9)
-axletter(gca,['tortuosity ' num2str(round(tort(1,12),3))],14,0.9,0.7)
+ax = get(gca,'position'); set(gca,'position',ax-[0.03 0 0 0])
+axletter(gca,['vol: ' num2str(round(sum(dive(12).vperblock),0)) ' m^3'],14,0.8,1.1)
+axletter(gca,['tortuosity ' num2str(round(tort(1,12),3))],14,0.8,0.8)
 
-h = colorbar('position',[0.93 0.11 0.02 0.815])
+h = colorbar('position',[0.93 0.11 0.02 0.815]);
 ylabel(h,'Speed (m/s)')
+
+adjustfigurefont('Helvetica',16)
 
 print('NARW_ptrack4.png','-dpng','-r300')
