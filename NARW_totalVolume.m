@@ -326,12 +326,13 @@ plot(repmat(3,length(dep_filtrate),1)+rand(length(dep_filtrate),1),dep_filtrate,
 ylabel('Filtration rate (m^3/h)')
 adjustfigurefont('Helvetica',16)
 
-figure(101), clf, hold on
+figure(101), clf, hold on, box on
 scatterby(tagid2,3600*(allvperdive(allvperdive > 1)./allbtmdur(allvperdive > 1)),30,col(tagid2(find(allvperdive>1)),:));
 scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1),30,col(tagid2(find(allvperdive>1)),:));
 scatterby(22+[1:10],dep_filtrate,30,col(1:10,:));
 ylabel('Filtration rate (m^3/h)')
 set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
+ylim([0 7500]), axletter(gca,'C')
 adjustfigurefont('Helvetica',16)
 print -dpng NARW_filtrate -r300
 

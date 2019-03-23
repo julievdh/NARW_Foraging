@@ -172,20 +172,15 @@ print('NARW_alldives_TOD_PB.png','-dpng','-r300')
 
 return
 
-figure(11), set(gcf,'paperpositionmode','auto','position',[4         289        1005         384])
-subplot('position',[0.07 0.1 0.35 0.8]), hold on
-plot(alldepth,allvperdive,'ro','linewidth',1.5)
+figure(11), % set(gcf,'paperpositionmode','auto','position',[4         289        1005         384])
+% subplot('position',[0.07 0.1 0.35 0.8]), hold on
+plot(alldepth,allvperdive,'ro','linewidth',1.5), hold on 
 plot(alldepth(allvperdive<1),allvperdive(allvperdive<1),'ko','linewidth',1.5)
-ylim([0 1700]), xlim([0 200])
+ylim([0 1400]), xlim([0 200])
 axletter(gca,'D')
 xlabel('Maximum dive depth (m)'), ylabel('Total volume filtered (m^3)')
 
 adjustfigurefont('helvetica',16)
-
-subplot('position',[0.5 0.1 0.2 0.8]), hold on
-xlim([400/60 1000/60]), axletter(gca,'E')
-subplot('position',[0.75 0.1 0.2 0.8]), hold on % plot duration vs. number of stops
-ylim([0 15]), xlim([0 1000/60]), axletter(gca,'F')
 
 print('NARW_boutregress.png','-dpng','-r300')
 
