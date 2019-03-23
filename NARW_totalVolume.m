@@ -118,7 +118,7 @@ allspeeds(isinf(allspeeds)) = NaN;
 
 [min(allbperdive) max(allbperdive) mean(allbperdive) std(allbperdive)] % bouts per dive
 
-[mean(alldepth(allvperdive > 1)) std(alldepth(allvperdive > 1))]
+[mean(alldepth(allvperdive > 1)) std(alldepth(allvperdive > 1))] % depth 
 [mean(alldepth(allvperdive < 1)) std(alldepth(allvperdive < 1))]
 
 %%
@@ -171,7 +171,7 @@ h = colorbar('position',[0.05 0.11 0.01 0.815]);
 ylabel(h,'Gape area (m^2)')
 
 subplot(132)
-h = scatter(alldur.*(allprop(:,2)-allprop(:,1))/60,allvperdive,50,gapes,'filled','markeredgecolor','k'); alpha(h,0.5)
+h = scatter(alldur(allvperdive > 0).*(allprop(allvperdive > 0,2)-allprop(allvperdive > 0,1))/60,allvperdive(allvperdive > 0),50,gapes(allvperdive > 0),'filled','markeredgecolor','k'); alpha(h,0.5)
 xlabel('Bottom duration (min)'), ylabel('Total volume filtered (m^3)'),
 adjustfigurefont('Helvetica',14), xlim([0 15])
 axletter(gca,'B')
@@ -223,8 +223,7 @@ h = plotEffects(lm_vol)
 
 % nanmean(allend)
 
-return
-
+%%
 mean(alldur(allvperdive > 1)) % mean dive duration in seconds
 dbd_vrate = allvperdive./(alldur'/3600); % dive-by-dive filtration rate (m^3/h)
 [mean(dbd_vrate(allvperdive > 1)) std(dbd_vrate(allvperdive > 1))]/3600
@@ -232,7 +231,7 @@ for i = 1:size(tags,1)
     dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{i})/3600);
 end
 round([min(dep_filtrate) max(dep_filtrate)])
-gapes = []; 
+gapes2 = []; 
 for i = 1:length(allspeeds)
     ID = tagid(i);
     switch ID
@@ -249,7 +248,7 @@ for i = 1:length(allspeeds)
     end
     gape = gape/100; 
     all_hr_rate(:,i) = allspeeds(i)*gape*3600; % filtration rate of all (m3/h) at the bottom of dives
-    gapes(:,i) = gape;
+    gapes2(:,i) = gape;
 end
 round([nanmean(all_hr_rate) nanstd(all_hr_rate)])/3600 % in m/s
 
@@ -264,21 +263,16 @@ tag2_vols = tag2_vols(tag2_vols > 1);
 
 % nanmean(allbtmspeed./lnths)
 
-return
-
-% plot bout duration vs. age
-for i = 1:length(tags)
-    figure(9), hold on
-    errorbar(tags{i,6}+rand(1),mean(allbouts(tagid == i)),std(allbouts(tagid == i)))
-end
-
 %% some tortuosity
-figure
+[nanmean(alltort(allvperdive > 1,1)) nanstd(alltort(allvperdive > 1,1))]
+max(alltort(allvperdive > 1,1))
+
+figure(120)
 plot(alltort(allvperdive > 1,1),mnboutdur(allvperdive > 1),'o')
 xlabel('Tortuosity'),ylabel('Mean bout duration (sec)')
 lmtort2 = fitlm(alltort(allvperdive > 1,1),mnboutdur(allvperdive > 1))
 
-figure
+figure(121)
 plot(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1),'o')
 xlabel('Tortuosity'),ylabel('Total volume filtered (m^3)')
 lmtort1 = fitlm(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1));
@@ -295,12 +289,12 @@ lmtort1 = fitlm(alltort(allvperdive > 1,1),allvperdive(allvperdive > 1));
 % % size(find(cv_bouts_bydive > 0)) % just check size
 
 %% stat test
-diveid = tagid.*d;
-t = table(tagid,diveid,allbouts,allrms,allfsr,allspeeds,...
-    'VariableNames',{'tagid','diveid','meas1','meas2','meas3','meas4'});
-Meas = table([1 2 3 4]','VariableNames',{'Measurements'});
-
-rm = fitrm(t,'meas1-meas4~tagid+diveid','WithinDesign',Meas)
+% diveid = tagid.*d;
+% t = table(tagid,diveid,allbouts,allrms,allfsr,allspeeds,...
+%     'VariableNames',{'tagid','diveid','meas1','meas2','meas3','meas4'});
+% Meas = table([1 2 3 4]','VariableNames',{'Measurements'});
+% 
+% rm = fitrm(t,'meas1-meas4~tagid+diveid','WithinDesign',Meas)
 
 %% at bottom // per dive // per deployment
 figure(99)
@@ -333,7 +327,7 @@ ylabel('Filtration rate (m^3/h)')
 adjustfigurefont('Helvetica',16)
 
 figure(101), clf, hold on
-scatterby(tagid2,3600*(allvperdive(allvperdive > 1)./allbtmdur(allvperdive > 1)),30,col(tagid2,:));
+scatterby(tagid2,3600*(allvperdive(allvperdive > 1)./allbtmdur(allvperdive > 1)),30,col(tagid2(find(allvperdive>1)),:));
 scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1),30,col(tagid2(find(allvperdive>1)),:));
 scatterby(22+[1:10],dep_filtrate,30,col(1:10,:));
 ylabel('Filtration rate (m^3/h)')
@@ -344,4 +338,17 @@ print -dpng NARW_filtrate -r300
 % extend to full day?
 for i = 1:length(dep_filtrate)
     day_filtrate = dep_filtrate(i)*(24/(gettagdur(tags{i})/3600));
+end
+
+% plot speed vs gape
+figure(87), clf, hold on 
+for i = 1:10
+scatter3(mean(gapes2(tagid == i))+rand/10,mean(allspeeds(tagid == i)),mean(allfsr(tagid == i)),'o')
+end
+grid on
+xlabel('Gape (m^2)'), zlabel('Fluke Stroke Rate (Hz)'), ylabel('Speed (m/s)')
+
+figure(88), clf, hold on 
+for i = 1:10
+scatter3(gapes2(tagid == i)+rand(1,length(find(tagid == i)))/10,allspeeds(tagid == i),allfsr(tagid == i),60,'markeredgecolor',col(tagid2(i),:))
 end
