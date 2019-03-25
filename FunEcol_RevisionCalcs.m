@@ -250,3 +250,42 @@ xlim([0 3])
 F = plot_3d_model;
 divetest = [ph(dive(j).stops(1,1)*fs:dive(j).stops(end,2)*fs) roll(dive(j).stops(1,1)*fs:dive(j).stops(end,2)*fs) head(dive(j).stops(1,1)*fs:dive(j).stops(end,2)*fs)];
 rot_3d_model(F,divetest) ;
+
+%% 
+1.5*1.2*600
+1.0*1.8*600
+
+%% what are min/mean/max vertical speeds measured? 
+load('NARW_foraging_tags') % let's make this more straightforward
+
+for ID = 1:10
+tag = tags{ID};
+loadprh(tag,'p','fs','Aw','Mw','pitch');
+
+t = (1:length(p))/fs;
+pdeg = rad2deg(pitch);
+warning off
+
+% find dives
+T = finddives(p,fs,50,1);
+load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
+d2after = tags{ID,9};
+
+th = 30; 
+selspeed = []; selFN = [];
+for i = d2after'
+    ii = find(abs(medpitch(i,:)) > th);
+    % ii = find(medpitch(i,:) < -th); 
+    selspeed = horzcat(selspeed,abs(spd(i,ii)));
+    selFN = horzcat(selFN,medFN(i,ii));
+    selFN(isnan(selspeed)) = [];
+    selspeed(isnan(selspeed)) = [];
+end
+maxselspeed(ID) = max(selspeed); 
+meanselspeed(ID) = mean(selspeed);
+minselspeed(ID) = min(selspeed); 
+end
+
+mean(maxselspeed)
+mean(minselspeed)
+    
