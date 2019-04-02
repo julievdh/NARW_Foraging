@@ -1,7 +1,8 @@
 % load tags
 % load('NARW_foraging_tags')
 figure(10), clf
-% for all files
+% for all filesmin(allspeeds)
+
 % BOUT-SPECIFIC
 allvols = []; % all filtered volumes per bout
 allbouts = []; % all bout durations
@@ -105,11 +106,18 @@ set(gcf,'position',[13     5   512   668],'paperpositionmode','auto')
 print('volfiltered_each.png','-dpng','-r300')
 
 allvols(isnan(allvols)) = 0;
+allvols(isinf(allvols)) = 0;
 allvperdive(isinf(allvperdive)) = 0;
 
 round([mean(allvperdive(allvperdive>0)) std(allvperdive(allvperdive>0))]) % volumes per dive
 [mean(allvols(allvols > 0)) std(allvols(allvols > 0))] % volume per bout
 [min(allvols(allvols > 0)) max(allvols)] % volume per bout
+
+[m,i] = min(allvols(allvols>0)); 
+tagid(i); % tag with smallest 
+[m,i] = max(allvols(allvols>0)); 
+tagid(i); % tag with smallest 
+
 
 [mean(allbouts) std(allbouts)] % bout duration
 median(allpauses(allpauses > 0)) % median pause duration
@@ -229,8 +237,25 @@ dbd_vrate = allvperdive./(alldur'/3600); % dive-by-dive filtration rate (m^3/h)
 [mean(dbd_vrate(allvperdive > 1)) std(dbd_vrate(allvperdive > 1))]/3600
 for i = 1:size(tags,1)
     dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{i})/3600);
+    ID = i;
+    switch ID
+        case 5
+            [~,~,~,~,lnth] = getgape(tags{ID,6}, 1190);
+        case 9
+            [~,~,~,~,lnth] = getgape(tags{ID,6}, 1210);
+        case 7
+            [~,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        case 8
+            [~,~,~,~,lnth] = getgape(tags{ID,6}, 1250);
+        otherwise
+            [~,~,~,~,lnth] = getgape(tags{ID,6});
+    end
+    dep_lnth(i) = lnth/100;
 end
 round([min(dep_filtrate) max(dep_filtrate)])
+% max = 9, 12.10 m length
+% min = 4,  length
+
 gapes2 = []; 
 for i = 1:length(allspeeds)
     ID = tagid(i);
@@ -248,7 +273,7 @@ for i = 1:length(allspeeds)
     end
     gape = gape/100; 
     all_hr_rate(:,i) = allspeeds(i)*gape*3600; % filtration rate of all (m3/h) at the bottom of dives
-    gapes2(:,i) = gape;
+    gapes2(:,i) = gape; 
 end
 round([nanmean(all_hr_rate) nanstd(all_hr_rate)])/3600 % in m/s
 
@@ -318,6 +343,9 @@ ylim([0 5]), set(gca,'ytick',[0:5])
 print('NARW_Frate_dep_pres','-dpng','-r300')
 
 %% plot by bottom, by dive, by deployment
+[nanmean((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0))) nanstd((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0)))]
+[nanmean((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0))) nanstd((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0)))]./nanmean(lnths(allvperdive>0))
+
 figure(100), hold on
 plot(repmat(1,length(allvperdive),1)+rand(length(allvperdive),1),3600*(allvperdive./allbtmdur),'o','linewidth',1.5) % on bottom
 plot(repmat(2,length(find(allvperdive>1)),1)+rand(length(find(allvperdive>1)),1),dbd_vrate(allvperdive > 1),'o','linewidth',1.5) % per dive
@@ -335,6 +363,19 @@ set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
 ylim([0 7500]), axletter(gca,'C')
 adjustfigurefont('Helvetica',16)
 print -dpng NARW_filtrate -r300
+
+% DO THIS DIVIDE BY BODY LENGTH HERE 
+figure(101), clf, hold on, box on
+scatterby(tagid2,(3600*(allvperdive(allvperdive > 1)./allbtmdur(allvperdive > 1)))./lnths(allvperdive>1),30,col(tagid2(find(allvperdive>1)),:));
+scatterby(11+tagid2(find(allvperdive>1)),dbd_vrate(allvperdive > 1)./lnths(allvperdive>1),30,col(tagid2(find(allvperdive>1)),:));
+scatterby(22+[1:10],dep_filtrate./lnths(allvperdive>1),30,col(1:10,:));
+ylabel('Filtration rate (m^3/h)')
+set(gca,'xtick',6:10:26,'xticklabels',{'On bottom','Per dive','Per deployment'})
+ylim([0 7500]), axletter(gca,'C')
+adjustfigurefont('Helvetica',16)
+print -dpng NARW_filtrate_bylength -r300
+
+
 
 % extend to full day?
 for i = 1:length(dep_filtrate)
