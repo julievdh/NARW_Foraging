@@ -236,7 +236,7 @@ mean(alldur(allvperdive > 1)) % mean dive duration in seconds
 dbd_vrate = allvperdive./(alldur'/3600); % dive-by-dive filtration rate (m^3/h)
 [mean(dbd_vrate(allvperdive > 1)) std(dbd_vrate(allvperdive > 1))]/3600
 for i = 1:size(tags,1)
-    dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{i})/3600);
+    dep_filtrate(i) = sum(allvols(tagid == i))/(gettagdur(tags{i}));
     ID = i;
     switch ID
         case 5
@@ -253,8 +253,9 @@ for i = 1:size(tags,1)
     dep_lnth(i) = lnth/100;
 end
 round([min(dep_filtrate) max(dep_filtrate)])
+round([min(dep_filtrate./dep_lnth) max(dep_filtrate./dep_lnth)])
 % max = 9, 12.10 m length
-% min = 4,  length
+% min = 4, 11.07 length
 
 gapes2 = []; 
 for i = 1:length(allspeeds)
@@ -276,6 +277,41 @@ for i = 1:length(allspeeds)
     gapes2(:,i) = gape; 
 end
 round([nanmean(all_hr_rate) nanstd(all_hr_rate)])/3600 % in m/s
+round([nanmean(all_hr_rate) nanstd(all_hr_rate)])/nanmean(lnth2)/3600 % in m/s
+%%
+figure(8), clf, hold on 
+h1 = gca; 
+
+for i = 1:10
+    jit = rand/10; 
+    plot(h1,[dep_lnth(i)+jit dep_lnth(i)+jit],[nanmean(all_hr_rate(tagid == i)/dep_lnth(i)/3600)-nanstd(all_hr_rate(tagid == i)/dep_lnth(i)/3600) nanmean(all_hr_rate(tagid == i)/dep_lnth(i)/3600)+nanstd(all_hr_rate(tagid == i)/dep_lnth(i)/3600)],'k-')
+    plot(h1,dep_lnth(i)+jit,nanmean(all_hr_rate(tagid == i)/dep_lnth(i)/3600),'kv','markerfacecolor',col(i,:),'markersize',10)
+%    plot([dep_lnth(i)+jit dep_lnth(i)+jit],[nanmean(dbd_vrate(tagid2 == i)/dep_lnth(i)/3600)-nanstd(dbd_vrate(tagid2 == i)/dep_lnth(i)/3600) nanmean(dbd_vrate(tagid2 == i)/dep_lnth(i)/3600)+nanstd(dbd_vrate(tagid2 == i)/dep_lnth(i)/3600)],'k-')
+%    plot(dep_lnth(i)+jit,nanmean(dbd_vrate(tagid2 == i)/dep_lnth(i)/3600),'ks','markerfacecolor',col(i,:),'markersize',10)
+%    plot(dep_lnth(i)+jit,dep_filtrate(i)/dep_lnth(i),'ko','markerfacecolor',col(i,:),'markersize',10)
+end
+
+Lb = [14.99 10.10 11.05 9.64 13.72];
+AO = [5.09 3.61 3.86 3.63 4.97];
+plot(h1,sort(Lb),sort(AO./Lb),'bo--','markerfacecolor','white','markersize',10) % bowhead gapes
+plot(h1,sort(lnths),sort(gapes./lnths),'b--') % right whale gapes
+for i = 1:length(Lb)
+plot(h1,[Lb(i) Lb(i)],[(AO(i)./Lb(i))*(0.7+0.11) (AO(i)./Lb(i))*(0.7-0.11)],'k-') % filtration rate with error
+end
+plot(h1,Lb,AO./Lb*0.7,'kv','markerfacecolor','white','markersize',10) % filtration rate with mean speed
+
+h1 = gca; ylim([0 0.4]), xlim([9 15.5])
+h2 = axes('Color','none','XColor','k','YColor','k',...
+          'YLim',[0 0.4],'Xlim',[9 15.5],'xtick',[],...
+          'Yaxislocation','right','NextPlot','add');
+xlabel(h1,'Body Length (m)');
+ylabel(h1,'Length-specific Filtration Rate (m^3/m/s)');
+ylabel(h2,'Length-specific Gape (m^2/m)');
+box on 
+
+adjustfigurefont('Helvetica',14)
+% print
+print('bowhead_right_perlength.png','-dpng','-r300')
 
 % fluke stroke rate
 [nanmean(allfsr) nanstd(allfsr)]
@@ -343,13 +379,11 @@ ylim([0 5]), set(gca,'ytick',[0:5])
 print('NARW_Frate_dep_pres','-dpng','-r300')
 
 %% plot by bottom, by dive, by deployment
-[nanmean((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0))) nanstd((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0)))]
-[nanmean((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0))) nanstd((allvperdive(allvperdive>0)./allbtmdur(allvperdive>0)))]./nanmean(lnths(allvperdive>0))
 
-figure(100), hold on
-plot(repmat(1,length(allvperdive),1)+rand(length(allvperdive),1),3600*(allvperdive./allbtmdur),'o','linewidth',1.5) % on bottom
-plot(repmat(2,length(find(allvperdive>1)),1)+rand(length(find(allvperdive>1)),1),dbd_vrate(allvperdive > 1),'o','linewidth',1.5) % per dive
-plot(repmat(3,length(dep_filtrate),1)+rand(length(dep_filtrate),1),dep_filtrate,'o','linewidth',1.5) % per deployment
+% figure(100), hold on
+% plot(repmat(1,length(allvperdive),1)+rand(length(allvperdive),1),3600*(allvperdive./allbtmdur),'o','linewidth',1.5) % on bottom
+% plot(repmat(2,length(find(allvperdive>1)),1)+rand(length(find(allvperdive>1)),1),dbd_vrate(allvperdive > 1),'o','linewidth',1.5) % per dive
+% plot(repmat(3,length(dep_filtrate),1)+rand(length(dep_filtrate),1),dep_filtrate,'o','linewidth',1.5) % per deployment
 
 ylabel('Filtration rate (m^3/h)')
 adjustfigurefont('Helvetica',16)
