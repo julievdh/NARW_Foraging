@@ -47,12 +47,12 @@ ft3 = fit(MouthFriction(1:4,1),MouthFriction(1:4,2),'poly1'); % Din = 0.3m
 ft5 = fit(MouthFriction(5:9,1),MouthFriction(5:9,2),'poly1'); % Din = 0.5 m
 ft72 = fit(MouthFriction(10:13,1),MouthFriction(10:13,2),'poly1'); % Din = 0.72 m
 
-figure(2), clf, hold on 
-plot(U,4.2*U,'--','LineWidth',2)
-plot(U,1*U,'--','LineWidth',2)
-plot(U,2*U,'--','LineWidth',2)
-xlabel('Swimming Speed (m/s)'), ylabel('Filtration Rate (m^3/s)'), adjustfigurefont('helvetica',14)
-legend('Bowhead, 4.2 m^2 gape', 'Right, 1m^2 gape', 'Right, 2m^2 gape','location','NW')
+%figure(2), clf, hold on 
+%plot(U,4.2*U,'--','LineWidth',2)
+%plot(U,1*U,'--','LineWidth',2)
+%plot(U,2*U,'--','LineWidth',2)
+%xlabel('Swimming Speed (m/s)'), ylabel('Filtration Rate (m^3/s)'), adjustfigurefont('helvetica',14)
+%legend('Bowhead, 4.2 m^2 gape', 'Right, 1 m^2 gape', 'Right, 2 m^2 gape','location','NW')
 
 
 figure(3), clf
@@ -64,7 +64,7 @@ h2 = axes('Color','none','XColor','k','YColor','k',...
           'Xaxislocation','top','xtick',[],'NextPlot','add');
 
 xlabel(h1,'Swimming Speed (m/s)');
-ylabel(h1,'Relative Mouth Friction Drag (N)');
+ylabel(h1,'Relative Mouth Friction Drag');
 ylabel(h2,'Filtation Rate (m^3/s)');
 
 plot(h1, U,bowhead_drag/max(bowhead_drag),'LineWidth',2)
@@ -102,6 +102,14 @@ plot(h1,1.1,right_drag2(find(U == 1.1))/max(bowhead_drag),'o')
 % plot(h2,allspeeds,all_hr_rate/3600,'^')
 return 
 
+%% mouth vs body length bowheads Werth 2004
+Lb = [14.99 10.10 11.05 9.64 13.72];
+AO = [5.09 3.61 3.86 3.63 4.97];
+
+figure(1), clf, hold on
+plot(Lb,AO/Lb,'bo')
+plot(lnths,gapes/lnths,'rv')
+xlabel('Body Length (m)'), ylabel('Gape (m^2)/Body Length (m)') 
 %% sharks
 whaleshark_drag = 0.5*rho*0.1*Cd*U.^2*g*k; 
 basking_drag = 0.5*rho*0.4*Cd*U.^2*g*k;
