@@ -4,9 +4,14 @@
 % one copepod = 2 - 4 mm^3
 cop_vol_low = 9E6*2;
 cop_vol_high = 9E6*4;
-% convert mm^3 to m^3
-cop_vol_low*1E-9
-cop_vol_high*1E-9
+% convert mm^3 to m^3 and then to L
+cop_vol_low*1E-9*1E3 
+cop_vol_high*1E-9*1E3 
+% estimate energy content: 3.4-5J per C5 (Michaud and Taggart 2007)
+(5E5*3.4)/1E6 % with low copepod densities
+(9E6*5)/1E6 % with high densities and higher energy content
+
+
 
 %% What makes the biggest difference?
 

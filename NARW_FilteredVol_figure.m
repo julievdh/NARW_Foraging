@@ -61,7 +61,7 @@ for k = tags{ID,9}';
     
     figure(6), hold on
     if isempty(dive(k).vperblock) == 0
-        errorbar(T(k,2)-T(k,1),mean(dive(k).stops(:,2)-dive(k).stops(:,1)),std(dive(k).stops(:,2)-dive(k).stops(:,1)),'ko','markerfacecolor',c(k,:),'linewidth',1.5)
+        errorbar(T(k,2)-T(k,1),mean(dive(k).stops(:,2)-dive(k).stops(:,1)),std(dive(k).stops(:,2)-dive(k).stops(:,1))/2,'ko','markerfacecolor',c(k,:),'linewidth',1.5)
     else if isempty(dive(k).btm) == 1
             plot(T(k,2)-T(k,1),0,'ko','markerfacecolor',c(k,:))
         end

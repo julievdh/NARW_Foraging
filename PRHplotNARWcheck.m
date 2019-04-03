@@ -20,5 +20,5 @@ plot(t/60,-p), ylabel('Depth (m)'), grid on
 linkaxes(ax,'x')
 xlim([606 648]), xlabel('Time (min)')
 
-adjustfigurefont('Helvetica',14)
+adjustfigurefont('Helvetica',12)
 print('NARW-PRH-depth.png','-dpng','-r90')
