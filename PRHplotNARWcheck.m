@@ -1,3 +1,5 @@
+% see also FunEcol_RevisionCalcs for the next iteration of this 
+
 load('NARW_foraging_tags')
 ID = 8;
 tag = tags{ID};

@@ -185,20 +185,22 @@ print('NARW_DiveCompare','-dpng','-r300')
 warning off
 
 load('NARW_foraging_tags')
-for ID = 1;
+ID = 1;
     tag = tags{ID};
     loadprh(tag);
+    MSA = msa(Aw);
     load(['/Users/julievanderhoop/Dropbox (Personal)/tag/tagdata/' tag '_flowspeed.mat'])
     [~,ph,~,~] = findflukes(Aw,Mw,fs,0.3,0.02,[2 8]); % calculate pitch deviation
     
-    for j = 31
+j = 31; 
         
         figure(18), clf, hold on
-        set(gcf,'position',[841   181   512   492],'paperpositionmode','auto')
+        set(gcf,'position',[836   5   520   670],'paperpositionmode','auto')
         
         allhd = nan(size(dive(j).stops,1)-1,3);
         allrl = nan(size(dive(j).stops,1)-1,3); 
         alldpth = nan(size(dive(j).stops,1)-1,3);
+        allmsa = nan(size(dive(j).stops,1)-1,3); 
         
         for k = [1:3 6:size(dive(j).stops,1)-1]
             x = ((dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)-dive(j).stops(k,2)*fs)/fs;
@@ -206,39 +208,38 @@ for ID = 1;
             allhd(k,:) = rad2deg([head(round((dive(j).stops(k,2)-20)*fs)) head(round((dive(j).stops(k,2))*fs)) head(round((dive(j).stops(k,2)+20)*fs))]);
             allrl(k,:) = rad2deg([roll(round((dive(j).stops(k,2)-20)*fs)) roll(round((dive(j).stops(k,2))*fs)) roll(round((dive(j).stops(k,2)+20)*fs))]);
             alldpth(k,:) = [-p(round((dive(j).stops(k,2)-20)*fs)) -p(round((dive(j).stops(k,2))*fs)) -p(round((dive(j).stops(k,2)+20)*fs))];
-
-
+            allmsa(k,:) = [MSA(round((dive(j).stops(k,2)-20)*fs)) MSA(round((dive(j).stops(k,2))*fs)) MSA(round((dive(j).stops(k,2)+20)*fs))];
             
-            
-            s1 = subplot(411); hold on, box on, grid on
+            s1 = subplot(511); hold on, box on, grid on
             plot(x,rad2deg(ph(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(ph(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            s2 = subplot(412); hold on, box on, grid on
+            s2 = subplot(512); hold on, box on, grid on
             plot(x,rad2deg(roll(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(roll(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            s3 = subplot(413); hold on, box on, grid on
+            s3 = subplot(513); hold on, box on, grid on
             plot(x,rad2deg(head(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs))-rad2deg(head(round(dive(j).stops(k,2)*fs))))
             xlim([-60 60])
-            s4 = subplot(414); hold on, box on, grid on
+            s4 = subplot(514); hold on, box on, grid on
             plot(x,-p(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)+p(round(dive(j).stops(k,2)*fs)))
             xlim([-60 60])
+            s5 = subplot(515); hold on, box on, grid on
+            plot(x,MSA(dive(j).stops(k,1)*fs:dive(j).stops(k+1,2)*fs)-MSA(round(dive(j).stops(k,2)*fs)))
+            xlim([-60 60])
         end
-        subplot(411), % title(regexprep(tag,'_','  '));
-        Del = texlabel(Delta); 
+        subplot(511), % title(regexprep(tag,'_','  '));
+        Del = texlabel('Delta'); 
         s1.YLabel.Position(1) = -69.8182; 
         s2.YLabel.Position(1) = -69.8182; 
         s3.YLabel.Position(1) = -69.8182; 
         s4.YLabel.Position(1) = -69.8182; 
-        ylabel([test 'Pitch (deg)'])
-        subplot(412), ylabel([test 'Roll (deg)'])
-        subplot(413), ylabel([test 'Heading (deg)'])
-        subplot(414), ylabel([test 'Depth (m)']), xlabel('Time (s)')
-        adjustfigurefont('Helvetica',12)
+        ylabel([Del 'Pitch (deg)'])
+        subplot(512), ylabel([Del 'Roll (deg)'])
+        subplot(513), ylabel([Del 'Heading (deg)'])
+        subplot(514), ylabel([Del 'Depth (m)'])
+        subplot(515), ylabel([Del 'MSA (m/s^2)']), xlabel('Time (s)')
+        adjustfigurefont('Helvetica',14)
         
         print(['NARW_stop_prhd_dive' num2str(j) '_' tag '.png'],'-dpng','-r90')
-        
-    end
-end
 
 figure(19), clf
 subplot(131)
