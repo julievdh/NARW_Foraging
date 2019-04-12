@@ -82,7 +82,10 @@ right_frate2 = 2*U;
 plot(h2,U,bowhead_frate,'--','LineWidth',2)
 plot(h2,U,right_frate1,'--','LineWidth',2)
 plot(h2,U,right_frate2,'--','LineWidth',2)
-legend('Bowhead, 4.2 m^2 gape', 'Right, 1 m^2 gape', 'Right, 2 m^2 gape','location','NW')
+leg = legend('Bowhead, 4.2 m^2 gape', 'Right, 1 m^2 gape', 'Right, 2 m^2 gape','location','NW');
+leg.Position = [0.2168 0.7370 0.3652 0.1693];
+
+axletter(gca,'A')
 
 adjustfigurefont('Helvetica',14), print('bowhead_right_drag','-dsvg')
 
@@ -97,11 +100,9 @@ plot(h1,0.7,bowhead_drag(find(U == 0.7))/max(bowhead_drag),'o')
 plot(h1,1.1,right_drag1(find(U == 1.1))/max(bowhead_drag),'o')
 plot(h1,1.1,right_drag2(find(U == 1.1))/max(bowhead_drag),'o')
 
-
 % plot(h1,allspeeds,data_drag,'o')
 % plot(h2,allspeeds,all_hr_rate/3600,'^')
 return 
-
 %% mouth vs body length bowheads Werth 2004
 Lb = [14.99 10.10 11.05 9.64 13.72];
 AO = [5.09 3.61 3.86 3.63 4.97];
@@ -110,6 +111,9 @@ figure(1), clf, hold on
 plot(Lb,AO/Lb,'bo')
 plot(lnths,gapes/lnths,'rv')
 xlabel('Body Length (m)'), ylabel('Gape (m^2)/Body Length (m)') 
+
+% See NARW_totalVolume bottom Figure 8
+return 
 %% sharks
 whaleshark_drag = 0.5*rho*0.1*Cd*U.^2*g*k; 
 basking_drag = 0.5*rho*0.4*Cd*U.^2*g*k;

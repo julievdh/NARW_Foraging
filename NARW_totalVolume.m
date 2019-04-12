@@ -293,22 +293,22 @@ end
 
 Lb = [14.99 10.10 11.05 9.64 13.72];
 AO = [5.09 3.61 3.86 3.63 4.97];
-plot(h1,sort(Lb),sort(AO./Lb),'bo--','markerfacecolor','white','markersize',10) % bowhead gapes
-plot(h1,sort(lnths),sort(gapes./lnths),'b--') % right whale gapes
+plot(h1,sort(Lb),sort(AO./Lb),'b.--','LineWidth',1.5) % bowhead gapes
+plot(h1,sort(lnths),sort(gapes./lnths),'b--','LineWidth',1.5) % right whale gapes
 for i = 1:length(Lb)
 plot(h1,[Lb(i) Lb(i)],[(AO(i)./Lb(i))*(0.7+0.11) (AO(i)./Lb(i))*(0.7-0.11)],'k-') % filtration rate with error
 end
-plot(h1,Lb,AO./Lb*0.7,'kv','markerfacecolor','white','markersize',10) % filtration rate with mean speed
+plot(h1,Lb,AO./Lb*0.7,'kv','markerfacecolor','black','markersize',10) % filtration rate with mean speed
 
-h1 = gca; ylim([0 0.4]), xlim([9 15.5])
+h1 = gca; ylim([0 0.4]), xlim([9 15.5]), h1.YColor = 'k'; 
 h2 = axes('Color','none','XColor','k','YColor','k',...
           'YLim',[0 0.4],'Xlim',[9 15.5],'xtick',[],...
           'Yaxislocation','right','NextPlot','add');
 xlabel(h1,'Body Length (m)');
 ylabel(h1,'Length-specific Filtration Rate (m^3/m/s)');
-ylabel(h2,'Length-specific Gape (m^2/m)');
+ylabel(h2,'Length-specific Gape (m^2/m)','color','blue');
 box on 
-
+axletter(gca,'B')
 adjustfigurefont('Helvetica',14)
 % print
 print('bowhead_right_perlength.png','-dpng','-r300')
